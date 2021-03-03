@@ -1,5 +1,16 @@
 import Container from '@material-ui/core/Container';
-import {AppBar, Box, Button, Divider, Grid, IconButton, makeStyles, Toolbar, Typography} from "@material-ui/core";
+import {
+    AppBar,
+    Avatar,
+    Box,
+    Button,
+    Divider,
+    Grid,
+    IconButton,
+    makeStyles,
+    Toolbar,
+    Typography
+} from "@material-ui/core";
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import ArrowDownwardOutlinedIcon from '@material-ui/icons/ArrowDownwardOutlined';
 import Image from 'next/Image';
@@ -10,6 +21,10 @@ const useStyles = makeStyles(theme => ({
         fontSize: '19px',
         fontWeight: 400,
         margin: 'auto .7rem',
+    },
+    avatar: {
+        // margin: 'auto .7rem',
+        paddingLeft: '.7rem',
     },
     space: {
         flexGrow: 1,
@@ -108,7 +123,8 @@ export default function Index() {
                             <Button className={classes.navbarBtn} color={'primary'}>Forum</Button>
                             <Divider className={classes.verticalDivider} color={'primary'} orientation={'vertical'}/>
                             <IconButton>
-                                <SearchOutlinedIcon color={'primary'}/>
+                                <Avatar className={classes.avatar}>a</Avatar>
+                                {/*<SearchOutlinedIcon color={'primary'}/>*/}
                             </IconButton>
                         </Toolbar>
                     </Container>
