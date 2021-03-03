@@ -22,9 +22,9 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 400,
         margin: 'auto .7rem',
     },
-    avatar: {
+    avatarContainer: {
         // margin: 'auto .7rem',
-        paddingLeft: '.7rem',
+        marginLeft: '.7rem',
     },
     space: {
         flexGrow: 1,
@@ -122,10 +122,12 @@ export default function Index() {
                             <Button className={classes.navbarBtn} color={'primary'}>Contact us</Button>
                             <Button className={classes.navbarBtn} color={'primary'}>Forum</Button>
                             <Divider className={classes.verticalDivider} color={'primary'} orientation={'vertical'}/>
-                            <IconButton>
-                                <Avatar className={classes.avatar}>a</Avatar>
-                                {/*<SearchOutlinedIcon color={'primary'}/>*/}
-                            </IconButton>
+                            <Box className={classes.avatarContainer}>
+                                <IconButton>
+                                    <Avatar src={'/avatar.jpg'}/>
+                                    {/*<SearchOutlinedIcon color={'primary'}/>*/}
+                                </IconButton>
+                            </Box>
                         </Toolbar>
                     </Container>
                 </AppBar>
