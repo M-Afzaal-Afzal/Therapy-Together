@@ -11,9 +11,9 @@ import {
     Toolbar,
     Typography
 } from "@material-ui/core";
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+// import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import ArrowDownwardOutlinedIcon from '@material-ui/icons/ArrowDownwardOutlined';
-import Image from 'next/Image';
+import Image from 'next/image'
 
 const useStyles = makeStyles(theme => ({
     navbarBtn: {
