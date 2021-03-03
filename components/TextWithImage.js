@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
         border: `2px solid ${theme.palette.primary.main}`,
         align: 'left'
     },
+    hDividerCom: {
+        width: '50px'
+    },
     heroParagraph: {
         // width: '70%',
         marginRight: "auto",
@@ -62,6 +65,7 @@ const useStyles = makeStyles(theme => ({
         right: theme.spacing(3),
         background: `linear-gradient(136.25deg, #ffffff 0%, #6d9773 100%)`,
         borderRadius: '50%',
+        zIndex: '30',
     },
 }))
 
@@ -79,12 +83,9 @@ const TextWithImage = (props) => {
                 <Typography color={'primary'} className={classes.heroHeading} variant={'h1'}>
                     {props.mainHeading}
                 </Typography>
-                <Divider color={'primary'} className={classes.hDivider}/>
+                <Divider color={'primary'} className={`${classes.hDivider} ${!props.hasButtons ? classes.hDividerCom : ''}`}/>
                 <Typography gutterBottom variant={"body2"} className={classes.heroParagraph}>
                     {props.bodyTextOne}
-                </Typography>
-                <Typography variant={"body2"} className={classes.heroParagraph}>
-                    {props.bodyTextTwo}
                 </Typography>
                 {props.hasButtons ?
                     <>

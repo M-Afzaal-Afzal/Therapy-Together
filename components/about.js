@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     },
     cardTextContainer: {
         textAlign: "center",
-        marginTop: '2.5rem',
+        marginTop: '1rem',
     }
 }))
 
