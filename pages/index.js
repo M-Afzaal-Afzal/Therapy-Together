@@ -3,17 +3,16 @@ import {
     Grid,
     makeStyles,
 } from "@material-ui/core";
-import About from "../components/about";
+import About from "../components/About";
 import TextWithImage from '../components/TextWithImage'
 import Forum from "../components/Forum";
 import Doctor from "../components/Docotr";
+import Blogs from "../components/Blogs";
 // import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {
-        width: '100%',
-        minHeight: 'calc(100vh - 4rem)',
-        margin: "auto",
+     ...theme.sectionContainer,
     },
     lgBackground: {
         background: theme.palette.secondary.main,
@@ -26,6 +25,10 @@ const useStyles = makeStyles(theme => ({
     doctorSection: {
         display: 'flex',
         justifyContent: 'center',
+    },
+    blogsContainer: {
+        background: theme.palette.secondary.main,
+        padding: '8rem 2rem',
     },
     greenCircle: {
         background: 'linear-gradient(136.25deg, #ffffff 0%, #6d9773 100%)',
@@ -69,6 +72,9 @@ export default function Index() {
             </Grid>
             <Grid item container className={`${classes.sectionContainer} ${classes.doctorSection}`}>
                 <Doctor/>
+            </Grid>
+            <Grid item container className={`${classes.sectionContainer} ${classes.blogsContainer}`} >
+                <Blogs/>
             </Grid>
 
 

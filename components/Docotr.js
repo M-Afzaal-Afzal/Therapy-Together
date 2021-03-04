@@ -7,8 +7,7 @@ import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {
-        width: '100%',
-        minHeight: 'calc(100vh - 4rem)',
+       ...theme.sectionContainer,
     },
     doctorMainTextContainer: {
         padding: '4rem 2rem',
@@ -67,7 +66,7 @@ const Doctor = () => {
                     Consult Our Doctors
                 </Typography>
                 <Divider color={'primary'} className={`${classes.hDivider}`}/>
-                <Typography gutterBottom color={'primary'} variant={"h3"} className={classes.doctorName}>
+                <Typography color={'primary'} variant={"h3"} className={classes.doctorName}>
                     Dr. M Afzaal Afzal
                 </Typography>
                 <Typography gutterBottom variant={'body2'}>

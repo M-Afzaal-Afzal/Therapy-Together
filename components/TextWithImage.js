@@ -6,8 +6,7 @@ import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {
-        width: '100%',
-        minHeight: 'calc(100vh - 4rem)',
+      ...theme.sectionContainer,
     },
     heroHeading: {
         textAlign: 'start',

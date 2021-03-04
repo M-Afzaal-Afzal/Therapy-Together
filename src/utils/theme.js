@@ -34,6 +34,11 @@ const theme = createMuiTheme({
     fontWeight: 400,
     fontFamily: 'Montserrat',
   },
+  sectionContainer: {
+    width: '100%',
+    minHeight: 'calc(100vh - 4rem)',
+    // margin: "auto",
+  },
   typography: {
     fontFamily: [
         'Century Gothic',
