@@ -40,7 +40,7 @@ const Forum = () => {
                     <Image src={'/forum-icon.svg'} width={350} height={500}/>
                 </div>
             </Grid>
-            <Grid item sm={6}>
+            <Grid item sm={6} style={{display : 'flex',alignItems: 'center'}}>
                 <Grid container alignItems={'center'}>
                     <Grid item className={classes.formTextContainer}>
                         <Container maxWidth={'sm'}>

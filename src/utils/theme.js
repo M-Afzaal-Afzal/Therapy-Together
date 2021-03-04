@@ -68,6 +68,55 @@ const theme = createMuiTheme({
     }
   },
 
+  overrides: {
+    MuiFormLabel: {
+      root: {
+        color: 'white',
+        '&$focused': {
+          color: 'white',
+        },
+      },
+    },
+    MuiInputLabel: {
+      root: {
+        color: '#fff',
+        fontFamily: 'Montserrat',
+        fontSize: '1.125rem',
+
+      },
+    },
+    MuiOutlinedInput: {
+      focused: {
+        color: "white",
+      },
+      root: {
+        fontSize: '1.125rem',
+        fontFamily: 'Montserrat',
+        '& $notchedOutline': {
+          border: `2px solid #fff`,
+        },
+        '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
+          border: `2px solid #fff`,
+          // Reset on touch devices, it doesn't add specificity
+          '@media (hover: none)': {
+            border: `2px solid #fff`,
+          },
+        },
+        '&$focused $notchedOutline': {
+            borderColor: '#fff',
+            // borderWidth: 2,
+        },
+        // '&$error $notchedOutline': {
+        //     borderColor: arcBlue,
+        // },
+        // '&$disabled $notchedOutline': {
+        //     borderColor: arcBlue,
+        // },
+      },
+
+    },
+  },
+
 });
 
 export default theme;

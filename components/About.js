@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     cardTextContainer: {
         textAlign: "center",
         marginTop: '1rem',
-    }
+    },
 }))
 
 const About = () => {
@@ -34,7 +34,7 @@ const About = () => {
         <Container
             component={Grid}
             align={'center'}
-            alignItems={'center'}
+            // alignItems={'center'}
             justify={'space-around'}
             maxWidth={'lg'}
             item container
@@ -44,8 +44,9 @@ const About = () => {
                     <Image src={'/forum-about.svg'} width={80} height={'80'}/>
                 </div>
                 <div className={classes.cardTextContainer}>
-                    <Typography variant={"body2"}>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias animi aut dolorem doloremque doloribus earum enim hic id, impedit iste magnam omnis optio provident quis saepe sequi, sint velit?
+                    <Typography variant={"body2"} align={'justify'}>
+                        Here you can interact with people like you so you can feel at ease by sharing your problems.
+                        Visit our forum to see how it works
                     </Typography>
                 </div>
             </Grid>
@@ -54,8 +55,9 @@ const About = () => {
                     <Image src={'/hands-helping-icon.svg'} width={80} height={'80'}/>
                 </div>
                 <div className={classes.cardTextContainer}>
-                    <Typography variant={"body2"}>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias animi aut dolorem doloremque doloribus earum enim hic id, impedit iste magnam omnis optio provident quis saepe sequi, sint velit?
+                    <Typography variant={"body2"} align={'justify'}>
+                        It is always appreciable to trust a doctor with your mental health history. Consult with our
+                        approachable and compassionate doctors for your mental health problems.
                     </Typography>
                 </div>
             </Grid>
@@ -64,8 +66,9 @@ const About = () => {
                     <Image src={'/blog-icon.svg'} width={80} height={'80'}/>
                 </div>
                 <div className={classes.cardTextContainer}>
-                    <Typography variant={"body2"}>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A alias animi aut dolorem doloremque doloribus earum enim hic id, impedit iste magnam omnis optio provident quis saepe sequi, sint velit?
+                    <Typography variant={"body2"} align={'justify'}>
+                        For a personal touch, do visit our blog section where you will find people who write about their
+                        ups and downs for you so you can benefit from them for self-evaluation
                     </Typography>
                 </div>
             </Grid>

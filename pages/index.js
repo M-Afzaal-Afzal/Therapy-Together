@@ -8,6 +8,7 @@ import TextWithImage from '../components/TextWithImage'
 import Forum from "../components/Forum";
 import Doctor from "../components/Docotr";
 import Blogs from "../components/Blogs";
+import BlogSubcribe from "../components/BlogSubscribe";
 // import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 const useStyles = makeStyles(theme => ({
@@ -21,6 +22,7 @@ const useStyles = makeStyles(theme => ({
         padding: '8rem',
         display: 'flex',
         justifyContent: 'center',
+        alignItems: 'center',
     },
     doctorSection: {
         display: 'flex',
@@ -28,7 +30,8 @@ const useStyles = makeStyles(theme => ({
     },
     blogsContainer: {
         background: theme.palette.secondary.main,
-        padding: '8rem 2rem',
+        padding: '8rem 2rem 25rem',
+        alignItems: 'center',
     },
     greenCircle: {
         background: 'linear-gradient(136.25deg, #ffffff 0%, #6d9773 100%)',
@@ -42,6 +45,14 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden',
         boxShadow: 'rgba(100, 100, 111, 0.4) 35px 7px 29px 0px;'
     },
+    blogsSubscribeContainer: {
+        margin: 'auto',
+        display: 'flex',
+        justifyContent:'center',
+
+        // height: '20rem',
+        position: 'relative'
+    }
 }))
 
 export default function Index() {
@@ -76,7 +87,9 @@ export default function Index() {
             <Grid item container className={`${classes.sectionContainer} ${classes.blogsContainer}`} >
                 <Blogs/>
             </Grid>
-
+            <Grid item container className={` ${classes.blogsSubscribeContainer}`}>
+                <BlogSubcribe/>
+            </Grid>
 
         </Grid>
 
