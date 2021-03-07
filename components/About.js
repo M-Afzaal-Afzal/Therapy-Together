@@ -1,10 +1,11 @@
 import React from 'react';
-import {Container, Grid, makeStyles, Paper, Typography} from "@material-ui/core";
+import {Container, Grid, makeStyles, Typography} from "@material-ui/core";
 import Image from 'next/image';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     cardContainer: {
         maxWidth: '16rem',
+        margin: '2rem 2rem',
     },
     cardIconContainer: {
         width: '16rem',
@@ -22,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     },
     cardTextContainer: {
         textAlign: "center",
-        marginTop: '1rem',
+        marginTop: '1.5rem',
     },
 }))
 
@@ -35,7 +36,7 @@ const About = () => {
             component={Grid}
             align={'center'}
             // alignItems={'center'}
-            justify={'space-around'}
+            justify={'center'}
             maxWidth={'lg'}
             item container
         >

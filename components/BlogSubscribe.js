@@ -1,15 +1,20 @@
 import React from 'react';
-import {Box, Button, Grid, makeStyles, TextField, Typography} from "@material-ui/core";
+import { Button, Grid, makeStyles, TextField, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     blogSubscribeContainer: {
         background: theme.palette.primary.main,
         borderRadius: '27px',
-        padding: '4rem',
+        padding: '4rem 4rem 6rem',
         maxWidth: '70rem',
         // position: 'absolute',
         margin: '-2rem 3rem',
         zIndex: 5,
+        [theme.breakpoints.down('sm')]: {
+            padding: '4rem 2rem 4rem',
+            borderRadius: 0,
+            margin: '0'
+        }
 
     },
     blogSubscribeHeading: {
@@ -18,12 +23,29 @@ const useStyles = makeStyles(theme => ({
     blogSubscribeText: {
         marginBottom: '3rem',
         color: "white",
+        [theme.breakpoints.down('xs')]: {
+            marginBottom: '1.5rem'
+        }
     },
     blogSubscribeButton: {
         background: 'white',
         color: theme.palette.primary.main,
         ...theme.btnWhite,
     },
+    btnInputContainer: {
+        [theme.breakpoints.down('xs')]: {
+            justifyContent: 'center',
+            flexDirection: 'column',
+            alignItems: 'center',
+        }
+    },
+    inputContainer: {
+        marginRight: '2rem',
+        [theme.breakpoints.down('xs')]: {
+            margin: 0,
+            marginBottom: '1.5rem'
+        }
+    }
 }))
 
 const BlogSubscribe = () => {
@@ -47,11 +69,11 @@ const BlogSubscribe = () => {
                 </Grid>
                 <Grid item container spacing={8} alignItems={'center'} align={'center'} justify={'center'}>
                     <form style={{display: 'flex'}}>
-                        <Grid container justify={'center'} alignItems={'center'} style={{margin: '3rem'}}>
-                            <Grid item style={{marginRight: '1.5rem'}}>
+                        <Grid className={classes.btnInputContainer} container justify={'center'} alignItems={'center'} style={{margin: '3rem'}}>
+                            <Grid item className={classes.inputContainer}>
                                 <TextField size={'small'} id="subscribe-email" label="Email" variant="outlined"/>
                             </Grid>
-                            <Grid item style={{marginLeft: '1.5rem'}}>
+                            <Grid item>
                                 <Button type={'submit'} variant={'contained'}
                                         className={classes.blogSubscribeButton}>Subscribe</Button>
                             </Grid>

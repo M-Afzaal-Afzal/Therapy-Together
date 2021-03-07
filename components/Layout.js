@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from "./Header";
-import {Grid, makeStyles} from "@material-ui/core";
+import { makeStyles} from "@material-ui/core";
+import Footer from "./Footer";
 
 const useStyles = makeStyles(theme => ({
     toolbarMargin: {
@@ -17,6 +18,7 @@ const Layout = (props) => {
             <Header/>
             <div className={classes.toolbarMargin}/>
             {props.children}
+            <Footer/>
         </>
     );
 };

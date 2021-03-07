@@ -3,7 +3,7 @@ import {Box, Fab, Grid, makeStyles, Typography} from "@material-ui/core";
 import Image from "next/image";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     blogsCardContainer: {
         marginTop: '6rem',
     },
@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
     },
     cardContainer: {
         background: 'rgba(255, 255, 255, .24)',
+        margin: "2.5rem 1rem",
         maxWidth: '20rem',
         borderRadius: '20px',
         transition: 'all .5s',
@@ -44,7 +45,7 @@ const Blog = (props) => {
 
     return (
         <>
-            <Grid item md={'4'} className={classes.cardContainer}>
+            <Grid item className={classes.cardContainer}>
                 <Box>
                     <Image src={'/Coronavirus.svg'} width={412} height={224}/>
                 </Box>

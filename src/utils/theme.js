@@ -1,6 +1,8 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 
+const defaultTheme = createMuiTheme();
+
 // Create a theme instance.
 const theme = createMuiTheme({
   palette: {
@@ -36,8 +38,9 @@ const theme = createMuiTheme({
   },
   sectionContainer: {
     width: '100%',
-    minHeight: 'calc(100vh - 4rem)',
+    // minHeight: 'calc(100vh - 4rem)',
     // margin: "auto",
+
   },
   typography: {
     fontFamily: [
@@ -47,18 +50,36 @@ const theme = createMuiTheme({
     h1: {
       fontSize: '4.375rem',
       fontFamily: 'Century Gothic',
-      fontWeight: 'Bold'
+      fontWeight: 'Bold',
+      [defaultTheme.breakpoints.down('lg')]: {
+        fontSize: '3.75rem',
+      },
+      [defaultTheme.breakpoints.down('sm')]: {
+        fontSize: '2.5rem',
+      }
     },
     h2: {
       fontSize: '2.1875rem',
       fontFamily: 'Century Gothic',
       fontWeight: 'Bold',
-      color: 'white'
+      color: 'white',
+      [defaultTheme.breakpoints.down('lg')]: {
+        fontSize: '1.875rem',
+        [defaultTheme.breakpoints.down('sm')]: {
+          fontSize: '1.5625',
+        }
+      }
     },
     h3: {
       fontSize: '2.125rem',
       fontFamily: 'Century Gothic',
       fontWeight: 400,
+      [defaultTheme.breakpoints.down('lg')]: {
+        fontSize: '1.875rem',
+        [defaultTheme.breakpoints.down('sm')]: {
+          fontSize: '1.5625',
+        }
+      },
     },
     body2: {
       fontFamily: 'Montserrat',
@@ -76,22 +97,33 @@ const theme = createMuiTheme({
           color: 'white',
         },
       },
+      colorSecondary: {
+        color: '#6D9773',
+        '&$focused': {
+          color: '#6D9773',
+        },
+      }
     },
     MuiInputLabel: {
-      root: {
-        color: '#fff',
-        fontFamily: 'Montserrat',
-        fontSize: '1.125rem',
+      // colorSecondary: {
+      //   color: '#6D9773',
+      //   '&$focused': {
+      //     color: '#6D9773',
+      //   },
+      // },
+      // root: {
+      //   color: '#fff',
+      //   fontFamily: 'Montserrat',
+      //   fontSize: '1.125rem',
+      //
+      // },
 
-      },
     },
     MuiOutlinedInput: {
-      focused: {
-        color: "white",
-      },
       root: {
         fontSize: '1.125rem',
         fontFamily: 'Montserrat',
+        color: "white",
         '& $notchedOutline': {
           border: `2px solid #fff`,
         },
@@ -113,6 +145,31 @@ const theme = createMuiTheme({
         //     borderColor: arcBlue,
         // },
       },
+      colorSecondary: {
+          fontSize: '1.125rem',
+          fontFamily: 'Montserrat',
+          color: "#6D9773",
+          '& $notchedOutline': {
+            border: `1px solid #6D9773`,
+          },
+          '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
+            border: `1px solid #6D9773`,
+            // Reset on touch devices, it doesn't add specificity
+            '@media (hover: none)': {
+              border: `1px solid #6D9773`,
+            },
+          },
+          // '&$error $notchedOutline': {
+          //     borderColor: arcBlue,
+          // },
+          // '&$disabled $notchedOutline': {
+          //     borderColor: arcBlue,
+          // },
+
+        '&$focused $notchedOutline': {
+          borderColor: '#6D9773',
+        },
+      }
 
     },
   },

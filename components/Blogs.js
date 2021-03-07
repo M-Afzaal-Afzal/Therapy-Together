@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Divider, Grid, makeStyles, Typography} from "@material-ui/core";
+import {Button, Container, Divider, Grid, Hidden, makeStyles, Typography} from "@material-ui/core";
 
 import Blog from "./Blog";
 
@@ -14,7 +14,20 @@ const useStyles = makeStyles(theme => ({
     },
     blogsCardContainer: {
         marginTop: '6rem',
+        [theme.breakpoints.down('xs')]: {
+            marginTop: '1rem',
+        }
     },
+    btnGreen: {
+        ...theme.btnGreen,
+        marginTop: '4rem',
+    },
+    mainHeading: {
+        [theme.breakpoints.down('xs')]: {
+            marginBottom: '2rem',
+            textAlign:'center',
+        }
+    }
 }))
 
 const Blogs = () => {
@@ -25,10 +38,12 @@ const Blogs = () => {
         <Container maxWidth={'lg'}>
             <Grid container alignItems={'center'} justify={'center'} direction={'column'}>
                 <Grid item>
-                    <Typography color={'primary'} variant={'h1'}>
+                    <Typography className={classes.mainHeading} color={'primary'} variant={'h1'}>
                         Learn About Our Blogs
                     </Typography>
-                    <Divider className={classes.hDividerBlogs}/>
+                    <Hidden xsDown>
+                        <Divider className={classes.hDividerBlogs}/>
+                    </Hidden>
                 </Grid>
                 <Grid item align={'center'} style={{maxWidth: '50rem'}}>
                     <Typography variant={'body2'}>
@@ -37,17 +52,11 @@ const Blogs = () => {
                         compassion and love for a personal touch.
                     </Typography>
                 </Grid>
-                <Grid item container justify={'space-evenly'} spacing={2} className={classes.blogsCardContainer}>
+                <Grid item container justify={'space-evenly'} className={classes.blogsCardContainer}>
 
                     <Blog imageSrc={'/Coronavirus.svg'}
                           disease={'disease'}
                           description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                    '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                    '                                nobis officiis reprehenderit sed similique sit.'}
-                    />
-                    <Blog imageSrc={'/Coronavirus.svg'}
-                          disease={'disease'}
-                          description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
                           '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
                           '                                nobis officiis reprehenderit sed similique sit.'}
                     />
@@ -57,6 +66,17 @@ const Blogs = () => {
                           '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
                           '                                nobis officiis reprehenderit sed similique sit.'}
                     />
+                    <Blog imageSrc={'/Coronavirus.svg'}
+                          disease={'disease'}
+                          description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
+                          '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
+                          '                                nobis officiis reprehenderit sed similique sit.'}
+                    />
+                </Grid>
+                <Grid item>
+                    <Button className={classes.btnGreen} color={'primary'} variant={'contained'}>
+                        Learn More
+                    </Button>
                 </Grid>
             </Grid>
         </Container>

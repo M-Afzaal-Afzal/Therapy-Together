@@ -9,6 +9,7 @@ import Forum from "../components/Forum";
 import Doctor from "../components/Docotr";
 import Blogs from "../components/Blogs";
 import BlogSubcribe from "../components/BlogSubscribe";
+import ContactUs from "../components/ContactUs";
 // import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 const useStyles = makeStyles(theme => ({
@@ -19,10 +20,13 @@ const useStyles = makeStyles(theme => ({
         background: theme.palette.secondary.main,
     },
     aboutSection: {
-        padding: '8rem',
+        padding: '8rem 0rem',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        [theme.breakpoints.down('xs')]: {
+            padding: '2rem 0',
+        }
     },
     doctorSection: {
         display: 'flex',
@@ -30,8 +34,11 @@ const useStyles = makeStyles(theme => ({
     },
     blogsContainer: {
         background: theme.palette.secondary.main,
-        padding: '8rem 2rem 25rem',
+        padding: '8rem 2rem 10rem',
         alignItems: 'center',
+        [theme.breakpoints.down('xs')]: {
+            padding: '4rem 1rem 5rem',
+        }
     },
     greenCircle: {
         background: 'linear-gradient(136.25deg, #ffffff 0%, #6d9773 100%)',
@@ -52,6 +59,16 @@ const useStyles = makeStyles(theme => ({
 
         // height: '20rem',
         position: 'relative'
+    },
+    contactUsContainer: {
+        background: theme.palette.secondary.main,
+        padding: '12rem 8rem 8rem',
+        [theme.breakpoints.down('sm')]: {
+            padding: '6rem 4rem 4rem',
+        },
+        [theme.breakpoints.down('xs')]: {
+            padding: '3rem 2rem 2rem',
+        }
     }
 }))
 
@@ -69,7 +86,7 @@ export default function Index() {
                 imageSrc={'/hero-icon.svg'}
             />
 
-            <Grid item container
+            <Grid item container id={'about'}
                   className={`${classes.sectionContainer} ${classes.aboutSection} ${classes.lgBackground}`}>
                 <About/>
             </Grid>
@@ -90,7 +107,9 @@ export default function Index() {
             <Grid item container className={` ${classes.blogsSubscribeContainer}`}>
                 <BlogSubcribe/>
             </Grid>
-
+            <Grid item className={`${classes.contactUsContainer}`}>
+                <ContactUs/>
+            </Grid>
         </Grid>
 
     );

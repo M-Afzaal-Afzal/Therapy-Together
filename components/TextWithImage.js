@@ -1,21 +1,36 @@
 import React from 'react';
-import {Box, Button, Divider, Grid, IconButton, makeStyles, Typography} from "@material-ui/core";
+import {Box, Button, Divider, Grid, Hidden, IconButton, makeStyles, Typography, useTheme} from "@material-ui/core";
 import ArrowDownwardOutlinedIcon from "@material-ui/icons/ArrowDownwardOutlined";
 import Image from "next/image";
 import Container from "@material-ui/core/Container";
+import Link from '../src/utils/Link';
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {
-      ...theme.sectionContainer,
+        ...theme.sectionContainer,
     },
     heroHeading: {
         textAlign: 'start',
+        [theme.breakpoints.down('xs')]: {
+            textAlign: 'center',
+            marginBottom: '2rem',
+        }
     },
     heroTextContainer: {
-        padding: '1.5rem'
+        padding: '1.5rem',
+        [theme.breakpoints.down('md')]: {
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            alignItems: 'center',
+        }
     },
     heroImageContainer: {
         padding: '3rem',
+        [theme.breakpoints.down('xs')]: {
+            padding: '0',
+        }
+
     },
     hDivider: {
         marginTop: '1rem',
@@ -31,12 +46,18 @@ const useStyles = makeStyles(theme => ({
     heroParagraph: {
         // width: '70%',
         marginRight: "auto",
-        textAlign: 'justify'
+        textAlign: 'justify',
+        [theme.breakpoints.down('md')]: {
+            textAlign: 'center',
+        }
     },
     heroBtnContainer: {
         textAlign: "start",
         marginTop: '3rem',
         display: 'flex',
+        [theme.breakpoints.down('xs')]: {
+            marginBottom: '2rem',
+        }
 
     },
     btnWhite: {
@@ -71,6 +92,8 @@ const useStyles = makeStyles(theme => ({
 const TextWithImage = (props) => {
 
     const classes = useStyles();
+    const theme = useTheme();
+
 
     return (
         <Container style={{margin: props.hasButtons ? '2rem auto' : '5rem auto'}} className={classes.sectionContainer}
@@ -78,11 +101,16 @@ const TextWithImage = (props) => {
                    component={Grid} item container align={'center'}
                    alignItems={'center'} justify={'center'}
         >
-            <Grid item md={6} className={classes.heroTextContainer}>
-                <Typography color={'primary'} className={classes.heroHeading} variant={'h1'}>
-                    {props.mainHeading}
-                </Typography>
-                <Divider color={'primary'} className={`${classes.hDivider} ${!props.hasButtons ? classes.hDividerCom : ''}`}/>
+            <Grid item lg={6} className={classes.heroTextContainer}>
+                <div>
+                    <Typography color={'primary'} className={classes.heroHeading} variant={'h1'}>
+                        {props.mainHeading}
+                    </Typography>
+                    <Hidden xsDown>
+                        <Divider color={'primary'}
+                                 className={`${classes.hDivider} ${!props.hasButtons ? classes.hDividerCom : ''}`}/>
+                    </Hidden>
+                </div>
                 <Typography gutterBottom variant={"body2"} className={classes.heroParagraph}>
                     {props.bodyTextOne}
                 </Typography>
@@ -95,7 +123,9 @@ const TextWithImage = (props) => {
                         </div>
                         <div className={classes.arrowIconContainer}>
                             <Box className={classes.arrowIcon}>
-                                <IconButton><ArrowDownwardOutlinedIcon color={'primary'}/></IconButton>
+                                <IconButton color={'primary'} component={Link} href={'#about'}>
+                                    <ArrowDownwardOutlinedIcon color={'primary'}/>
+                                </IconButton>
                             </Box>
                         </div>
                     </>
@@ -103,8 +133,10 @@ const TextWithImage = (props) => {
                 }
 
             </Grid>
-            <Grid item md={6} className={classes.heroImageContainer}>
-                <Image src={props.imageSrc} width={882.67} height={732}/>
+            <Grid item lg={6} className={classes.heroImageContainer}>
+                <Image src={props.imageSrc}
+                       width={theme.breakpoints.down('lg') ? 662.67 : 882.67}
+                       height={theme.breakpoints.down('lg') ? 532 : 732}/>
                 {props.hasButtons ?
                     <Box className={classes.messageIcon}>
                         <IconButton color={'primary'}>

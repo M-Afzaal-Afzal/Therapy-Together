@@ -1,5 +1,15 @@
 import React from 'react';
-import {Button, Container, Divider, Grid, makeStyles, Typography} from "@material-ui/core";
+import {
+    Button,
+    useMediaQuery,
+    Container,
+    Divider,
+    Grid,
+    Hidden,
+    makeStyles,
+    Typography,
+    useTheme
+} from "@material-ui/core";
 import Image from 'next/image';
 
 const useStyles = makeStyles(theme => ({
@@ -12,7 +22,11 @@ const useStyles = makeStyles(theme => ({
     },
     formTextContainer: {
         margin: '5rem 0',
-        marginRight: '5rem'
+        marginRight: '5rem',
+        [theme.breakpoints.down('sm')]: {
+            margin: '5rem auto',
+            padding: '1rem',
+        }
     },
     forumDivider: {
         border: `2px solid ${theme.palette.primary.main}`,
@@ -31,23 +45,30 @@ const useStyles = makeStyles(theme => ({
 
 const Forum = () => {
 
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.down('sm'));
+
     const classes = useStyles();
 
     return (
-        <Grid container>
-            <Grid item sm={6} style={{position: 'relative'}}>
-                <div className={classes.forumImageContainer}>
-                    <Image src={'/forum-icon.svg'} width={350} height={500}/>
-                </div>
-            </Grid>
-            <Grid item sm={6} style={{display : 'flex',alignItems: 'center'}}>
-                <Grid container alignItems={'center'}>
+        <Grid container justify={matches ? 'center' : ''}>
+            <Hidden smDown>
+                <Grid item md={4} style={{position: 'relative'}}>
+                    <div className={classes.forumImageContainer}>
+                        <Image src={'/forum-icon.svg'} width={350} height={500}/>
+                    </div>
+                </Grid>
+            </Hidden>
+            <Grid item  md={matches ? 12 : 8} style={{display: 'flex', alignItems: 'center'}}>
+                <Grid container   alignItems={'center'}>
                     <Grid item className={classes.formTextContainer}>
-                        <Container maxWidth={'sm'}>
-                            <Typography color={'primary'} variant={'h1'}>
-                                Forum
-                            </Typography>
-                            <Divider color={'primary'} className={classes.forumDivider}/>
+                        <Container maxWidth={'sm'} >
+                            <div>
+                                <Typography color={'primary'} variant={'h1'}>
+                                    Forum
+                                </Typography>
+                                <Divider color={'primary'} className={classes.forumDivider}/>
+                            </div>
                             <Typography variant={'body2'} className={classes.formBodyText}>
                                 Communication problems can raise our stress levels which is why we strongly believe that
                                 it
