@@ -42,6 +42,12 @@ const theme = createMuiTheme({
     // margin: "auto",
 
   },
+  blogsCardContainer: {
+    marginTop: '6rem',
+    [defaultTheme.breakpoints.down('xs')]: {
+      marginTop: '1rem',
+    }
+  },
   typography: {
     fontFamily: [
         'Century Gothic',

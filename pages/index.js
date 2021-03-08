@@ -3,13 +3,13 @@ import {
     Grid,
     makeStyles,
 } from "@material-ui/core";
-import About from "../components/About";
-import TextWithImage from '../components/TextWithImage'
-import Forum from "../components/Forum";
-import Doctor from "../components/Docotr";
-import Blogs from "../components/Blogs";
-import BlogSubcribe from "../components/BlogSubscribe";
-import ContactUs from "../components/ContactUs";
+import About from "../components/LandingPage/About";
+import TextWithImage from '../components/LandingPage/TextWithImage'
+import Forum from "../components/LandingPage/Forum";
+import Doctor from "../components/LandingPage/Docotr";
+import Blogs from "../components/LandingPage/Blogs";
+import BlogSubcribe from "../components/LandingPage/BlogSubscribe";
+import ContactUs from "../components/LandingPage/ContactUs";
 // import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 const useStyles = makeStyles(theme => ({

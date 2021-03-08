@@ -13,6 +13,7 @@ import {
     Toolbar,
     useTheme, useScrollTrigger
 } from "@material-ui/core";
+import Link from '../../src/utils/Link';
 
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -39,6 +40,7 @@ const useStyles = makeStyles(() => ({
         fontSize: '19px',
         fontWeight: 400,
         margin: 'auto .7rem',
+        textDecoration: 'none',
     },
     avatarContainer: {
         // margin: 'auto .7rem',
@@ -77,12 +79,12 @@ const Header = () => {
                         <div className={classes.space}/>
                         <Hidden smDown>
                             <div className={classes.space}/>
-                            <Button className={classes.navbarBtn} color={'primary'}>Home</Button>
-                            <Button className={classes.navbarBtn} color={'primary'}>Blog</Button>
-                            <Button className={classes.navbarBtn} color={'primary'}>About us</Button>
-                            <Button className={classes.navbarBtn} color={'primary'}>Contact us</Button>
-                            <Button className={classes.navbarBtn} color={'primary'}>Forum</Button>
-                            <Divider className={classes.verticalDivider} color={'primary'} orientation={'vertical'}/>
+                            <Button component={Link} style={{textDecoration : 'none'}} href={'/'} className={classes.navbarBtn} color={'primary'}>Home</Button>
+                            <Button component={Link} style={{textDecoration : 'none'}} href={'/blogs'} className={classes.navbarBtn} color={'primary'}>Blog</Button>
+                            <Button component={Link} style={{textDecoration : 'none'}} href={'/about'} className={classes.navbarBtn} color={'primary'}>About us</Button>
+                            <Button component={Link} style={{textDecoration : 'none'}} href={'/contactus'} className={classes.navbarBtn} color={'primary'}>Contact us</Button>
+                            <Button component={Link} style={{textDecoration : 'none'}} href={'/forum'} className={classes.navbarBtn} color={'primary'}>Forum</Button>
+                            <Divider className={classes.verticalDivider} style={{textDecoration : 'none'}} color={'primary'} orientation={'vertical'}/>
                             <Box className={classes.avatarContainer}>
                                 <IconButton>
                                     <Avatar src={'/avatar.jpg'}/>

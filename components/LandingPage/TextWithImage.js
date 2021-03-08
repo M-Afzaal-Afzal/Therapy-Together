@@ -3,7 +3,7 @@ import {Box, Button, Divider, Grid, Hidden, IconButton, makeStyles, Typography, 
 import ArrowDownwardOutlinedIcon from "@material-ui/icons/ArrowDownwardOutlined";
 import Image from "next/image";
 import Container from "@material-ui/core/Container";
-import Link from '../src/utils/Link';
+import Link from '../../src/utils/Link';
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {

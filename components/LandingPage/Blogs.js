@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, Container, Divider, Grid, Hidden, makeStyles, Typography} from "@material-ui/core";
+import Link from '../../src/utils/Link';
 
 import Blog from "./Blog";
 
@@ -13,10 +14,7 @@ const useStyles = makeStyles(theme => ({
         align: 'left'
     },
     blogsCardContainer: {
-        marginTop: '6rem',
-        [theme.breakpoints.down('xs')]: {
-            marginTop: '1rem',
-        }
+       ...theme.blogsCardContainer,
     },
     btnGreen: {
         ...theme.btnGreen,
@@ -54,19 +52,19 @@ const Blogs = () => {
                 </Grid>
                 <Grid item container justify={'space-evenly'} className={classes.blogsCardContainer}>
 
-                    <Blog imageSrc={'/Coronavirus.svg'}
+                    <Blog imageSrc={'/avatar.jpg'}
                           disease={'disease'}
                           description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
                           '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
                           '                                nobis officiis reprehenderit sed similique sit.'}
                     />
-                    <Blog imageSrc={'/Coronavirus.svg'}
+                    <Blog imageSrc={'/avatar.jpg'}
                           disease={'disease'}
                           description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
                           '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
                           '                                nobis officiis reprehenderit sed similique sit.'}
                     />
-                    <Blog imageSrc={'/Coronavirus.svg'}
+                    <Blog imageSrc={'/avatar.jpg'}
                           disease={'disease'}
                           description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
                           '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
@@ -74,7 +72,7 @@ const Blogs = () => {
                     />
                 </Grid>
                 <Grid item>
-                    <Button className={classes.btnGreen} color={'primary'} variant={'contained'}>
+                    <Button component={Link} href={'/blogs'} style={{textDecoration: 'none'}} className={classes.btnGreen} color={'primary'} variant={'contained'}>
                         Learn More
                     </Button>
                 </Grid>

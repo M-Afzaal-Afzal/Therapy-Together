@@ -6,7 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/utils/theme';
 import {Provider} from 'react-redux'
 import {useStore} from '../src/store/store'
-import Layout from "../components/Layout";
+import Layout from "../components/Layout/Layout";
 
 export default function MyApp(props) {
     const store = useStore(props.pageProps.initialReduxState)

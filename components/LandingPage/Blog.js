@@ -3,25 +3,31 @@ import {Box, Fab, Grid, makeStyles, Typography} from "@material-ui/core";
 import Image from "next/image";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
     blogsCardContainer: {
         marginTop: '6rem',
     },
     blogImage: {
-        borderRadius: '27px',
+        borderRadius: '27px 27px 0 0',
         overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent:'center'
     },
     cardContainer: {
         background: 'rgba(255, 255, 255, .24)',
         margin: "2.5rem 1rem",
         maxWidth: '20rem',
-        borderRadius: '20px',
-        transition: 'all .5s',
-        boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;',
+        borderRadius: '27px',
+        paddingBottom:'2.5rem',
         position: 'relative',
-        // "&:hover": {
-        //
-        // }
+        boxShadow: 'rgb(19 15 235 / 10%) 2px 4px 40px',
+        transition: 'box-shadow 0.4s ease-in-out 0s',
+        // overflow: 'hidden',
+
+        "&:hover": {
+            boxShadow: 'rgb(19 15 235 / 30%) 2px 4px 40px',
+        }
 
     },
     cardText: {
@@ -36,6 +42,14 @@ const useStyles = makeStyles(() => ({
         position: 'absolute',
         bottom: '-1.8rem',
         right: '2rem'
+    },
+    date: {
+        padding: '1.5rem',
+        paddingTop: '.5rem',
+        color: theme.palette.primary.main,
+        position:"absolute",
+        bottom:'0',
+        left: '0',
     }
 }))
 
@@ -46,8 +60,8 @@ const Blog = (props) => {
     return (
         <>
             <Grid item className={classes.cardContainer}>
-                <Box>
-                    <Image src={'/Coronavirus.svg'} width={412} height={224}/>
+                <Box className={classes.blogImage}>
+                    <Image src={props.imageSrc} width={412} height={224}/>
                 </Box>
                 <Box className={classes.cardText}>
                     <Typography gutterBottom className={classes.cardHeading} variant={'h3'} color={'primary'}>
@@ -57,6 +71,7 @@ const Blog = (props) => {
                         {props.description}
                     </Typography>
                 </Box>
+                <Box className={classes.date}>20 Jan, 2021</Box>
                 <div className={classes.floatingActionButton}>
                     <Fab color={'primary'}>
                         <ArrowForwardIosOutlinedIcon fontSize={'large'}/>

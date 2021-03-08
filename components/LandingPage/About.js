@@ -13,12 +13,12 @@ const useStyles = makeStyles(() => ({
         display: "flex",
         justifyContent: 'center',
         alignItems: 'center',
-        transition: 'all .5s',
+        boxShadow: 'rgb(19 15 235 / 10%) 2px 4px 40px',
+        transition: 'box-shadow 0.4s ease-in-out 0s',
+        background: 'rgba(255, 255, 255, .24)',
+        borderRadius: '27px',
         '&:hover': {
-            background: 'rgba(255, 255, 255, .24)',
-            borderRadius: '27px',
-            boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;',
-            overflow: 'hidden',
+            boxShadow: 'rgb(19 15 235 / 30%) 2px 4px 40px',
         }
     },
     cardTextContainer: {
