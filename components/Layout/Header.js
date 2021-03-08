@@ -82,7 +82,7 @@ const Header = () => {
                             <Button component={Link} style={{textDecoration : 'none'}} href={'/'} className={classes.navbarBtn} color={'primary'}>Home</Button>
                             <Button component={Link} style={{textDecoration : 'none'}} href={'/blogs'} className={classes.navbarBtn} color={'primary'}>Blog</Button>
                             <Button component={Link} style={{textDecoration : 'none'}} href={'/about'} className={classes.navbarBtn} color={'primary'}>About us</Button>
-                            <Button component={Link} style={{textDecoration : 'none'}} href={'/contactus'} className={classes.navbarBtn} color={'primary'}>Contact us</Button>
+                            <Button component={Link} style={{textDecoration : 'none'}} href={'/contact'} className={classes.navbarBtn} color={'primary'}>Contact us</Button>
                             <Button component={Link} style={{textDecoration : 'none'}} href={'/forum'} className={classes.navbarBtn} color={'primary'}>Forum</Button>
                             <Divider className={classes.verticalDivider} style={{textDecoration : 'none'}} color={'primary'} orientation={'vertical'}/>
                             <Box className={classes.avatarContainer}>
