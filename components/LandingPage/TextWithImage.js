@@ -3,7 +3,9 @@ import {Box, Button, Divider, Grid, Hidden, IconButton, makeStyles, Typography, 
 import ArrowDownwardOutlinedIcon from "@material-ui/icons/ArrowDownwardOutlined";
 import Image from "next/image";
 import Container from "@material-ui/core/Container";
-import Link from '../../src/utils/Link';
+// import Link from '../../src/utils/Link';
+
+import {Link} from 'react-scroll';
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {
@@ -123,7 +125,8 @@ const TextWithImage = (props) => {
                         </div>
                         <div className={classes.arrowIconContainer}>
                             <Box className={classes.arrowIcon}>
-                                <IconButton color={'primary'} component={Link} href={'#about'}>
+
+                                <IconButton color={'primary'} component={Link} to={'about'} smooth duration={700} href={'#about'}>
                                     <ArrowDownwardOutlinedIcon color={'primary'}/>
                                 </IconButton>
                             </Box>
@@ -137,16 +140,6 @@ const TextWithImage = (props) => {
                 <Image src={props.imageSrc}
                        width={theme.breakpoints.down('lg') ? 662.67 : 882.67}
                        height={theme.breakpoints.down('lg') ? 532 : 732}/>
-                {props.hasButtons ?
-                    <Box className={classes.messageIcon}>
-                        <IconButton color={'primary'}>
-                            <Image src={'/chatbubbles-icon.svg'} width={30} height={30}/>
-                        </IconButton>
-                    </Box>
-                    :
-                    null
-                }
-
             </Grid>
         </Container>
     );

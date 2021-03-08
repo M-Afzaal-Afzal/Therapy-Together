@@ -16,6 +16,7 @@ import {
 import Link from '../../src/utils/Link';
 
 import MenuIcon from '@material-ui/icons/Menu';
+import Image from "next/image";
 
 function ElevationScroll(props) {
     const { children, window } = props;
@@ -34,7 +35,7 @@ function ElevationScroll(props) {
 }
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     navbarBtn: {
         fontFamily: 'Montserrat',
         fontSize: '19px',
@@ -58,6 +59,14 @@ const useStyles = makeStyles(() => ({
     verticalDivider: {
         height: '25px',
         margin: 'auto .7rem'
+    },
+    messageIcon: {
+        position: "fixed",
+        bottom: theme.spacing(3),
+        right: theme.spacing(3),
+        background: `linear-gradient(136.25deg, #ffffff 0%, #6d9773 100%)`,
+        borderRadius: '50%',
+        zIndex: '30',
     },
 }))
 
@@ -89,6 +98,11 @@ const Header = () => {
                                 <IconButton>
                                     <Avatar src={'/avatar.jpg'}/>
                                     {/*<SearchOutlinedIcon color={'primary'}/>*/}
+                                </IconButton>
+                            </Box>
+                            <Box className={classes.messageIcon}>
+                                <IconButton color={'primary'}>
+                                    <Image src={'/chatbubbles-icon.svg'} width={30} height={30}/>
                                 </IconButton>
                             </Box>
                         </Hidden>

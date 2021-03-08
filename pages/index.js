@@ -1,5 +1,4 @@
 import {
-    Box,
     Grid,
     makeStyles,
 } from "@material-ui/core";
@@ -10,7 +9,6 @@ import Doctor from "../components/LandingPage/Docotr";
 import Blogs from "../components/LandingPage/Blogs";
 import BlogSubcribe from "../components/LandingPage/BlogSubscribe";
 import ContactUs from "../components/LandingPage/ContactUs";
-// import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {

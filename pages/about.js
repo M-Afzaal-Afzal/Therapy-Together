@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Container, Divider, Grid, makeStyles, Typography, useTheme} from "@material-ui/core";
+import { Box, Container, Divider, Grid, makeStyles, Typography, useTheme } from "@material-ui/core";
 import Image from "next/image";
 
 const useStyles = makeStyles(theme => ({
@@ -74,14 +74,14 @@ const About = () => {
                     <Typography color={'primary'} variant={'h1'}>
                         About Us
                     </Typography>
-                    <Divider className={classes.divider}/>
+                    <Divider className={classes.divider} />
                 </Grid>
                 <Grid item container>
                     <Grid item lg={6} className={classes.mainTextContainer}>
                         <Grid container alignItems={'center'} justify={'center'} direction={'column'}>
                             <Grid item align={'center'}>
                                 <Typography align={'center'} className={classes.topParagraph} gutterBottom
-                                            variant={'body2'}>
+                                    variant={'body2'}>
                                     “What mental health needs is more sunlight, more candor, and more unashamed
                                     conversation.”
                                 </Typography>
@@ -126,10 +126,9 @@ const About = () => {
                     </Grid>
                     <Grid item lg={6} align={'center'} className={classes.imageContainer}>
                         <Image src={'/about.svg'}
-                               width={theme.breakpoints.down('lg') ? 662.67 : 882.67}
-                               height={theme.breakpoints.down('lg') ? 532 : 732}
+                            width={theme.breakpoints.down('lg') ? 662.67 : 882.67}
+                            height={theme.breakpoints.down('lg') ? 532 : 732}
                         />
-
                     </Grid>
                 </Grid>
 
