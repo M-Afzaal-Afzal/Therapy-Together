@@ -17,6 +17,10 @@ import Link from '../../src/utils/Link';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import Image from "next/image";
+import {useDispatch, useSelector} from "react-redux";
+import {selectCurrentUser} from "../../src/store/user/user.selectors";
+import {signOutStart} from "../../src/store/user/user.actions";
+import {useRouter} from "next/router";
 
 function ElevationScroll(props) {
     const {children, window} = props;
@@ -96,7 +100,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
 
+    const router = useRouter();
     const theme = useTheme();
+    const dispatch = useDispatch();
+    const user = useSelector(selectCurrentUser);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -114,12 +121,18 @@ const Header = () => {
     const classes = useStyles();
     const matchesMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
+    const signOutHandler = async () => {
+        await dispatch(signOutStart());
+        await router.push('/');
+    }
+
     return (
         <ElevationScroll>
             <AppBar className={classes.appBar} elevation={0}>
                 <Container maxWidth={'xl'} style={{padding: '0'}}>
                     <Toolbar>
-                        <IconButton component={Link} href={'/'} color={'primary'} className={matchesMdUp ? classes.logo : ''}>
+                        <IconButton component={Link} href={'/'} color={'primary'}
+                                    className={matchesMdUp ? classes.logo : ''}>
                             TT
                         </IconButton>
                         <div className={classes.space}/>
@@ -168,18 +181,36 @@ const Header = () => {
                                         <Avatar src={'/avatar.jpg'} className={classes.userAvatar}/>
                                     </Grid>
                                     <Grid item>
-                                        <Typography className={classes.userName} variant={'h3'} color={'primary'}>M
-                                            Afzaal Afzal</Typography>
+                                        <Typography className={classes.userName} variant={'h3'} color={'primary'}>
+                                            {
+                                                user ? user.displayName : 'Unknown'
+                                            }
+                                        </Typography>
                                     </Grid>
-                                    <Grid item container justify={'space-evenly'}>
-                                        <Grid item onClick={handleClose}>
-                                            <Button style={{textDecoration: 'none'}} component={Link} href={'/login'} color={'primary'} variant={'contained'}
-                                                    className={classes.btnGreen}>Login</Button>
-                                        </Grid>
-                                        <Grid item onClick={handleClose}>
-                                            <Button style={{textDecoration: 'none'}} component={Link} href={'/signup'} color={'primary'} variant={'contained'}
-                                                    className={classes.btnGreen}>Sign Up</Button>
-                                        </Grid>
+                                    <Grid item container justify={user ? 'center' : 'space-evenly'}>
+                                        {
+                                            user ?
+                                                <Grid item onClick={handleClose}>
+                                                    <Button onClick={signOutHandler}
+                                                             color={'primary'} variant={'contained'}
+                                                            className={classes.btnGreen}>Logout</Button>
+                                                </Grid>
+                                                :
+                                                <>
+                                                    <Grid item onClick={handleClose}>
+                                                        <Button style={{textDecoration: 'none'}} component={Link}
+                                                                href={'/login'} color={'primary'} variant={'contained'}
+                                                                className={classes.btnGreen}>Login</Button>
+                                                    </Grid>
+                                                    <Grid item onClick={handleClose}>
+                                                        <Button style={{textDecoration: 'none'}} component={Link}
+                                                                href={'/signup'} color={'primary'} variant={'contained'}
+                                                                className={classes.btnGreen}>Sign Up</Button>
+                                                    </Grid>
+                                                </>
+
+                                        }
+
                                     </Grid>
                                 </Grid>
                             </Popover>

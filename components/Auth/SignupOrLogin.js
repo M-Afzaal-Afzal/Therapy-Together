@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Button,
+    Button, CircularProgress,
     Container,
     Divider,
     Grid,
@@ -13,6 +13,10 @@ import {
 import Image from "next/image";
 import Link from '../../src/utils/Link';
 import {useForm} from "react-hook-form";
+import {emailSignInStart, facebookSignInStart, googleSignInStart, signUpStart} from "../../src/store/user/user.actions";
+import {useDispatch, useSelector} from "react-redux";
+import {useRouter} from "next/router";
+import {selectError, selectIsLoading} from "../../src/store/user/user.selectors";
 
 const useStyles = makeStyles(theme => ({
     signupContainer: {
@@ -129,6 +133,10 @@ const SignupOrLogin = (props) => {
 
     const classes = useStyles();
     const theme = useTheme();
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const isLoading = useSelector(selectIsLoading);
+    const errorMessage = useSelector(selectError);
 
     const {register, handleSubmit, errors, control, watch, reset} = useForm();
 
@@ -162,13 +170,24 @@ const SignupOrLogin = (props) => {
     const onSubmit = handleSubmit(async data => {
         console.log(data)
         if (props.login) {
-            const {email,password} = data;
-            console.log(email,password);
+            const {email, password} = data;
+            dispatch(emailSignInStart(email, password))
+
+            console.log(email, password);
         } else {
-            const {name,email,password,confirmPassword} = data;
-            console.log(name,email,password,confirmPassword);
+            const {name, email, password} = data;
+            dispatch(signUpStart(name, email, password));
+            // console.log(name,email,password,confirmPassword);
         }
     })
+
+    const googleSignInHandler = async () => {
+        await dispatch(googleSignInStart());
+    }
+
+    const facebookSignInHandler = async () => {
+        await dispatch(facebookSignInStart());
+    }
 
 
     const matches400 = useMediaQuery('(max-width:400px)')
@@ -188,13 +207,20 @@ const SignupOrLogin = (props) => {
                                   className={classes.buttonsContainer}>
                                 <Grid item style={{marginBottom: matches400 ? '1rem' : ''}}
                                       className={classes.googleBtnContainer}>
-                                    <Button className={`${classes.btn} ${classes.googleBtn}`} fullWidth>
+                                    <Button
+                                        onClick={googleSignInHandler}
+                                        className={`${classes.btn} ${classes.googleBtn}`}
+                                        fullWidth
+                                    >
                                         Google
                                     </Button>
                                 </Grid>
 
                                 <Grid item className={classes.facebookBtnContainer}>
-                                    <Button className={`${classes.btn} ${classes.facebookBtn}`} fullWidth>
+                                    <Button
+                                        onClick={facebookSignInHandler}
+                                        className={`${classes.btn} ${classes.facebookBtn}`}
+                                        fullWidth>
                                         Facebook
                                     </Button>
                                 </Grid>
@@ -282,11 +308,34 @@ const SignupOrLogin = (props) => {
                                         :
                                         null
                                 }
+                                {
+                                    errorMessage ?
+
+                                        <Grid item align={'center'} className={classes.signupInput}>
+                                            <Typography style={{color: 'red'}} variant={'body2'}>
+                                                {errorMessage}
+                                            </Typography>
+                                        </Grid>
+                                        :
+                                        null
+                                }
 
                                 <Grid item className={classes.signupInput}>
-                                    <Button type={'submit'} fullWidth className={classes.btnGreen} variant={'contained'}
-                                            color={'primary'}>
-                                        {props.login ? "Login" : "Sign Up"}
+                                    <Button
+                                        type={'submit'}
+                                        fullWidth
+                                        className={classes.btnGreen}
+                                        variant={'contained'}
+                                        color={'primary'}
+                                        disabled={isLoading}
+                                    >
+                                        {
+                                            isLoading ?
+                                                <CircularProgress size={31} color={'primary'}/>
+                                                :
+                                                (props.login ? "Login" : "Sign Up")
+
+                                        }
                                     </Button>
                                 </Grid>
                                 {
