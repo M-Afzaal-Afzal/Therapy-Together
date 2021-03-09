@@ -149,13 +149,13 @@ const theme = createMuiTheme({
         fontFamily: 'Montserrat',
         color: "white",
         '& $notchedOutline': {
-          border: `2px solid #fff`,
+          border: `1px solid #fff`,
         },
         '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
-          border: `2px solid #fff`,
+          border: `1px solid #fff`,
           // Reset on touch devices, it doesn't add specificity
           '@media (hover: none)': {
-            border: `2px solid #fff`,
+            border: `1px solid #fff`,
           },
         },
         '&$focused $notchedOutline': {
