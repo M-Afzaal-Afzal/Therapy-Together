@@ -13,6 +13,7 @@
     "prop-types": "latest",
     "react": "^17.0.1",
     "react-dom": "latest",
+    "react-hook-form": "^6.15.4",
     "react-redux": "^7.2.2",
     "react-scroll": "^1.8.2",
     "redux": "^4.0.5",

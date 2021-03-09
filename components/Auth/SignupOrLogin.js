@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import Image from "next/image";
 import Link from '../../src/utils/Link';
+import {useForm} from "react-hook-form";
 
 const useStyles = makeStyles(theme => ({
     signupContainer: {
@@ -129,6 +130,47 @@ const SignupOrLogin = (props) => {
     const classes = useStyles();
     const theme = useTheme();
 
+    const {register, handleSubmit, errors, control, watch, reset} = useForm();
+
+    const nameReg = register({
+        required: "Please Enter Your Real Name",
+    })
+
+    const password = watch("password");
+
+    const emailReg = register({
+        required: "You must specify an email",
+        pattern: {
+            value: /^\S+@\S+$/i,
+            message: 'Invalid Email'
+        }
+    })
+
+    const passwordReg = register({
+        required: "You must specify a password",
+        minLength: {
+            value: 8,
+            message: "Password must have at least 8 characters"
+        }
+    })
+
+    const confirmPasswordReg = register({
+        validate: value =>
+            value === password || "The passwords do not match"
+    })
+
+    const onSubmit = handleSubmit(async data => {
+        console.log(data)
+        if (props.login) {
+            const {email,password} = data;
+            console.log(email,password);
+        } else {
+            const {name,email,password,confirmPassword} = data;
+            console.log(name,email,password,confirmPassword);
+        }
+    })
+
+
     const matches400 = useMediaQuery('(max-width:400px)')
 
     return (
@@ -168,79 +210,102 @@ const SignupOrLogin = (props) => {
                                     <Divider className={classes.divider}/>
                                 </Grid>
                             </Grid>
-                            {
-                                !props.login ?
-                                    <Grid item className={classes.signupInput}>
-                                        <TextField
-                                            size={'small'}
-                                            color={'secondary'}
-                                            label={'Name'}
-                                            id={'name'}
-                                            variant={'outlined'}
-                                            fullWidth
-                                        />
-                                    </Grid>
-                                    :
-                                    null
-                            }
+                            <form onSubmit={handleSubmit(onSubmit)} style={{width: '100%'}}>
+                                {
+                                    !props.login ?
+                                        <Grid item className={classes.signupInput}>
+                                            <TextField
+                                                size={'small'}
+                                                color={'secondary'}
+                                                label={'Name'}
+                                                name={'name'}
+                                                helperText={errors.name ? errors.name.message : ''}
+                                                error={Boolean(errors.name)}
+                                                inputRef={nameReg}
+                                                aria-controls={control}
+                                                id={'name'}
+                                                variant={'outlined'}
+                                                fullWidth
+                                            />
+                                        </Grid>
+                                        :
+                                        null
+                                }
 
-                            <Grid item className={classes.signupInput}>
-                                <TextField
-                                    size={'small'}
-                                    color={'secondary'}
-                                    label={'Email'}
-                                    id={'email'}
-                                    variant={'outlined'}
-                                    fullWidth
-                                />
-                            </Grid>
-                            <Grid item className={classes.signupInput}>
-                                <TextField
-                                    size={'small'}
-                                    color={'secondary'}
-                                    label={'Password'}
-                                    id={'password'}
-                                    variant={'outlined'}
-                                    fullWidth
-                                />
-                            </Grid>
-                            {
-                                !props.login ?
-                                    <Grid item className={classes.signupInput}>
-                                        <TextField
-                                            size={'small'}
-                                            color={'secondary'}
-                                            label={'Confirm Password'}
-                                            id={'confirmPassword'}
-                                            variant={'outlined'}
-                                            fullWidth
-                                        />
-                                    </Grid>
-                                    :
-                                    null
-                            }
+                                <Grid item className={classes.signupInput}>
+                                    <TextField
+                                        size={'small'}
+                                        color={'secondary'}
+                                        label={'Email'}
+                                        id={'email'}
+                                        name={'email'}
+                                        helperText={errors.email ? errors.email.message : ''}
+                                        error={Boolean(errors.email)}
+                                        inputRef={emailReg}
+                                        aria-controls={control}
+                                        variant={'outlined'}
+                                        fullWidth
+                                    />
+                                </Grid>
+                                <Grid item className={classes.signupInput}>
+                                    <TextField
+                                        size={'small'}
+                                        color={'secondary'}
+                                        label={'Password'}
+                                        id={'password'}
+                                        name={'password'}
+                                        helperText={errors.password ? errors.password.message : ''}
+                                        error={Boolean(errors.password)}
+                                        inputRef={passwordReg}
+                                        aria-controls={control}
+                                        variant={'outlined'}
+                                        fullWidth
+                                    />
+                                </Grid>
+                                {
+                                    !props.login ?
+                                        <Grid item className={classes.signupInput}>
+                                            <TextField
+                                                size={'small'}
+                                                color={'secondary'}
+                                                label={'Confirm Password'}
+                                                id={'confirmPassword'}
+                                                variant={'outlined'}
+                                                name={'confirmPassword'}
+                                                error={Boolean(errors.confirmPassword)}
+                                                helperText={errors.confirmPassword ? errors.confirmPassword.message : ''}
+                                                inputRef={confirmPasswordReg}
+                                                aria-controls={control}
+                                                fullWidth
+                                            />
+                                        </Grid>
+                                        :
+                                        null
+                                }
 
-                            <Grid item className={classes.signupInput}>
-                                <Button fullWidth className={classes.btnGreen} variant={'contained'} color={'primary'}>
-                                    Sign Up
-                                </Button>
-                            </Grid>
-                            {
-                                !props.login ?
-                                    <Grid item>
-                                        <Typography variant={'body2'} className={classes.alreadyHaveAccount}>
-                                            Already have an account? <Link href={'/login'}><span
-                                            style={{color: "#7116CC"}}>Login</span></Link>
-                                        </Typography>
-                                    </Grid>
-                                    :
-                                    <Grid item>
-                                        <Typography variant={'body2'} className={classes.alreadyHaveAccount}>
-                                            Don't have an account? <Link href={'/signup'}><span
-                                            style={{color: "#7116CC"}}>Sign Up</span></Link>
-                                        </Typography>
-                                    </Grid>
-                            }
+                                <Grid item className={classes.signupInput}>
+                                    <Button type={'submit'} fullWidth className={classes.btnGreen} variant={'contained'}
+                                            color={'primary'}>
+                                        {props.login ? "Login" : "Sign Up"}
+                                    </Button>
+                                </Grid>
+                                {
+                                    !props.login ?
+                                        <Grid item>
+                                            <Typography variant={'body2'} className={classes.alreadyHaveAccount}>
+                                                Already have an account? <Link href={'/login'}><span
+                                                style={{color: "#7116CC"}}>Login</span></Link>
+                                            </Typography>
+                                        </Grid>
+                                        :
+                                        <Grid item>
+                                            <Typography variant={'body2'} className={classes.alreadyHaveAccount}>
+                                                Don't have an account? <Link href={'/signup'}><span
+                                                style={{color: "#7116CC"}}>Sign Up</span></Link>
+                                            </Typography>
+                                        </Grid>
+                                }
+                            </form>
 
                         </Grid>
                     </Grid>

@@ -11,7 +11,7 @@ import {
     IconButton,
     makeStyles,
     Toolbar,
-    useTheme, useScrollTrigger
+    useTheme, useScrollTrigger, Typography, Popover, Grid
 } from "@material-ui/core";
 import Link from '../../src/utils/Link';
 
@@ -19,7 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Image from "next/image";
 
 function ElevationScroll(props) {
-    const { children, window } = props;
+    const {children, window} = props;
     // Note that you normally won't need to set the window ref as useScrollTrigger
     // will default to window.
     // This is only being set here because the demo is in an iframe.
@@ -68,11 +68,48 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '50%',
         zIndex: '30',
     },
+    popupContainer: {
+        width: '25rem',
+        padding: "3rem",
+
+        // boxShadow: 'rgb(19 15 235 / 10%) 2px 4px 40px',
+        // transition: 'box-shadow 0.4s ease-in-out 0s',
+        // '&:hover': {
+        //     boxShadow: 'rgb(19 15 235 / 30%) 2px 4px 40px',
+        // }
+    },
+    userName: {
+        fontSize: '1.5rem'
+    },
+    userCardAvatar: {
+        marginBottom: '1rem',
+    },
+    userAvatar: {
+        width: '80px',
+        height: '80px',
+    },
+    btnGreen: {
+        ...theme.btnGreen,
+        marginTop: '2rem',
+    }
 }))
 
 const Header = () => {
 
     const theme = useTheme();
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
     const classes = useStyles();
     const matchesMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -80,26 +117,72 @@ const Header = () => {
     return (
         <ElevationScroll>
             <AppBar className={classes.appBar} elevation={0}>
-                <Container maxWidth={'xl'} style={{padding: '0'}} >
+                <Container maxWidth={'xl'} style={{padding: '0'}}>
                     <Toolbar>
-                        <IconButton color={'primary'} className={ matchesMdUp ?  classes.logo : ''}>
+                        <IconButton color={'primary'} className={matchesMdUp ? classes.logo : ''}>
                             TT
                         </IconButton>
                         <div className={classes.space}/>
                         <Hidden smDown>
                             <div className={classes.space}/>
-                            <Button component={Link} style={{textDecoration : 'none'}} href={'/'} className={classes.navbarBtn} color={'primary'}>Home</Button>
-                            <Button component={Link} style={{textDecoration : 'none'}} href={'/blogs'} className={classes.navbarBtn} color={'primary'}>Blog</Button>
-                            <Button component={Link} style={{textDecoration : 'none'}} href={'/about'} className={classes.navbarBtn} color={'primary'}>About us</Button>
-                            <Button component={Link} style={{textDecoration : 'none'}} href={'/contact'} className={classes.navbarBtn} color={'primary'}>Contact us</Button>
-                            <Button component={Link} style={{textDecoration : 'none'}} href={'/forum'} className={classes.navbarBtn} color={'primary'}>Forum</Button>
-                            <Divider className={classes.verticalDivider} style={{textDecoration : 'none'}} color={'primary'} orientation={'vertical'}/>
+                            <Button component={Link} style={{textDecoration: 'none'}} href={'/'}
+                                    className={classes.navbarBtn} color={'primary'}>Home</Button>
+                            <Button component={Link} style={{textDecoration: 'none'}} href={'/blogs'}
+                                    className={classes.navbarBtn} color={'primary'}>Blog</Button>
+                            <Button component={Link} style={{textDecoration: 'none'}} href={'/about'}
+                                    className={classes.navbarBtn} color={'primary'}>About us</Button>
+                            <Button component={Link} style={{textDecoration: 'none'}} href={'/contact'}
+                                    className={classes.navbarBtn} color={'primary'}>Contact us</Button>
+                            <Button component={Link} style={{textDecoration: 'none'}} href={'/forum'}
+                                    className={classes.navbarBtn} color={'primary'}>Forum</Button>
+                            <Divider className={classes.verticalDivider} style={{textDecoration: 'none'}}
+                                     color={'primary'} orientation={'vertical'}/>
                             <Box className={classes.avatarContainer}>
-                                <IconButton>
+                                <IconButton aria-describedby={id} onClick={handleClick}>
                                     <Avatar src={'/avatar.jpg'}/>
                                     {/*<SearchOutlinedIcon color={'primary'}/>*/}
                                 </IconButton>
                             </Box>
+                            <Popover
+                                id={id}
+                                open={open}
+                                anchorEl={anchorEl}
+                                onClose={handleClose}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'center',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'center',
+                                }}
+                            >
+                                <Grid
+                                    container
+                                    className={classes.popupContainer}
+                                    justify={'center'}
+                                    direction={'column'}
+                                    alignItems={'center'}
+                                >
+                                    <Grid item className={classes.userCardAvatar}>
+                                        <Avatar src={'/avatar.jpg'} className={classes.userAvatar}/>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography className={classes.userName} variant={'h3'} color={'primary'}>M
+                                            Afzaal Afzal</Typography>
+                                    </Grid>
+                                    <Grid item container justify={'space-evenly'}>
+                                        <Grid item onClick={handleClose}>
+                                            <Button style={{textDecoration: 'none'}} component={Link} href={'/login'} color={'primary'} variant={'contained'}
+                                                    className={classes.btnGreen}>Login</Button>
+                                        </Grid>
+                                        <Grid item onClick={handleClose}>
+                                            <Button style={{textDecoration: 'none'}} component={Link} href={'/signup'} color={'primary'} variant={'contained'}
+                                                    className={classes.btnGreen}>Sign Up</Button>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Popover>
                             <Box className={classes.messageIcon}>
                                 <IconButton color={'primary'}>
                                     <Image src={'/chatbubbles-icon.svg'} width={30} height={30}/>
@@ -118,4 +201,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default React.memo(Header);
