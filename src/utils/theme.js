@@ -149,13 +149,13 @@ const theme = createMuiTheme({
         fontFamily: 'Montserrat',
         color: "white",
         '& $notchedOutline': {
-          border: `1px solid #fff`,
+          border: `2px solid #fff`,
         },
         '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
-          border: `1px solid #fff`,
+          border: `2px solid #fff`,
           // Reset on touch devices, it doesn't add specificity
           '@media (hover: none)': {
-            border: `1px solid #fff`,
+            border: `2px solid #fff`,
           },
         },
         '&$focused $notchedOutline': {
@@ -174,13 +174,13 @@ const theme = createMuiTheme({
           fontFamily: 'Montserrat',
           color: "#6D9773",
           '& $notchedOutline': {
-            border: `1px solid #6D9773`,
+            border: `2px solid #6D9773`,
           },
           '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
-            border: `1px solid #6D9773`,
+            border: `2px solid #6D9773`,
             // Reset on touch devices, it doesn't add specificity
             '@media (hover: none)': {
-              border: `1px solid #6D9773`,
+              border: `2px solid #6D9773`,
             },
           },
           '&$error $notchedOutline': {
