@@ -96,17 +96,35 @@ const theme = createMuiTheme({
   },
 
   overrides: {
+    MuiFormHelperText: {
+      root: {
+        '&$error': {
+          color: '#ffa5a5',
+        },
+      },
+      colorSecondary: {
+        '&$error': {
+          color: '#ffa5a5',
+        },
+      }
+    },
     MuiFormLabel: {
       root: {
         color: 'white',
         '&$focused': {
           color: 'white',
         },
+        '&$error': {
+          color: '#ffa5a5',
+        },
       },
       colorSecondary: {
         color: '#6D9773',
         '&$focused': {
           color: '#6D9773',
+        },
+        '&$error': {
+          color: '#ffa5a5',
         },
       }
     },
@@ -144,9 +162,9 @@ const theme = createMuiTheme({
             borderColor: '#fff',
             // borderWidth: 2,
         },
-        // '&$error $notchedOutline': {
-        //     borderColor: arcBlue,
-        // },
+        '&$error $notchedOutline': {
+            borderColor: '#ffa5a5',
+        },
         // '&$disabled $notchedOutline': {
         //     borderColor: arcBlue,
         // },
@@ -165,9 +183,9 @@ const theme = createMuiTheme({
               border: `1px solid #6D9773`,
             },
           },
-          // '&$error $notchedOutline': {
-          //     borderColor: arcBlue,
-          // },
+          '&$error $notchedOutline': {
+              borderColor: '#FFA5A5',
+          },
           // '&$disabled $notchedOutline': {
           //     borderColor: arcBlue,
           // },

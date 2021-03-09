@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Grid, makeStyles, TextField, Typography} from "@material-ui/core";
+import {useForm} from "react-hook-form";
 
 const useStyles = makeStyles(theme => ({
     blogSubscribeContainer: {
@@ -51,6 +52,21 @@ const useStyles = makeStyles(theme => ({
 const BlogSubscribe = () => {
 
     const classes = useStyles();
+    const {register, handleSubmit, errors, control, reset} = useForm();
+
+    const emailReg = register({
+        required: "You must specify an email",
+        pattern: {
+            value: /^\S+@\S+$/i,
+            message: 'Invalid Email'
+        }
+    })
+
+    const onSubmit = handleSubmit(async data => {
+        const {email} = data;
+        console.log(email);
+
+    })
 
     return (
             <Grid container justify={'center'} direction={'column'} className={classes.blogSubscribeContainer}>
@@ -68,10 +84,20 @@ const BlogSubscribe = () => {
                     </Typography>
                 </Grid>
                 <Grid item container spacing={8} alignItems={'center'} align={'center'} justify={'center'}>
-                    <form style={{display: 'flex'}}>
-                        <Grid className={classes.btnInputContainer} container justify={'center'} alignItems={'center'} style={{margin: '3rem'}}>
+                    <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex'}}>
+                        <Grid className={classes.btnInputContainer} container justify={'center'} alignItems={'flex-start'} style={{margin: '3rem'}}>
                             <Grid item className={classes.inputContainer}>
-                                <TextField size={'small'} id="subscribe-email" label="Email" variant="outlined"/>
+                                <TextField
+                                    size={'small'}
+                                    id="subscribe-email"
+                                    label="Email"
+                                    variant="outlined"
+                                    name={'email'}
+                                    inputRef={emailReg}
+                                    error={Boolean(errors.email)}
+                                    aria-controls={control}
+                                    helperText={errors.email ? errors.email.message : ''}
+                                />
                             </Grid>
                             <Grid item>
                                 <Button type={'submit'} variant={'contained'}

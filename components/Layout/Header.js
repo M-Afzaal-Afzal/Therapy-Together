@@ -119,7 +119,7 @@ const Header = () => {
             <AppBar className={classes.appBar} elevation={0}>
                 <Container maxWidth={'xl'} style={{padding: '0'}}>
                     <Toolbar>
-                        <IconButton color={'primary'} className={matchesMdUp ? classes.logo : ''}>
+                        <IconButton component={Link} href={'/'} color={'primary'} className={matchesMdUp ? classes.logo : ''}>
                             TT
                         </IconButton>
                         <div className={classes.space}/>
