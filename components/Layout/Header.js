@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Container from "@material-ui/core/Container";
 import {
     AppBar,
@@ -21,6 +21,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentUser, selectImageUrl} from "../../src/store/user/user.selectors";
 import {signOutStart} from "../../src/store/user/user.actions";
 import {useRouter} from "next/router";
+import Drawer from "../Drawer/SideDrawer";
 
 function ElevationScroll(props) {
     const {children, window} = props;
@@ -108,6 +109,16 @@ const Header = () => {
     const user = useSelector(selectCurrentUser);
     const imageURL = useSelector(selectImageUrl);
     const router = useRouter();
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    const drawerCloseHandler = () => {
+        setIsDrawerOpen(false);
+    }
+
+    const drawerOpenHandler = () => {
+        setIsDrawerOpen(true);
+    }
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -248,9 +259,11 @@ const Header = () => {
                             </Box>
                         </Hidden>
                         <Hidden mdUp>
-                            <IconButton color={'primary'}>
+                            <IconButton onClick={drawerOpenHandler} color={'primary'}>
                                 <MenuIcon color={'primary'}/>
                             </IconButton>
+                            <Drawer open={isDrawerOpen} drawerOpenHandler={drawerOpenHandler}
+                                    drawerCloseHandler={drawerCloseHandler}/>
                         </Hidden>
                     </Toolbar>
                 </Container>
