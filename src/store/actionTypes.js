@@ -19,5 +19,7 @@ export default {
     SIGN_OUT_START: 'SIGN_OUT_START',
     SIGN_OUT_SUCCESS: 'SIGN_OUT_SUCCESS',
 
+    CLEAR_ERROR: 'CLEAR_ERROR'
+
 
 }

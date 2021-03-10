@@ -31,6 +31,10 @@ const userReducer = produce((draft, action) => {
             draft.currentUser = null;
             draft.isLoading = false;
             draft.error = null;
+            break;
+        case actionTypes.CLEAR_ERROR:
+            draft.error = null;
+            break;
 
     }
 }, INITIAL_STATE);

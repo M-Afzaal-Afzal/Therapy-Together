@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 import {
+    Box,
     Button, CircularProgress,
     Container,
     Divider,
     Grid,
     Hidden,
-    makeStyles,
+    makeStyles, Modal,
     TextField,
     Typography, useMediaQuery,
     useTheme
@@ -13,7 +14,13 @@ import {
 import Image from "next/image";
 import Link from '../../src/utils/Link';
 import {useForm} from "react-hook-form";
-import {emailSignInStart, facebookSignInStart, googleSignInStart, signUpStart} from "../../src/store/user/user.actions";
+import {
+    clearError,
+    emailSignInStart,
+    facebookSignInStart,
+    googleSignInStart,
+    signUpStart
+} from "../../src/store/user/user.actions";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import {selectCurrentUser, selectError, selectIsLoading} from "../../src/store/user/user.selectors";
@@ -126,7 +133,36 @@ const useStyles = makeStyles(theme => ({
     },
     divider: {
         border: `1px solid ${theme.palette.primary.main}`,
-    }
+    },
+    modalContent: {
+        padding: '4rem',
+        border: '2px solid #ff6c6c',
+        color: '#ff6c6c',
+        background: 'white',
+        borderRadius: '27px',
+        '&:focus': {
+            outline: 'none'
+        },
+        [theme.breakpoints.down('sm')]: {
+            padding: '3rem'
+        },
+        [theme.breakpoints.down('xs')]: {
+            padding: '2rem'
+        },
+    },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign:'center',
+        maxWidth: '40rem',
+        margin: ' auto',
+        boxShadow: theme.shadows[5],
+        '@media only screen and (max-width: 670px)': {
+            margin:'auto 1rem',
+        },
+    },
+
 }))
 
 const SignupOrLogin = (props) => {
@@ -181,14 +217,19 @@ const SignupOrLogin = (props) => {
     })
 
     const googleSignInHandler = async () => {
-         await dispatch(googleSignInStart());
-         // await router.push('/');
+        await dispatch(googleSignInStart());
+        // await router.push('/');
     }
 
     const facebookSignInHandler = async () => {
         await dispatch(facebookSignInStart());
         // await router.push('/');
     }
+
+
+    const handleClose = () => {
+        dispatch(clearError());
+    };
 
     const router = useRouter();
 
@@ -198,7 +239,7 @@ const SignupOrLogin = (props) => {
         if (user) {
             router.push('/');
         }
-    },[user])
+    }, [user])
 
 
     const matches400 = useMediaQuery('(max-width:400px)')
@@ -322,11 +363,24 @@ const SignupOrLogin = (props) => {
                                 {
                                     errorMessage ?
 
-                                        <Grid item align={'center'} className={classes.signupInput}>
-                                            <Typography style={{color: 'red'}} variant={'body2'}>
-                                                {errorMessage}
-                                            </Typography>
-                                        </Grid>
+                                        // <Grid item align={'center'} className={classes.signupInput}>
+                                        //     <Typography style={{color: 'red'}} variant={'body2'}>
+                                        //         {errorMessage}
+                                        //     </Typography>
+                                        // </Grid>
+                                        <Modal
+                                            open={Boolean(errorMessage)}
+                                            onClose={handleClose}
+                                            aria-labelledby="error-modal-title"
+                                            aria-describedby="error-modal-description"
+                                            className={classes.modal}
+                                        >
+                                            <Box className={classes.modalContent}>
+                                                <Typography style={{color: "red"}} variant={'body2'}>
+                                                    {errorMessage}
+                                                </Typography>
+                                            </Box>
+                                        </Modal>
                                         :
                                         null
                                 }

@@ -54,3 +54,9 @@ export const signOutSuccess = () => {
         type: actionTypes.SIGN_OUT_SUCCESS,
     }
 }
+
+export const clearError = () => {
+    return {
+        type: actionTypes.CLEAR_ERROR,
+    }
+}
