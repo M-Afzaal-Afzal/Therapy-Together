@@ -1,11 +1,21 @@
 import {useMemo} from 'react'
 import {applyMiddleware, createStore} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
-import reducers from './index.reducers'
+import rootReducer from './index.reducers'
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from "./root.saga";
 
+import {  persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
 let store;
+
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -13,7 +23,7 @@ const middleWares = [sagaMiddleware];
 
 function initStore(initialState) {
     return createStore(
-        reducers,
+        persistedReducer,
         initialState,
         composeWithDevTools(applyMiddleware(...middleWares))
     )

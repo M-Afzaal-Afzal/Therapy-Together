@@ -18,7 +18,7 @@ import Link from '../../src/utils/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import Image from "next/image";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentUser} from "../../src/store/user/user.selectors";
+import {selectCurrentUser, selectImageUrl} from "../../src/store/user/user.selectors";
 import {signOutStart} from "../../src/store/user/user.actions";
 import {useRouter} from "next/router";
 
@@ -95,15 +95,19 @@ const useStyles = makeStyles((theme) => ({
     btnGreen: {
         ...theme.btnGreen,
         marginTop: '2rem',
+    },
+    backgroundGreen: {
+        background: theme.palette.primary.main,
     }
 }))
 
 const Header = () => {
 
-    const router = useRouter();
     const theme = useTheme();
     const dispatch = useDispatch();
     const user = useSelector(selectCurrentUser);
+    const imageURL = useSelector(selectImageUrl);
+    const router = useRouter();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -152,7 +156,19 @@ const Header = () => {
                                      color={'primary'} orientation={'vertical'}/>
                             <Box className={classes.avatarContainer}>
                                 <IconButton aria-describedby={id} onClick={handleClick}>
-                                    <Avatar src={'/avatar.jpg'}/>
+                                    <Avatar src={`${imageURL}`}
+                                            className={user ? classes.backgroundGreen : null}
+                                    >
+                                        {
+                                            user ?
+                                                <Typography variant={'h2'}>
+                                                    {user.displayName[0]}
+                                                </Typography>
+                                                :
+                                                null
+                                        }
+
+                                    </Avatar>
                                     {/*<SearchOutlinedIcon color={'primary'}/>*/}
                                 </IconButton>
                             </Box>
@@ -178,7 +194,18 @@ const Header = () => {
                                     alignItems={'center'}
                                 >
                                     <Grid item className={classes.userCardAvatar}>
-                                        <Avatar src={'/avatar.jpg'} className={classes.userAvatar}/>
+                                        <Avatar src={imageURL}
+                                                className={`${classes.userAvatar} ${user ? classes.backgroundGreen : null}`}>
+                                            {
+                                                user ?
+                                                    <Typography variant={'h2'}>
+                                                        {user.displayName[0]}
+                                                    </Typography>
+                                                    :
+                                                    null
+                                            }
+
+                                        </Avatar>
                                     </Grid>
                                     <Grid item>
                                         <Typography className={classes.userName} variant={'h3'} color={'primary'}>
@@ -192,7 +219,7 @@ const Header = () => {
                                             user ?
                                                 <Grid item onClick={handleClose}>
                                                     <Button onClick={signOutHandler}
-                                                             color={'primary'} variant={'contained'}
+                                                            color={'primary'} variant={'contained'}
                                                             className={classes.btnGreen}>Logout</Button>
                                                 </Grid>
                                                 :
@@ -216,7 +243,7 @@ const Header = () => {
                             </Popover>
                             <Box className={classes.messageIcon}>
                                 <IconButton color={'primary'}>
-                                    <Image src={'/chatbubbles-icon.svg'} width={30} height={30}/>
+                                    <Image style={{zIndex: 50}} src={'/chatbubbles-icon.svg'} width={30} height={30}/>
                                 </IconButton>
                             </Box>
                         </Hidden>

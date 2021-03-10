@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     Button, CircularProgress,
     Container,
@@ -16,7 +16,7 @@ import {useForm} from "react-hook-form";
 import {emailSignInStart, facebookSignInStart, googleSignInStart, signUpStart} from "../../src/store/user/user.actions";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
-import {selectError, selectIsLoading} from "../../src/store/user/user.selectors";
+import {selectCurrentUser, selectError, selectIsLoading} from "../../src/store/user/user.selectors";
 
 const useStyles = makeStyles(theme => ({
     signupContainer: {
@@ -133,12 +133,11 @@ const SignupOrLogin = (props) => {
 
     const classes = useStyles();
     const theme = useTheme();
-    const router = useRouter();
     const dispatch = useDispatch();
     const isLoading = useSelector(selectIsLoading);
     const errorMessage = useSelector(selectError);
 
-    const {register, handleSubmit, errors, control, watch, reset} = useForm();
+    const {register, handleSubmit, errors, control, watch} = useForm();
 
     const nameReg = register({
         required: "Please Enter Your Real Name",
@@ -182,12 +181,24 @@ const SignupOrLogin = (props) => {
     })
 
     const googleSignInHandler = async () => {
-        await dispatch(googleSignInStart());
+         await dispatch(googleSignInStart());
+         // await router.push('/');
     }
 
     const facebookSignInHandler = async () => {
         await dispatch(facebookSignInStart());
+        // await router.push('/');
     }
+
+    const router = useRouter();
+
+    const user = useSelector(selectCurrentUser);
+
+    useEffect(() => {
+        if (user) {
+            router.push('/');
+        }
+    },[user])
 
 
     const matches400 = useMediaQuery('(max-width:400px)')

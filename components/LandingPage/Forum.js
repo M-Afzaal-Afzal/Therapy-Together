@@ -51,7 +51,7 @@ const Forum = () => {
     const classes = useStyles();
 
     return (
-        <Grid container justify={matches ? 'center' : ''}>
+        <Grid container justify={'center'}>
             <Hidden smDown>
                 <Grid item md={4} style={{position: 'relative'}}>
                     <div className={classes.forumImageContainer}>

@@ -7,9 +7,15 @@ import theme from '../src/utils/theme';
 import {Provider} from 'react-redux'
 import {useStore} from '../src/store/store'
 import Layout from "../components/Layout/Layout";
+import {persistStore} from "redux-persist";
+import {PersistGate} from 'redux-persist/integration/react'
+
 
 export default function MyApp(props) {
     const store = useStore(props.pageProps.initialReduxState)
+
+    let persistor = persistStore(store)
+
     const {Component, pageProps} = props;
 
     React.useEffect(() => {
@@ -30,9 +36,11 @@ export default function MyApp(props) {
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline/>
                 <Provider store={store}>
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
+                    <PersistGate loading={null} persistor={persistor}>
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
+                    </PersistGate>
                 </Provider>
             </ThemeProvider>
         </React.Fragment>
@@ -42,4 +50,4 @@ export default function MyApp(props) {
 MyApp.propTypes = {
     Component: PropTypes.elementType.isRequired,
     pageProps: PropTypes.object.isRequired,
-};
+}

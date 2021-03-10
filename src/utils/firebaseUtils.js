@@ -44,7 +44,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     // console.log('DataSnapshot', snapShot.data())
 
     if (!snapShot.exists) {
-        const {displayName, email} = userAuth;
+        const {displayName, email,photoURL} = userAuth;
         const createdAt = new Date();
 
         try {
@@ -52,6 +52,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
                 displayName,
                 email,
                 createdAt,
+                photoURL,
                 ...additionalData,
             })
         } catch (err) {

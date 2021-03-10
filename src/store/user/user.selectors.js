@@ -14,5 +14,10 @@ export const selectIsLoading = createSelector(
 
 export const selectError = createSelector(
     [selectUser],
-    user => user.error,
+    user => user?.error,
+)
+
+export const selectImageUrl = createSelector(
+    [selectUser],
+    user => user.currentUser?.photoURL,
 )
