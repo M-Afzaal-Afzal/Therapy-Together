@@ -9,10 +9,11 @@ import Doctor from "../components/LandingPage/Docotr";
 import Blogs from "../components/LandingPage/Blogs";
 import BlogSubcribe from "../components/LandingPage/BlogSubscribe";
 import ContactUs from "../components/LandingPage/ContactUs";
+import {SnackbarProvider} from "notistack";
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {
-     ...theme.sectionContainer,
+        ...theme.sectionContainer,
     },
     lgBackground: {
         background: theme.palette.secondary.main,
@@ -53,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     blogsSubscribeContainer: {
         margin: 'auto',
         display: 'flex',
-        justifyContent:'center',
+        justifyContent: 'center',
 
         // height: '20rem',
         position: 'relative'
@@ -99,14 +100,16 @@ export default function Index() {
             <Grid item container className={`${classes.sectionContainer} ${classes.doctorSection}`}>
                 <Doctor/>
             </Grid>
-            <Grid item container className={`${classes.sectionContainer} ${classes.blogsContainer}`} >
+            <Grid item container className={`${classes.sectionContainer} ${classes.blogsContainer}`}>
                 <Blogs/>
             </Grid>
             <Grid item container className={` ${classes.blogsSubscribeContainer}`}>
                 <BlogSubcribe/>
             </Grid>
             <Grid item className={`${classes.contactUsContainer}`}>
-                <ContactUs/>
+                <SnackbarProvider>
+                    <ContactUs/>
+                </SnackbarProvider>
             </Grid>
         </Grid>
 

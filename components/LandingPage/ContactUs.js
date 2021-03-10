@@ -2,11 +2,20 @@ import React from 'react';
 import {Button, Container, Grid, Hidden, makeStyles, TextField, Typography} from "@material-ui/core";
 import Image from 'next/image';
 import {useForm} from "react-hook-form";
+import emailjs from 'emailjs-com';
+import { useSnackbar} from 'notistack';
+
 
 const useStyles = makeStyles(theme => ({
     inputsContainer: {
         padding: '8rem 0rem 4rem 0',
         maxWidth: '20rem',
+        [theme.breakpoints.down('sm')]: {
+            padding: '5rem 0 4rem 0'
+        },
+        [theme.breakpoints.down('xs')]: {
+            padding: '2rem 0 4rem 0'
+        },
     },
     middleInput: {
         margin: '2rem 0'
@@ -47,11 +56,42 @@ const ContactUs = () => {
         }
     })
 
-    const onSubmit = handleSubmit(async data => {
-        const {email,message} = data;
-        console.log(email,message);
+    // Handling snack bar
 
+    const {enqueueSnackbar} = useSnackbar();
+    const handleClickVariant = (variant) => () => {
+        // variant could be success, error, warning, info, or default
+        if (variant === 'success')
+            enqueueSnackbar('Message sent successfully', {variant});
+        else if (variant === 'error')
+            enqueueSnackbar('Sending message failed. Try again!!!');
+    };
+
+    const onSubmit = handleSubmit(async data => {
+        const {email, message, name} = data;
+        console.log(email, message, name);
+        // await emailjs.sendForm('service_uezcow5', 'template_l3asham', data, 'user_RU2Nl69CAf72KvoMNEEU7');
+
+        sendFeedback('template_l3asham', {name, email, message});
     })
+
+    const sendFeedback = (templateId, variables) => {
+        emailjs
+            .send("service_uezcow5", templateId, variables, 'user_RU2Nl69CAf72KvoMNEEU7')
+            .then(() => {
+                console.log("success !");
+                handleClickVariant('success')();
+                reset();
+            })
+            .catch((err) => {
+                    console.log(err);
+                    handleClickVariant('error')();
+                    // (document.querySelector(".form-message").innerHTML =
+                    //     "error message not sent.")
+                }
+            );
+    };
+
 
     return (
         <Container maxWidth={'lg'}>
@@ -117,6 +157,8 @@ const ContactUs = () => {
                     </Hidden>
                 </Grid>
             </Grid>
+
+
         </Container>
     );
 };

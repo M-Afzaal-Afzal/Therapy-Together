@@ -72,6 +72,11 @@ const useStyles = makeStyles((theme) => ({
         background: `linear-gradient(136.25deg, #ffffff 0%, #6d9773 100%)`,
         borderRadius: '50%',
         zIndex: '30',
+
+        [theme.breakpoints.down('xs')]: {
+            bottom: theme.spacing(1.5),
+            right: theme.spacing(1.5),
+        }
     },
     popupContainer: {
         width: '25rem',
@@ -252,11 +257,6 @@ const Header = () => {
                                     </Grid>
                                 </Grid>
                             </Popover>
-                            <Box className={classes.messageIcon}>
-                                <IconButton color={'primary'}>
-                                    <Image style={{zIndex: 50}} src={'/chatbubbles-icon.svg'} width={30} height={30}/>
-                                </IconButton>
-                            </Box>
                         </Hidden>
                         <Hidden mdUp>
                             <IconButton onClick={drawerOpenHandler} color={'primary'}>
@@ -265,6 +265,12 @@ const Header = () => {
                             <Drawer open={isDrawerOpen} drawerOpenHandler={drawerOpenHandler}
                                     drawerCloseHandler={drawerCloseHandler}/>
                         </Hidden>
+                        <Box className={classes.messageIcon}>
+                            <IconButton color={'primary'}>
+                                <Image style={{zIndex: 50}} src={'/chatbubbles-icon.svg'} width={30} height={30}/>
+                            </IconButton>
+                        </Box>
+
                     </Toolbar>
                 </Container>
             </AppBar>
