@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, Grid, makeStyles, TextField, Typography} from "@material-ui/core";
+import {Button, Grid, makeStyles, TextField, Typography} from "@material-ui/core";
 import {useForm} from "react-hook-form";
+import {firestore} from '../../src/utils/firebaseUtils';
+import {useSnackbar} from "notistack";
 
 const useStyles = makeStyles(theme => ({
     blogSubscribeContainer: {
@@ -50,24 +52,68 @@ const useStyles = makeStyles(theme => ({
 
 const BlogSubscribe = () => {
 
-    const classes = useStyles();
-    const {register, handleSubmit, errors, control, reset} = useForm();
+        const classes = useStyles();
+        const {register, handleSubmit, errors, control, reset} = useForm();
 
-    const emailReg = register({
-        required: "You must specify an email",
-        pattern: {
-            value: /^\S+@\S+$/i,
-            message: 'Invalid Email'
-        }
-    })
+        const emailReg = register({
+            required: "You must specify an email",
+            pattern: {
+                value: /^\S+@\S+$/i,
+                message: 'Invalid Email'
+            }
+        })
 
-    const onSubmit = handleSubmit(async data => {
-        const {email} = data;
-        console.log(email);
+    // handling snackbars
 
-    })
+    const {enqueueSnackbar} = useSnackbar();
 
-    return (
+
+        const onSubmit = handleSubmit(async data => {
+            const {email} = data;
+            console.log(email);
+            const docRef = firestore.collection('blogSubscribers').where('email', '==', email);
+
+            docRef.get()
+                .then(querySnapshot => {
+                    const isAlreadySubscribed = querySnapshot.docs[0]?.exists;
+
+                    if (isAlreadySubscribed) {
+                        console.log('You have already subscribed.')
+                        const handleClickVariant = (variant) => () => {
+                            // variant could be success, error, warning, info, or default
+                            enqueueSnackbar('You have already subscribed', {variant});
+                        };
+                        handleClickVariant('success')();
+                        return;
+                    }
+
+                    if (!isAlreadySubscribed) {
+                        const documentRef = firestore.collection('blogSubscribers').doc();
+                        return documentRef.set({
+                            email,
+                        })
+                            .then(() => {
+                                console.log("Thanks for subscribing");
+                                const handleClickVariant = (variant) => () => {
+                                    // variant could be success, error, warning, info, or default
+                                    enqueueSnackbar('Thanks for subscribing', {variant});
+                                };
+                                handleClickVariant('success')();
+                            })
+                            .catch(err => {
+                                // firebase does not give us error. it keeps on retrying
+                                console.log(err.message);
+                            })
+                    }
+                })
+                .catch(err => {
+                    // firebase does not give us error. it keeps on retrying
+                    console.log(err.message);
+                })
+        })
+
+
+        return (
             <Grid container justify={'center'} direction={'column'} className={classes.blogSubscribeContainer}>
                 <Grid item>
                     <Typography className={classes.blogSubscribeHeading} gutterBottom variant={'h2'} align={'center'}>
@@ -84,7 +130,8 @@ const BlogSubscribe = () => {
                 </Grid>
                 <Grid item container spacing={8} alignItems={'center'} align={'center'} justify={'center'}>
                     <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex'}}>
-                        <Grid className={classes.btnInputContainer} container justify={'center'} alignItems={'flex-start'} style={{margin: '3rem'}}>
+                        <Grid className={classes.btnInputContainer} container justify={'center'} alignItems={'flex-start'}
+                              style={{margin: '3rem'}}>
                             <Grid item className={classes.inputContainer}>
                                 <TextField
                                     size={'small'}
@@ -106,7 +153,8 @@ const BlogSubscribe = () => {
                     </form>
                 </Grid>
             </Grid>
-    );
-};
+        );
+    }
+;
 
 export default BlogSubscribe;

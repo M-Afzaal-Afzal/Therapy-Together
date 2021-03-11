@@ -104,7 +104,9 @@ export default function Index() {
                 <Blogs/>
             </Grid>
             <Grid item container className={` ${classes.blogsSubscribeContainer}`}>
-                <BlogSubcribe/>
+                <SnackbarProvider>
+                    <BlogSubcribe/>
+                </SnackbarProvider>
             </Grid>
             <Grid item className={`${classes.contactUsContainer}`}>
                 <SnackbarProvider>
