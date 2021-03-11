@@ -53,6 +53,9 @@ const useStyles = makeStyles(theme => ({
 const BlogSubscribe = () => {
 
         const classes = useStyles();
+
+        // handling the form
+
         const {register, handleSubmit, errors, control, reset} = useForm();
 
         const emailReg = register({
@@ -63,10 +66,17 @@ const BlogSubscribe = () => {
             }
         })
 
-    // handling snackbars
+        const reSet = () => {
+            reset({
+                email: "",
+            });
+        };
 
-    const {enqueueSnackbar} = useSnackbar();
+        // handling snackbars
 
+        const {enqueueSnackbar} = useSnackbar();
+
+        // handling the form submission
 
         const onSubmit = handleSubmit(async data => {
             const {email} = data;
@@ -83,7 +93,9 @@ const BlogSubscribe = () => {
                             // variant could be success, error, warning, info, or default
                             enqueueSnackbar('You have already subscribed', {variant});
                         };
+
                         handleClickVariant('success')();
+                        reSet();
                         return;
                     }
 
@@ -99,6 +111,7 @@ const BlogSubscribe = () => {
                                     enqueueSnackbar('Thanks for subscribing', {variant});
                                 };
                                 handleClickVariant('success')();
+                                reSet();
                             })
                             .catch(err => {
                                 // firebase does not give us error. it keeps on retrying

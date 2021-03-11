@@ -34,6 +34,8 @@ const ContactUs = () => {
 
     const classes = useStyles();
 
+    // handling the form
+
     const {register, handleSubmit, errors, control, reset} = useForm();
 
     const emailReg = register({
@@ -43,6 +45,7 @@ const ContactUs = () => {
             message: 'Invalid Email'
         }
     })
+
 
     const nameReg = register({
         required: "Please Enter Your Real Name",
@@ -56,6 +59,13 @@ const ContactUs = () => {
         }
     })
 
+    const reSet = () => {
+        reset({
+            name: "",
+            email: "",
+            message: ""
+        });
+    };
     // Handling snack bar
 
     const {enqueueSnackbar} = useSnackbar();
@@ -66,6 +76,8 @@ const ContactUs = () => {
         else if (variant === 'error')
             enqueueSnackbar('Sending message failed. Try again!!!');
     };
+
+    // handling the form submission
 
     const onSubmit = handleSubmit(async data => {
         const {email, message, name} = data;
@@ -81,13 +93,11 @@ const ContactUs = () => {
             .then(() => {
                 console.log("success !");
                 handleClickVariant('success')();
-                reset();
+               reSet();
             })
             .catch((err) => {
                     console.log(err);
                     handleClickVariant('error')();
-                    // (document.querySelector(".form-message").innerHTML =
-                    //     "error message not sent.")
                 }
             );
     };
