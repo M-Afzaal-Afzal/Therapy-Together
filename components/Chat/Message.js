@@ -49,7 +49,7 @@ const Message = ({sender, text, photoURL, displayName}) => {
         <Grid item>
             <Box>
                 <Box className={`${classes.avatarContainer} ${sender ? classes.avatarSendContainer : ''}`}>
-                    <Avatar src={photoURL}>{displayName[0]}</Avatar>
+                    <Avatar src={photoURL}>{displayName && displayName[0]}</Avatar>
                 </Box>
                 <Box className={`${sender ? classes.msgSendContainer : ''}`}>
                     <Typography className={`${sender ? classes.msgSend : classes.msgReceive} ${classes.msg}`}

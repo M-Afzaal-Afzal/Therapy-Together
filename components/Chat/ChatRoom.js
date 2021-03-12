@@ -7,6 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Image from 'next/image';
 
 import {
+    Button,
     Grid,
     IconButton,
     InputAdornment,
@@ -17,6 +18,7 @@ import {
 import Message from "./Message";
 import {useSelector} from "react-redux";
 import {selectCurrentUserId, selectDisplayName, selectImageUrl} from "../../src/store/user/user.selectors";
+import Link from '../../src/utils/Link';
 import {useForm} from "react-hook-form";
 
 const useStyles = makeStyles(theme => ({
@@ -84,6 +86,10 @@ const useStyles = makeStyles(theme => ({
     msgSendContainer: {
         display: 'flex',
         justifyContent: "flex-end",
+    },
+    btnGreen: {
+        ...theme.btnGreen,
+        marginTop: '2rem',
     }
 }))
 
@@ -133,74 +139,103 @@ const ChatRoom = ({isChatOpened, toggleIsChatOpened}) => {
             })
     });
 
+    // output variables that will render on dom
 
-    const chatPopUp = (
+    const chatMsgPopUp = (
         <>
-            <Grid container direction={'column'} className={classes.chatRoom}>
-                <Grid container className={classes.chatBoxHeader} alignItems={'center'}
-                      justify={'space-between'}>
-                    <Grid item>
-                        <Typography className={classes.chatBoxTitle} variant={'body2'}>
-                            Live Chat
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <IconButton onClick={toggleIsChatOpened}>
-                            <CloseIcon style={{color: 'white'}} fontSize={'small'}/>
-                        </IconButton>
-                    </Grid>
-                </Grid>
-                <Grid item container direction={'column'} className={classes.messagesContainer}>
+            <Grid item container direction={'column'} className={classes.messagesContainer}>
 
-                    {
-                        messages?.map(message => {
-                            return (
-                                <Message key={message.id} sender={message.uid === userId}
-                                         photoURL={message.photoURL}
-                                         displayName={displayName}
-                                         text={message.text}/>)
-                        })
-                    }
-                    <div id={'lastChatElement'} ref={messagesEndRef}/>
-
-
-                </Grid>
-
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Grid item container className={classes.inputContainer}>
-                        <OutlinedInput
-                            id="chat input"
-                            className={classes.textField}
-                            fullWidth
-                            placeholder={'Type a new message'}
-                            margin="normal"
-                            variant="outlined"
-                            color={'secondary'}
-                            aria-label={'none'}
-                            name={'message'}
-                            inputRef={messageReg}
-                            aria-controls={control}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        type={'submit'}
-                                        color={'primary'}
-                                        aria-label="send message"
-                                    >
-                                        <Image src={'/send.svg'} width={25} height={25}/>
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </Grid>
-                </form>
+                {
+                    messages?.map(message => {
+                        return (
+                            <Message key={message.id} sender={message.uid === userId}
+                                     photoURL={message.photoURL}
+                                     displayName={displayName}
+                                     text={message.text}/>)
+                    })
+                }
+                <div id={'lastChatElement'} ref={messagesEndRef}/>
             </Grid>
+
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Grid item container className={classes.inputContainer}>
+                    <OutlinedInput
+                        id="chat input"
+                        className={classes.textField}
+                        fullWidth
+                        placeholder={'Type a new message'}
+                        margin="normal"
+                        variant="outlined"
+                        color={'secondary'}
+                        aria-label={'none'}
+                        name={'message'}
+                        inputRef={messageReg}
+                        aria-controls={control}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    type={'submit'}
+                                    color={'primary'}
+                                    aria-label="send message"
+                                >
+                                    <Image src={'/send.svg'} width={25} height={25}/>
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                </Grid>
+            </form>
         </>
     )
 
+    const chatLoginPopup = (
+        <Grid item direction={'column'} container justify={'center'} alignItems={'center'}
+              className={classes.messagesContainer}>
+            <Grid item align={'center'}>
+                <Typography color={'primary'} variant={'h3'}>Login to send messages</Typography>
+            </Grid>
+            <Grid item>
+                <div onClick={toggleIsChatOpened}>
+                    <Button style={{textDecoration: 'none'}} component={Link} href={'/login'} variant={'contained'}
+                            className={classes.btnGreen} color={'primary'}>
+                        Login
+                    </Button>
+                </div>
+            </Grid>
+        </Grid>
+    )
+
+
     return (
-        isChatOpened ? chatPopUp : null
+        isChatOpened ?
+            <>
+                <Grid container direction={'column'} className={classes.chatRoom}>
+                    <Grid container className={classes.chatBoxHeader} alignItems={'center'}
+                          justify={'space-between'}>
+                        <Grid item>
+                            <Typography className={classes.chatBoxTitle} variant={'body2'}>
+                                Live Chat
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <IconButton onClick={toggleIsChatOpened}>
+                                <CloseIcon style={{color: 'white'}} fontSize={'small'}/>
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+                    {
+                        userId ?
+                            chatMsgPopUp
+                            :
+                            chatLoginPopup
+                    }
+
+
+                </Grid>
+            </>
+            :
+            null
     );
-};
+}
 
 export default ChatRoom;
