@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Grid, makeStyles, Typography, useTheme } from "@material-ui/core";
+import {  Container, Grid, makeStyles, Typography, useTheme } from "@material-ui/core";
 import Image from "next/image";
 
 const useStyles = makeStyles(theme => ({

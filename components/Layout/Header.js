@@ -16,7 +16,6 @@ import {
 import Link from '../../src/utils/Link';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import Image from "next/image";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentUser, selectImageUrl} from "../../src/store/user/user.selectors";
 import {signOutStart} from "../../src/store/user/user.actions";
@@ -65,19 +64,7 @@ const useStyles = makeStyles((theme) => ({
         height: '25px',
         margin: 'auto .7rem'
     },
-    messageIcon: {
-        position: "fixed",
-        bottom: theme.spacing(3),
-        right: theme.spacing(3),
-        background: `linear-gradient(136.25deg, #ffffff 0%, #6d9773 100%)`,
-        borderRadius: '50%',
-        zIndex: '30',
 
-        [theme.breakpoints.down('xs')]: {
-            bottom: theme.spacing(1.5),
-            right: theme.spacing(1.5),
-        }
-    },
     popupContainer: {
         width: '25rem',
         padding: "3rem",
@@ -265,12 +252,6 @@ const Header = () => {
                             <Drawer open={isDrawerOpen} drawerOpenHandler={drawerOpenHandler}
                                     drawerCloseHandler={drawerCloseHandler}/>
                         </Hidden>
-                        <Box className={classes.messageIcon}>
-                            <IconButton color={'primary'}>
-                                <Image style={{zIndex: 50}} src={'/chatbubbles-icon.svg'} width={30} height={30}/>
-                            </IconButton>
-                        </Box>
-
                     </Toolbar>
                 </Container>
             </AppBar>

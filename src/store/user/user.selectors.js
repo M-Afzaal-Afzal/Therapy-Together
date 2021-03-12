@@ -21,3 +21,13 @@ export const selectImageUrl = createSelector(
     [selectUser],
     user => user.currentUser?.photoURL,
 )
+
+export const selectCurrentUserId =  createSelector(
+    [selectUser],
+        user => user.currentUser?.uid,
+)
+
+export const selectDisplayName =  createSelector(
+    [selectUser],
+    user => user.currentUser?.displayName,
+)

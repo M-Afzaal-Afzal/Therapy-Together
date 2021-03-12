@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/utils": "^4.11.2",
     "axios": "^0.21.1",
     "clsx": "latest",
     "emailjs-com": "^2.6.4",
@@ -16,6 +17,7 @@
     "prop-types": "latest",
     "react": "^17.0.1",
     "react-dom": "latest",
+    "react-firebase-hooks": "^3.0.2",
     "react-hook-form": "^6.15.4",
     "react-redux": "^7.2.2",
     "react-scroll": "^1.8.2",

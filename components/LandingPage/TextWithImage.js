@@ -123,14 +123,19 @@ const TextWithImage = (props) => {
                                     variant={'contained'}>Explore</Button>
                             <Button className={classes.btnWhite} variant={'outlined'}>Consult</Button>
                         </div>
-                        <div className={classes.arrowIconContainer}>
-                            <Box className={classes.arrowIcon}>
 
-                                <IconButton color={'primary'} component={Link} to={'about'} smooth duration={700} href={'#about'}>
-                                    <ArrowDownwardOutlinedIcon color={'primary'}/>
-                                </IconButton>
-                            </Box>
-                        </div>
+                        <Hidden mdDown>
+                            <div className={classes.arrowIconContainer}>
+                                <Box className={classes.arrowIcon}>
+
+                                    <IconButton color={'primary'} component={Link} to={'about'} smooth duration={700}
+                                                href={'#about'}>
+                                        <ArrowDownwardOutlinedIcon color={'primary'}/>
+                                    </IconButton>
+                                </Box>
+                            </div>
+                        </Hidden>
+
                     </>
                     : null
                 }
