@@ -217,7 +217,8 @@ const BlogPage = () => {
 
     const responseReg = register({
         required: "You must specify a response",
-        minLength: 25
+        minLength: 25,
+        validate: data => !!displayName,
     })
 
     const onSubmit = handleSubmit(async data => {
@@ -367,7 +368,7 @@ const BlogPage = () => {
                     </Grid>
                 </Grid>
                 <Grid item container justify={'center'} className={classes.blogMainContent}>
-                    <Grid item lg={6} className={classes.blogText}>
+                    <Grid item style={{width: '100%'}} lg={6} className={classes.blogText}>
                         {
                             !loading && !error && blog ? (
                                 blog.body.map((block, i) => {
@@ -395,7 +396,7 @@ const BlogPage = () => {
                                     return (
                                         <React.Fragment key={i}>
                                             <Skeleton variant={'text'} width={'10rem'}/>
-                                            <Skeleton variant={'text'}/>
+                                            <Skeleton width={'100%'} variant={'text'}/>
                                             <Skeleton variant={'text'}/>
                                             <Skeleton variant={'text'}/>
                                             <Skeleton variant={'text'}/>
