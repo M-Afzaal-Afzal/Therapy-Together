@@ -53,6 +53,10 @@ function* signInWithEmail({email, password}) {
         yield getSnapshotFromUserAuth(user);
 
     } catch (error) {
+        if (error.message === 'There is no user record corresponding to this identifier. The user may have been deleted.'){
+
+            error.message = ' Account doesn\'t exists. \n Go to signup to create an account. You can also sign in with Google or Facebook.'
+        }
         yield put(signInFailure(error.message))
     }
 }

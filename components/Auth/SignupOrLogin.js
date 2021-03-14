@@ -208,7 +208,6 @@ const SignupOrLogin = (props) => {
             const {email, password} = data;
             dispatch(emailSignInStart(email, password))
 
-            console.log(email, password);
         } else {
             const {name, email, password} = data;
             dispatch(signUpStart(name, email, password));

@@ -126,12 +126,12 @@ const ChatRoom = ({isChatOpened, toggleIsChatOpened}) => {
         })
             .then(() => {
                 console.log('Message sent successfully');
+                messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
                 reset({
                     message: '',
                 })
 
                 // vip we must have to use ? here to work it properly
-                messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
 
             })
             .catch(error => {
@@ -164,7 +164,6 @@ const ChatRoom = ({isChatOpened, toggleIsChatOpened}) => {
                         className={classes.textField}
                         fullWidth
                         placeholder={'Type a new message'}
-                        margin="normal"
                         variant="outlined"
                         color={'secondary'}
                         aria-label={'none'}

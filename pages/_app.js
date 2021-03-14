@@ -9,6 +9,7 @@ import {useStore} from '../src/store/store'
 import Layout from "../components/Layout/Layout";
 import {persistStore} from "redux-persist";
 import {PersistGate} from 'redux-persist/integration/react'
+import {SnackbarProvider} from "notistack";
 
 
 export default function MyApp(props) {
@@ -19,6 +20,8 @@ export default function MyApp(props) {
     const {Component, pageProps} = props;
 
     React.useEffect(() => {
+
+        // addCollectionAndDocuments('blogs',blogsData)
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles) {
@@ -38,7 +41,9 @@ export default function MyApp(props) {
                 <Provider store={store}>
                     <PersistGate loading={null} persistor={persistor}>
                         <Layout>
-                            <Component {...pageProps} />
+                            <SnackbarProvider>
+                                <Component {...pageProps} />
+                            </SnackbarProvider>
                         </Layout>
                     </PersistGate>
                 </Provider>

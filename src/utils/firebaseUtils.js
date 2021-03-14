@@ -19,12 +19,12 @@ if (!firebase.apps.length) {
     firebase.app(); // if already initialized, use that one
 }
 
-export const addCollectionAndDocument = async (collectionKey, objectsToAdd) => {
+export const addCollectionAndDocuments = async (collectionKey, arrOfobjectsToAdd) => {
 
     const collectionRef = firestore.collection(collectionKey);
     const batch = firestore.batch();
 
-    objectsToAdd.forEach((obj) => {
+    arrOfobjectsToAdd.forEach((obj) => {
         const newDocRef = collectionRef.doc();
         batch.set(newDocRef, obj);
     })

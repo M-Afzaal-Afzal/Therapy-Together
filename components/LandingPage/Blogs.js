@@ -3,6 +3,8 @@ import {Button, Container, Divider, Grid, Hidden, makeStyles, Typography} from "
 import Link from '../../src/utils/Link';
 
 import Blog from "./Blog";
+import {firestore} from "../../src/utils/firebaseUtils";
+import {useCollectionDataOnce} from "react-firebase-hooks/firestore";
 
 const useStyles = makeStyles(theme => ({
     hDividerBlogs: {
@@ -14,7 +16,7 @@ const useStyles = makeStyles(theme => ({
         align: 'left'
     },
     blogsCardContainer: {
-       ...theme.blogsCardContainer,
+        ...theme.blogsCardContainer,
     },
     btnGreen: {
         ...theme.btnGreen,
@@ -23,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     mainHeading: {
         [theme.breakpoints.down('xs')]: {
             marginBottom: '2rem',
-            textAlign:'center',
+            textAlign: 'center',
         }
     }
 }))
@@ -31,6 +33,18 @@ const useStyles = makeStyles(theme => ({
 const Blogs = () => {
 
     const classes = useStyles();
+
+    const query = firestore.collection('blogs').orderBy('createdAt');
+
+    const [blogsData, loading, error] = useCollectionDataOnce(query, {idField: 'id'});
+
+    let blogs = null;
+
+    if (!loading && !error && blogsData) {
+        blogs = blogsData;
+        blogs = blogs.reverse();
+        blogs.length = 3;
+    }
 
     return (
         <Container maxWidth={'lg'}>
@@ -52,27 +66,32 @@ const Blogs = () => {
                 </Grid>
                 <Grid item container justify={'space-evenly'} className={classes.blogsCardContainer}>
 
-                    <Blog imageSrc={'/avatar.jpg'}
-                          disease={'disease'}
-                          description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                          '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                          '                                nobis officiis reprehenderit sed similique sit.'}
-                    />
-                    <Blog imageSrc={'/avatar.jpg'}
-                          disease={'disease'}
-                          description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                          '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                          '                                nobis officiis reprehenderit sed similique sit.'}
-                    />
-                    <Blog imageSrc={'/avatar.jpg'}
-                          disease={'disease'}
-                          description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                          '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                          '                                nobis officiis reprehenderit sed similique sit.'}
-                    />
+                    {
+
+                        blogs ? (
+                            blogs?.map(blog => {
+                                return (
+                                        <Blog imageSrc={blog.photoURL}
+                                              disease={blog.mainHeading}
+                                              description={blog.description}
+                                              createdAt={blog.createdAt}
+                                              key={blog.id}
+                                              id={blog.id}
+                                        />
+                                )
+                            })
+                        ) : (
+                            ['', '', '', '', '', ''].map((_,i) => {
+                                return (
+                                    <Blog key={i}  isLoading/>
+                                )
+                            })
+                        )
+                    }
                 </Grid>
                 <Grid item>
-                    <Button component={Link} href={'/blogs'} style={{textDecoration: 'none'}} className={classes.btnGreen} color={'primary'} variant={'contained'}>
+                    <Button component={Link} href={'/blogs'} style={{textDecoration: 'none'}}
+                            className={classes.btnGreen} color={'primary'} variant={'contained'}>
                         Learn More
                     </Button>
                 </Grid>

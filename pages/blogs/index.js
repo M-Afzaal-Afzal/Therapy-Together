@@ -1,6 +1,8 @@
 import React from 'react';
 import {Box, Container, Divider, Grid, makeStyles, Typography} from "@material-ui/core";
 import Blog from "../../components/LandingPage/Blog";
+import {firestore} from "../../src/utils/firebaseUtils";
+import {useCollectionDataOnce} from "react-firebase-hooks/firestore";
 
 const useStyles = makeStyles(theme => ({
     blogsContainer: {
@@ -40,6 +42,17 @@ const useStyles = makeStyles(theme => ({
 
 const Index = () => {
 
+    const query = firestore.collection('blogs').orderBy('createdAt');
+
+    const [blogsData, loading, error] = useCollectionDataOnce(query, {idField: 'id'});
+
+    let blogs = null;
+
+    if (!loading && !error && blogsData) {
+        blogs = blogsData;
+        blogs = blogs.reverse();
+    }
+
     const classes = useStyles();
 
     return (
@@ -55,85 +68,71 @@ const Index = () => {
 
             <Grid item>
                 <Typography align={'center'} variant={'body2'}>
-                    It is interesting to read a blog when you know it is written by a person like you who shares their ups and downs, tips and hacks for life. You can always read relevant blogs written with compassion and love for a personal touch.
+                    It is interesting to read a blog when you know it is written by a person like you who shares their
+                    ups and downs, tips and hacks for life. You can always read relevant blogs written with compassion
+                    and love for a personal touch.
                 </Typography>
             </Grid>
             <Grid item container justify={'space-evenly'} className={classes.blogsCardContainer}>
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
-                <Blog imageSrc={'/avatar.jpg'}
-                      disease={'disease'}
-                      description={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere fugiat itaque iure modi\n' +
-                      '                                nihil, nostrum quam voluptates! Aliquid blanditiis ex impedit, maxime molestiae natus,\n' +
-                      '                                nobis officiis reprehenderit sed similique sit.'}
-                />
+
+                {
+
+                    blogs ? (
+                        blogs?.map(blog => {
+                            return (
+                                <Blog imageSrc={blog.photoURL}
+                                      disease={blog.mainHeading}
+                                      description={blog.description}
+                                      createdAt={blog.createdAt}
+                                      key={blog.id}
+                                      id={blog.id}
+                                />
+                            )
+                        })
+                    ) : (
+                        ['', '', '', '', '', ''].map((_,i) => {
+                            return (
+                                <Blog key={i} isLoading/>
+                            )
+                        })
+                    )
+                }
+
+
             </Grid>
         </Container>
     );
 };
+
+// export async function getStaticProps() {
+//
+//     const blogsRef = firestore.collection('blogs').orderBy('createdAt');
+//     const snapShot = await blogsRef.get();
+//     const blogsData = snapShot.docs.map(blog => {
+//         return {
+//             ...blog.data(),
+//             id: blog.id,
+//         }
+//     });
+//
+//     const blogs = blogsData.map(blog => {
+//         return {
+//             ...blog,
+//             createdAt: JSON.parse(JSON.stringify(blog.createdAt)),
+//             responses: blog.responses.map(res => {
+//                 return {
+//                     ...res,
+//                     createdAt: JSON.parse(JSON.stringify(res.createdAt)),
+//                 }
+//             })
+//         }
+//     })
+//
+//     return {
+//         props: {
+//             blogs
+//         },
+//     }
+// }
 
 export default Index;

@@ -9,7 +9,6 @@ import Doctor from "../components/LandingPage/Docotr";
 import Blogs from "../components/LandingPage/Blogs";
 import BlogSubcribe from "../components/LandingPage/BlogSubscribe";
 import ContactUs from "../components/LandingPage/ContactUs";
-import {SnackbarProvider} from "notistack";
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {
@@ -104,14 +103,10 @@ export default function Index() {
                 <Blogs/>
             </Grid>
             <Grid item container className={` ${classes.blogsSubscribeContainer}`}>
-                <SnackbarProvider>
-                    <BlogSubcribe/>
-                </SnackbarProvider>
+                <BlogSubcribe/>
             </Grid>
             <Grid item className={`${classes.contactUsContainer}`}>
-                <SnackbarProvider>
-                    <ContactUs/>
-                </SnackbarProvider>
+                <ContactUs/>
             </Grid>
         </Grid>
 

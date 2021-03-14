@@ -92,6 +92,7 @@ const theme = createMuiTheme({
       fontWeight: 400,
       color: '#1D211D',
       fontSize: '1.125rem',
+      overflowWrap: 'anywhere',
     }
   },
 
