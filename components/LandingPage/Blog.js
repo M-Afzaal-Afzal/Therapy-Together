@@ -109,7 +109,7 @@ const Blog = (props) => {
                 {
                     !props.isLoading ? (
                         <div className={classes.floatingActionButton}>
-                            <Fab color={'primary'} component={Link} href={`blogs/${props.id}`}>
+                            <Fab color={'primary'} component={Link} href={`/blogs/${props.id}`}>
                                 <ArrowForwardIosOutlinedIcon fontSize={'large'}/>
                             </Fab>
                         </div>
