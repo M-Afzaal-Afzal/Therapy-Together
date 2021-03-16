@@ -176,8 +176,8 @@ const BlogPage = () => {
     const photoURL = useSelector(selectImageUrl);
     const theme = useTheme();
 
-    const matchesSmall = useMediaQuery(theme.breakpoints.down('sm')) ;
-    const matchesXSmall = useMediaQuery(theme.breakpoints.down('xs')) ;
+    const matchesSmall = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchesXSmall = useMediaQuery(theme.breakpoints.down('xs'));
 
     const query = firestore.doc(`/blogs/${id}`)
 
@@ -217,8 +217,11 @@ const BlogPage = () => {
 
     const responseReg = register({
         required: "You must specify a response",
-        minLength: 25,
-        validate: data => !!displayName,
+        minLength: {
+            value: 25,
+            message: 'Your feedback must be of 25 characters!!!'
+        },
+        validate: data => !!displayName || 'Login to send aresponse',
     })
 
     const onSubmit = handleSubmit(async data => {
@@ -282,13 +285,14 @@ const BlogPage = () => {
                         !loading && !error && blog ? (
                             <Image src={blog.photoURL} width={758} height={482}/>
                         ) : (
-                                !matchesXSmall ? (
-                                <Skeleton variant={'rect'}  width={matchesSmall ? 458 : 758} height={matchesSmall ? 282 : 482}/>
+                            !matchesXSmall ? (
+                                <Skeleton variant={'rect'} width={matchesSmall ? 458 : 758}
+                                          height={matchesSmall ? 282 : 482}/>
 
-                                    ) : (
-                                    <Skeleton variant={'rect'}  width={258} height={282}/>
+                            ) : (
+                                <Skeleton variant={'rect'} width={258} height={282}/>
 
-                                )
+                            )
 
                         )
                     }
@@ -427,10 +431,11 @@ const BlogPage = () => {
                                                 rows={8}
                                                 rowsMax={8}
                                                 fullWidth
-                                                style={{background: 'white'}}
+                                                // style={{background: 'white'}}
                                                 name={'response'}
-                                                // helperText={errors.response ? errors.response.message : ''}
-                                                error={Boolean(errors.name)}
+                                                helperText={errors.response ? errors.response.message : ''}
+                                                error={Boolean(errors.response)}
+                                                // error={true}
                                                 inputRef={responseReg}
                                                 aria-controls={control}
                                                 InputProps={{
@@ -468,7 +473,7 @@ const BlogPage = () => {
                                                 style={{background: 'white'}}
                                                 name={'response'}
                                                 // helperText={errors.response ? errors.response.message : ''}
-                                                error={Boolean(errors.name)}
+                                                // error={Boolean(errors.name)}
                                                 inputRef={responseReg}
                                                 aria-controls={control}
                                                 InputProps={{
