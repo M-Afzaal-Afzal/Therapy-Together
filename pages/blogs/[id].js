@@ -24,6 +24,7 @@ import {selectDisplayName, selectImageUrl} from "../../src/store/user/user.selec
 import {useCollectionDataOnce, useDocumentData} from "react-firebase-hooks/firestore";
 import {useSnackbar} from "notistack";
 import Skeleton from "@material-ui/lab/Skeleton";
+import Link from '../../src/utils/Link';
 
 
 const useStyles = makeStyles(theme => ({
@@ -221,7 +222,7 @@ const BlogPage = () => {
             value: 25,
             message: 'Your feedback must be of 25 characters!!!'
         },
-        validate: data => !!displayName || 'Login to send aresponse',
+        validate: () => !!displayName || 'Login to send a response',
     })
 
     const onSubmit = handleSubmit(async data => {
@@ -450,10 +451,25 @@ const BlogPage = () => {
                                             />
                                         </Grid>
                                         <Grid item align={'center'} style={{width: '100%'}}>
-                                            <Button type={'submit'} color={'primary'} className={classes.btnGreen}
-                                                    variant={'contained'}>
-                                                Send
-                                            </Button>
+                                            {
+                                                displayName ? (
+                                                    <Button type={'submit'} color={'primary'}
+                                                            className={classes.btnGreen}
+                                                            variant={'contained'}>
+                                                        Send
+                                                    </Button>
+                                                ) : (
+                                                    <Button color={'primary'}
+                                                            className={classes.btnGreen}
+                                                            component={Link}
+                                                            style={{textDecoration: 'none'}}
+                                                            href={'/login'}
+                                                            variant={'contained'}>
+                                                        Login
+                                                    </Button>
+                                                )
+
+                                            }
                                         </Grid>
                                     </form>
                                 ) : (
@@ -488,6 +504,23 @@ const BlogPage = () => {
                                             />
                                         </Grid>
                                         <Grid item align={'center'} style={{width: '100%'}}>
+                                            {
+                                                displayName ? (
+                                                    <Button color={'primary'} className={classes.btnGreen}
+                                                            variant={'contained'}>
+                                                        Send
+                                                    </Button>
+                                                ) : (
+                                                    <Button color={'primary'}
+                                                            className={classes.btnGreen}
+                                                            component={Link}
+                                                            style={{textDecoration: 'none'}}
+                                                            href={'/login'}
+                                                            variant={'contained'}>
+                                                        Login
+                                                    </Button>
+                                                )
+                                            }
                                             <Button color={'primary'} className={classes.btnGreen}
                                                     variant={'contained'}>
                                                 Send
