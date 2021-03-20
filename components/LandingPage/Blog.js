@@ -34,8 +34,10 @@ const useStyles = makeStyles(theme => ({
     },
     cardText: {
         textAlign: 'justify',
-        marginTop: '0rem',
-        padding: '1.5rem'
+        marginTop: '1rem',
+        paddingTop: 0,
+        padding: '1.5rem',
+        marginBottom: '2rem',
     },
     cardHeading: {
         textAlign: 'left'
@@ -69,13 +71,16 @@ const Blog = (props) => {
                             <Skeleton variant={'rect'} width={412} height={224}/>
                         )
                         : (
-                            <Image src={props.imageSrc} width={412} height={224}/>
+                            <div style={{width: '100%',height: 224,position: 'relative'}}>
+                            <Image src={props.imageSrc} objectFit={'cover'} layout={'fill'}/>
+
+                            </div>
                         )
                     }
                 </Box>
                 {
                     !props.isLoading ? (
-                        <Box className={classes.cardText}>
+                        <Box style={{height:"18rem",overflow: 'auto'}} className={classes.cardText}>
                             <Typography gutterBottom className={classes.cardHeading} variant={'h3'} color={'primary'}>
                                 {props.disease}
                             </Typography>
@@ -101,7 +106,7 @@ const Blog = (props) => {
                         <Box className={classes.date}>{props.createdAt ? date.toDateString() : ' 20 Jan, 2021'}</Box>
                     ) : (
                         <Box className={classes.date}>
-                            <Skeleton variant={'text'} width={'30%'}/>
+                            <Skeleton variant={'text'} width={'5rem'}/>
                         </Box>
                     )
                 }

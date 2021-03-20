@@ -10,6 +10,8 @@ import Layout from "../components/Layout/Layout";
 import {persistStore} from "redux-persist";
 import {PersistGate} from 'redux-persist/integration/react'
 import {SnackbarProvider} from "notistack";
+import {addCollectionAndDocuments} from "../src/utils/firebaseUtils";
+import blogsData from "../src/utils/blogs.data";
 
 
 export default function MyApp(props) {

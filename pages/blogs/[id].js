@@ -6,7 +6,7 @@ import {
     Divider,
     Grid,
     IconButton,
-    InputAdornment,
+    InputAdornment, List, ListItem, ListItemIcon, ListItemText,
     makeStyles, Modal,
     TextField,
     Typography, useMediaQuery, useTheme,
@@ -25,16 +25,21 @@ import {useCollectionDataOnce, useDocumentData} from "react-firebase-hooks/fires
 import {useSnackbar} from "notistack";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Link from '../../src/utils/Link';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
 
 const useStyles = makeStyles(theme => ({
     blogContainer: {
-        padding: '8rem',
-        [theme.breakpoints.down('sm')]: {
+        padding: '6rem',
+        [theme.breakpoints.down('md')]: {
             padding: '4rem',
         },
+        [theme.breakpoints.down('sm')]: {
+            padding: '2.5rem',
+        },
         [theme.breakpoints.down('xs')]: {
-            padding: '1rem',
+            padding: '0rem',
+            paddingTop: "2rem"
         }
     },
     divider: {
@@ -281,10 +286,12 @@ const BlogPage = () => {
                     }
 
                 </Grid>
-                <Grid item>
+                <Grid item container justify={'center'} direction={'column'} alignItems={'center'}>
                     {
                         !loading && !error && blog ? (
-                            <Image src={blog.photoURL} width={758} height={482}/>
+                            <Container style={{width: '100%', height: matchesXSmall ? 350 : 482, position: 'relative'}} maxWidth={'lg'}>
+                                <Image src={blog.photoURL} layout={'fill'} objectFit={'cover'}/>
+                            </Container>
                         ) : (
                             !matchesXSmall ? (
                                 <Skeleton variant={'rect'} width={matchesSmall ? 458 : 758}
@@ -380,16 +387,59 @@ const BlogPage = () => {
                                     return (
                                         <React.Fragment key={i}>
                                             {
-                                                block.heading &&
-                                                <Typography color={'primary'} gutterBottom
-                                                            variant={'h3'}>{block.heading} </Typography>
+                                                block.mainHeading &&
+                                                <Typography style={{
+                                                    textAlign: "center",
+                                                    marginBottom: '3rem',
+                                                    marginTop: '1rem',
+                                                    fontWeight: 'bold'
+                                                }} color={'primary'} gutterBottom variant={'h3'}>
+                                                    {block.heading}
+                                                </Typography>
                                             }
                                             {
-                                                block.paragraph &&
-                                                <Typography gutterBottom className={classes.blogParagraph}
-                                                            variant={'body2'}>
-                                                    {block.paragraph}
+                                                block.heading &&
+                                                <Typography color={'primary'} gutterBottom variant={'h3'}>
+                                                    {block.heading}
                                                 </Typography>
+
+                                            }
+                                            {
+                                                block.paragraphs.map((parData, index) => {
+                                                    return (
+                                                        <React.Fragment key={index}>
+                                                            <Typography gutterBottom className={classes.blogParagraph}
+                                                                        variant={'body2'}>
+                                                                {parData.paragraph}
+                                                            </Typography>
+                                                            {
+                                                                parData.bullets &&
+
+                                                                <List style={{marginTop: '-1.5rem'}}
+                                                                      className={classes.blogParagraph}>
+                                                                    {
+                                                                        parData.bullets.map((bullet, i) => (
+                                                                            <ListItem style={{
+                                                                                paddingLeft: '0',
+                                                                                marginLeft: '-14px'
+                                                                            }} key={i}>
+                                                                                <ListItemIcon color={'primary'}>
+                                                                                    <ArrowRightIcon color={'primary'}
+                                                                                                    fontSize={'large'}/>
+                                                                                </ListItemIcon>
+                                                                                <ListItemText primary={bullet}/>
+                                                                            </ListItem>
+
+                                                                        ))
+                                                                    }
+                                                                </List>
+
+
+                                                            }
+                                                        </React.Fragment>
+                                                    )
+                                                })
+
                                             }
 
 
@@ -427,7 +477,7 @@ const BlogPage = () => {
                                                 className={classes.margin}
                                                 id="input-with-icon-textfield"
                                                 // label="Type Your Feedback"
-                                                placeholder={'Type Your Feedback of minimum 25 characters'}
+                                                placeholder={displayName ? 'Type Your Feedback of minimum 25 characters' : 'You must have to login to send a response'}
                                                 multiline
                                                 rows={8}
                                                 rowsMax={8}
@@ -468,7 +518,6 @@ const BlogPage = () => {
                                                         Login
                                                     </Button>
                                                 )
-
                                             }
                                         </Grid>
                                     </form>
@@ -481,7 +530,7 @@ const BlogPage = () => {
                                                 className={classes.margin}
                                                 id="input-with-icon-textfield"
                                                 // label="Type Your Feedback"
-                                                placeholder={'Type Your Feedback of minimum 25 characters'}
+                                                placeholder={displayName ? 'Type Your Feedback of minimum 25 characters' : 'You must have to login to send a response'}
                                                 multiline
                                                 rows={8}
                                                 rowsMax={8}
@@ -521,10 +570,7 @@ const BlogPage = () => {
                                                     </Button>
                                                 )
                                             }
-                                            <Button color={'primary'} className={classes.btnGreen}
-                                                    variant={'contained'}>
-                                                Send
-                                            </Button>
+
                                         </Grid>
                                     </>
                                 )
