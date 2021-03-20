@@ -4,6 +4,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import CopyrightIcon from '@material-ui/icons/Copyright';
+import Image from "next/image";
 
 const useStyles = makeStyles(theme => ({
     footerContainer: {
@@ -36,27 +37,33 @@ const Footer = () => {
         <Grid container direction={'column'} alignItems={'center'} justify={'center'}
               className={classes.footerContainer}>
             <Grid item>
-                <Typography gutterBottom variant={'h1'} color={'primary'}>
-                    TT
-                </Typography>
+                <IconButton color={'primary'}>
+                    <Image src={'/logo.png'} width={80} height={80} priority/>
+                </IconButton>
             </Grid>
             <Grid item container justify={"center"}>
                 <Grid item>
+
                     <IconButton>
                         <FacebookIcon color={'primary'}/>
                     </IconButton>
+
                 </Grid>
                 <Grid item>
                     {/*<Box px={3}>*/}
+                    <a target={'_blank'} href="https://instagram.com/therapytogether50?igshid=sthx0npm6wnj">
                         <IconButton>
                             <InstagramIcon color={'primary'}/>
                         </IconButton>
+                    </a>
                     {/*</Box>*/}
                 </Grid>
                 <Grid item>
-                    <IconButton>
-                        <TwitterIcon style={{display: 'flex'}} color={'primary'}/>
-                    </IconButton>
+                    <a target={'_blank'} href="https://twitter.com/TherapyTogether?s=08">
+                        <IconButton>
+                            <TwitterIcon style={{display: 'flex'}} color={'primary'}/>
+                        </IconButton>
+                    </a>
                 </Grid>
             </Grid>
             <Grid className={classes.copyrightContainer} item container justify={'center'} alignItems={'center'}>

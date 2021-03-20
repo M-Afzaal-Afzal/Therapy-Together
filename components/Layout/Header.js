@@ -21,6 +21,7 @@ import {selectCurrentUser, selectImageUrl} from "../../src/store/user/user.selec
 import {signOutStart} from "../../src/store/user/user.actions";
 import {useRouter} from "next/router";
 import Drawer from "../Drawer/SideDrawer";
+import Image from "next/image";
 
 function ElevationScroll(props) {
     const {children, window} = props;
@@ -138,9 +139,9 @@ const Header = () => {
             <AppBar className={classes.appBar} elevation={0}>
                 <Container maxWidth={'xl'} style={{padding: '0'}}>
                     <Toolbar>
-                        <IconButton component={Link} href={'/'} color={'primary'}
+                        <IconButton style={{padding: 0}} component={Link} href={'/'} color={'primary'}
                                     className={matchesMdUp ? classes.logo : ''}>
-                            TT
+                            <Image priority style={{padding: 0}} src={'/logo.png'} width={50} height={50} />
                         </IconButton>
                         <div className={classes.space}/>
                         <Hidden smDown>
