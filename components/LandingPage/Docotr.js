@@ -225,7 +225,7 @@ const Doctor = () => {
                 <Grid item md={6} className={classes.doctorImageContainer}>
                     <Box className={classes.greenCircle}>
                         <Box className={classes.doctorImage}>
-                            <Image src={'/doctor.png'} width={520} height={648}/> </Box>
+                            <Image priority src={'/doctor.png'} width={520} height={648}/> </Box>
                     </Box>
                 </Grid>
             </Hidden>

@@ -424,7 +424,7 @@ const SignupOrLogin = (props) => {
                     </Grid>
                     <Hidden mdDown>
                         <Grid item md={6} className={classes.imageContainer}>
-                            <Image src={'/auth-icon.svg'}
+                            <Image priority src={'/auth-icon.svg'}
                                    width={theme.breakpoints.down('lg') ? 662.67 : 882.67}
                                    height={theme.breakpoints.down('lg') ? 532 : 732}/>
                         </Grid>

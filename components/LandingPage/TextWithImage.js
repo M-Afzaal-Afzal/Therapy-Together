@@ -143,6 +143,7 @@ const TextWithImage = (props) => {
             </Grid>
             <Grid item lg={6} className={classes.heroImageContainer}>
                 <Image src={props.imageSrc}
+                       priority
                        width={theme.breakpoints.down('lg') ? 662.67 : 882.67}
                        height={theme.breakpoints.down('lg') ? 532 : 732}/>
             </Grid>

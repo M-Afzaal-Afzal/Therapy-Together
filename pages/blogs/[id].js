@@ -394,7 +394,7 @@ const BlogPage = () => {
                                                     marginTop: '1rem',
                                                     fontWeight: 'bold'
                                                 }} color={'primary'} gutterBottom variant={'h3'}>
-                                                    {block.heading}
+                                                    {block.mainHeading}
                                                 </Typography>
                                             }
                                             {
