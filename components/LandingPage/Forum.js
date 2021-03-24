@@ -11,6 +11,7 @@ import {
     useTheme
 } from "@material-ui/core";
 import Image from 'next/image';
+import Link from '../../src/utils/Link';
 
 const useStyles = makeStyles(theme => ({
     forumImageContainer: {
@@ -79,7 +80,7 @@ const Forum = () => {
                                 your private space is being invaded. You might like to explore more about us through our
                                 forum
                             </Typography>
-                            <Button variant={'contained'} color={'primary'}
+                            <Button style={{textDecoration: 'none'}} component={Link} href={'/forum'} variant={'contained'} color={'primary'}
                                     className={classes.btnGreen}>Explore</Button>
                         </Container>
                     </Grid>
