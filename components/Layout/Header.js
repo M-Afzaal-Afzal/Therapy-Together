@@ -23,6 +23,8 @@ import {useRouter} from "next/router";
 import Drawer from "../Drawer/SideDrawer";
 import Image from "next/image";
 
+import {Link as smoothScrollLink} from 'react-scroll'
+
 function ElevationScroll(props) {
     const {children, window} = props;
     // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -141,7 +143,7 @@ const Header = () => {
                     <Toolbar>
                         <IconButton style={{padding: 0}} component={Link} href={'/'} color={'primary'}
                                     className={matchesMdUp ? classes.logo : ''}>
-                            <Image priority style={{padding: 0}} src={'/logo.png'} width={50} height={50} />
+                            <Image priority style={{padding: 0}} src={'/logo.png'} width={50} height={50}/>
                         </IconButton>
                         <div className={classes.space}/>
                         <Hidden smDown>
@@ -152,8 +154,19 @@ const Header = () => {
                                     className={classes.navbarBtn} color={'primary'}>Blog</Button>
                             <Button component={Link} style={{textDecoration: 'none'}} href={'/about'}
                                     className={classes.navbarBtn} color={'primary'}>About us</Button>
-                            <Button component={Link} style={{textDecoration: 'none'}} href={'/contact'}
-                                    className={classes.navbarBtn} color={'primary'}>Contact us</Button>
+                            {
+                                router.pathname === '/' ? (
+                                    <Button component={smoothScrollLink} to={'contactus'}
+                                            style={{textDecoration: 'none'}}
+                                            smooth className={classes.navbarBtn} color={'primary'}>
+                                        Contact us
+                                    </Button>
+                                ) : (
+                                    ''
+                                )
+
+                            }
+
                             <Button component={Link} style={{textDecoration: 'none'}} href={'/forum'}
                                     className={classes.navbarBtn} color={'primary'}>Forum</Button>
                             <Divider className={classes.verticalDivider} style={{textDecoration: 'none'}}

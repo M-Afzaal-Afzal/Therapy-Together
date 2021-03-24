@@ -4,7 +4,7 @@ import {
     Box, Button,
     Container,
     Divider,
-    Grid,
+    Grid, Hidden,
     IconButton,
     InputAdornment, List, ListItem, ListItemIcon, ListItemText,
     makeStyles, Modal,
@@ -274,9 +274,11 @@ const BlogPage = () => {
                 <Grid item>
                     {
                         !loading && !error && blog ? (
-                            <Box>
+                            <Box style={{padding: '1rem'}}>
                                 <Typography color={'primary'} variant={'h1'}>{blog.mainHeading}</Typography>
-                                <Divider className={classes.divider}/>
+                                <Hidden xsDown>
+                                    <Divider className={classes.divider}/>
+                                </Hidden>
                             </Box>
                         ) : (
                             <Box>
@@ -289,7 +291,8 @@ const BlogPage = () => {
                 <Grid item container justify={'center'} direction={'column'} alignItems={'center'}>
                     {
                         !loading && !error && blog ? (
-                            <Container style={{width: '100%', height: matchesXSmall ? 350 : 482, position: 'relative'}} maxWidth={'lg'}>
+                            <Container style={{width: '100%', height: matchesXSmall ? 350 : 482, position: 'relative'}}
+                                       maxWidth={'lg'}>
                                 <Image src={blog.photoURL} layout={'fill'} objectFit={'cover'}/>
                             </Container>
                         ) : (

@@ -104,7 +104,7 @@ const ContactUs = () => {
 
 
     return (
-        <Container maxWidth={'lg'}>
+        <Container id={'contactus'} maxWidth={'lg'}>
             <Grid container justify={'center'} alignItems={'center'}>
                 <Grid item>
                     <Typography color={'primary'} variant={'h1'}>

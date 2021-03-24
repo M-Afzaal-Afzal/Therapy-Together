@@ -1,10 +1,11 @@
 import React from 'react';
-import {Box, Divider, Grid, IconButton, makeStyles, Typography} from "@material-ui/core";
+import {Divider, Grid, IconButton, makeStyles, Typography} from "@material-ui/core";
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import Image from "next/image";
+import Link from '../../src/utils/Link';
 
 const useStyles = makeStyles(theme => ({
     footerContainer: {
@@ -37,7 +38,7 @@ const Footer = () => {
         <Grid container direction={'column'} alignItems={'center'} justify={'center'}
               className={classes.footerContainer}>
             <Grid item>
-                <IconButton color={'primary'}>
+                <IconButton component={Link} href={'/'} color={'primary'}>
                     <Image src={'/logo.png'} width={80} height={80} priority/>
                 </IconButton>
             </Grid>

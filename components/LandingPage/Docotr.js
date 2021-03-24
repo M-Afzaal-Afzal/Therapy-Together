@@ -160,6 +160,7 @@ const Doctor = () => {
     return (
         <Container className={classes.sectionContainer}
                    maxWidth={'xl'}
+                   id={'doctors'}
                    component={Grid} item container
                    alignItems={'center'} justify={'center'}
         >

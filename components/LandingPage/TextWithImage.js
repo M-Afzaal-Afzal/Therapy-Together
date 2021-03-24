@@ -3,9 +3,9 @@ import {Box, Button, Divider, Grid, Hidden, IconButton, makeStyles, Typography, 
 import ArrowDownwardOutlinedIcon from "@material-ui/icons/ArrowDownwardOutlined";
 import Image from "next/image";
 import Container from "@material-ui/core/Container";
-// import Link from '../../src/utils/Link';
+import Link from '../../src/utils/Link';
 
-import {Link} from 'react-scroll';
+import {Link as smoothScrollLink} from 'react-scroll';
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {
@@ -81,14 +81,6 @@ const useStyles = makeStyles(theme => ({
         background: '#f7f7e8',
         borderRadius: '50%'
     },
-    messageIcon: {
-        position: "fixed",
-        bottom: theme.spacing(3),
-        right: theme.spacing(3),
-        background: `linear-gradient(136.25deg, #ffffff 0%, #6d9773 100%)`,
-        borderRadius: '50%',
-        zIndex: '30',
-    },
 }))
 
 const TextWithImage = (props) => {
@@ -120,16 +112,20 @@ const TextWithImage = (props) => {
                     <>
                         <div className={classes.heroBtnContainer}>
                             <Button className={classes.btnGreen} color={'primary'}
-                                    variant={'contained'}>Explore</Button>
-                            <Button className={classes.btnWhite} variant={'outlined'}>Consult</Button>
+                                    variant={'contained'} component={Link}
+                                    href={'forum'}
+                                    style={{textDecoration: 'none'}}
+                            >
+                                Explore
+                            </Button>
+                            <Button component={smoothScrollLink} to={'doctors'} smooth className={classes.btnWhite} variant={'outlined'}>Consult</Button>
                         </div>
 
                         <Hidden mdDown>
                             <div className={classes.arrowIconContainer}>
                                 <Box className={classes.arrowIcon}>
 
-                                    <IconButton color={'primary'} component={Link} to={'about'} smooth duration={700}
-                                                href={'#about'}>
+                                    <IconButton color={'primary'} component={smoothScrollLink} to={'about'} smooth>
                                         <ArrowDownwardOutlinedIcon color={'primary'}/>
                                     </IconButton>
                                 </Box>

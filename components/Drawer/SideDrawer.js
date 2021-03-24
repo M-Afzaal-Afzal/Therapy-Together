@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentUser} from "../../src/store/user/user.selectors";
 import {signOutStart} from "../../src/store/user/user.actions";
 import {useRouter} from "next/router";
+import Image from "next/image";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -49,6 +50,15 @@ const SideDrawer = (props) => {
                 <List>
                     <div onClick={props.drawerCloseHandler}>
                         <ListItem component={Link} href={'/'} button className={classes.listItem}>
+                            {/*<ListItemText primary={*/}
+                            {/*    <Typography className={classes.listItemText} variant={'body2'}>Home</Typography>*/}
+                            {/*}/>*/}
+                            <Image width={70} height={70} src={'/logo.png'} />
+                        </ListItem>
+                        <Divider className={classes.divider}/>
+                    </div>
+                    <div onClick={props.drawerCloseHandler}>
+                        <ListItem component={Link} href={'/'} button className={classes.listItem}>
                             <ListItemText primary={
                                 <Typography className={classes.listItemText} variant={'body2'}>Home</Typography>
                             }/>
@@ -71,14 +81,23 @@ const SideDrawer = (props) => {
                         </ListItem>
                         <Divider className={classes.divider}/>
                     </div>
-                    <div onClick={props.drawerCloseHandler}>
-                        <ListItem component={Link} href={'/contact'} button className={classes.listItem}>
-                            <ListItemText primary={
-                                <Typography className={classes.listItemText} variant={'body2'}>Contact us</Typography>
-                            }/>
-                        </ListItem>
-                        <Divider className={classes.divider}/>
-                    </div>
+                    {
+                        router.pathname === '/' ? (
+                                <div onClick={props.drawerCloseHandler}>
+                                    <ListItem component={Link} href={'/contact'} button className={classes.listItem}>
+                                        <ListItemText primary={
+                                            <Typography className={classes.listItemText} variant={'body2'}>Contact
+                                                us</Typography>
+                                        }/>
+                                    </ListItem>
+                                    <Divider className={classes.divider}/>
+                                </div>
+                            )
+                            : (
+                                ''
+                            )
+                    }
+
                     <div onClick={props.drawerCloseHandler}>
                         <ListItem component={Link} href={'/forum'} button className={classes.listItem}>
                             <ListItemText primary={
