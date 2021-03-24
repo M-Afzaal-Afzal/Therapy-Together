@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import {selectCurrentUserId} from "../../src/store/user/user.selectors";
 import {cloneDeep} from 'lodash';
 import {Skeleton} from "@material-ui/lab";
+import {useSnackbar} from "notistack";
 
 const useStyles = makeStyles(theme => ({
     headingContainer: {
@@ -91,12 +92,29 @@ const ForumMessage = ({post, loading}) => {
         })
     }
 
-    // handling post likes
+    // handling output / variants
 
+    const {enqueueSnackbar} = useSnackbar();
+
+    const handleCommentVariant = (variant) => () => {
+        // variant could be success, error, warning, info, or default
+        if (variant === 'success')
+            enqueueSnackbar('', {variant});
+        else if (variant === 'error')
+            enqueueSnackbar('Login to like or dislike');
+    };
+
+    // handling post likes
 
     const postRef = firestore.doc(`/forum/${post?.id}`);
 
     const postLikeHandler = async () => {
+
+        if (!userId){
+            handleCommentVariant('error')();
+            return;
+        }
+
         if (post.dislikes.includes(userId)) {
             await postRef.update({
                 dislikes: post.dislikes.filter(uid => uid !== userId),
@@ -118,6 +136,11 @@ const ForumMessage = ({post, loading}) => {
 
     const postDislikeHandler = async () => {
 
+        if (!userId){
+            handleCommentVariant('error')();
+            return;
+        }
+
         if (post.likes.includes(userId)) {
             await postRef.update({
                 likes: post.likes.filter(uid => uid !== userId),
@@ -138,6 +161,12 @@ const ForumMessage = ({post, loading}) => {
     // handling comment likes
 
     const commentLikeHandler = async (cmntId) => {
+
+        if (!userId){
+            handleCommentVariant('error')();
+            return;
+        }
+
         const newPost = cloneDeep(post);
         const commentIndex = newPost.comments.findIndex(comment => comment.id === cmntId);
 
@@ -160,6 +189,12 @@ const ForumMessage = ({post, loading}) => {
     // handling comment dislikes
 
     const commentDislikeHandler = async (cmntId) => {
+
+        if (!userId){
+            handleCommentVariant('error')();
+            return;
+        }
+
         const newPost = cloneDeep(post);
         const commentIndex = newPost.comments.findIndex(comment => comment.id === cmntId);
 
