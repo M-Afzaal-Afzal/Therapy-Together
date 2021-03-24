@@ -163,12 +163,14 @@ const Forum = () => {
                     !loading && posts ? (
                         posts.map(post => {
                             return (
-                                <ForumMessage post={post} key={post.id} />
+                                <ForumMessage loading={loading} post={post} key={post.id}/>
                             )
                         })
 
                     ) : (
-                        ''
+                        ['', '', ''].map(_ => (
+                            <ForumMessage loading={loading}/>
+                        ))
                     )
                 }
             </Grid>

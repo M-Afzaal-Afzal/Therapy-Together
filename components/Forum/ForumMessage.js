@@ -6,6 +6,7 @@ import {firestore} from "../../src/utils/firebaseUtils";
 import {useSelector} from "react-redux";
 import {selectCurrentUserId} from "../../src/store/user/user.selectors";
 import {cloneDeep} from 'lodash';
+import {Skeleton} from "@material-ui/lab";
 
 const useStyles = makeStyles(theme => ({
     headingContainer: {
@@ -77,7 +78,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const ForumMessage = ({post}) => {
+const ForumMessage = ({post, loading}) => {
 
     const userId = useSelector(selectCurrentUserId);
 
@@ -92,7 +93,8 @@ const ForumMessage = ({post}) => {
 
     // handling post likes
 
-    const postRef = firestore.doc(`/forum/${post.id}`);
+
+    const postRef = firestore.doc(`/forum/${post?.id}`);
 
     const postLikeHandler = async () => {
         if (post.dislikes.includes(userId)) {
@@ -149,7 +151,7 @@ const ForumMessage = ({post}) => {
             newPost.comments[commentIndex].likes = newPost.comments[commentIndex].likes.filter(uid => uid !== userId);
         }
 
-       await postRef.update({
+        await postRef.update({
             comments: newPost.comments,
         })
 
@@ -181,56 +183,124 @@ const ForumMessage = ({post}) => {
     return (
         <>
 
-            <Grid direction={'row'} item container className={`${classes.messageContainer} ${classes.post}`}>
-                <Grid align={'center'} item className={classes.avatarAndBtnsCont}>
-                    <Grid justify={'center'} alignItems={'center'} container direction={'column'}>
-                        <Grid item>
-                            <Avatar className={classes.avatar} src={post?.photoURL}>
-                                {post?.displayName[0]}
-                            </Avatar>
-                        </Grid>
-                        <Grid style={{margin: '1.5rem 1rem .5rem',}} item>
-                            <Grid container alignItems={'center'}>
-                                <Grid item className={classes.likDlkCounter}>
-                                    <Typography color={'primary'}
-                                                variant={'body2'}>{(post?.likes.length < 1000) ? post?.likes.length : '1k+'}</Typography>
+            {
+                !loading ? (
+                    <Grid direction={'row'} item container className={`${classes.messageContainer} ${classes.post}`}>
+                        <Grid align={'center'} item className={classes.avatarAndBtnsCont}>
+                            <Grid justify={'center'} alignItems={'center'} container direction={'column'}>
+                                <Grid item>
+                                    <Avatar className={classes.avatar} src={post?.photoURL}>
+                                        {post?.displayName[0]}
+                                    </Avatar>
                                 </Grid>
-                                <Grid>
-                                    <IconButton style={{padding: '6px'}} onClick={postLikeHandler}>
-                                        <ThumbUp fontSize={'small'} color={'primary'}/>
-                                    </IconButton>
+                                <Grid style={{margin: '1.5rem 1rem .5rem',}} item>
+                                    <Grid container alignItems={'center'}>
+                                        <Grid item className={classes.likDlkCounter}>
+                                            <Typography color={'primary'}
+                                                        variant={'body2'}>{(post?.likes.length < 1000) ? post?.likes.length : '1k+'}</Typography>
+                                        </Grid>
+                                        <Grid>
+                                            <IconButton style={{padding: '6px'}} onClick={postLikeHandler}>
+                                                <ThumbUp fontSize={'small'} color={'primary'}/>
+                                            </IconButton>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item>
+                                    <Grid container alignItems={'center'}>
+                                        <Grid item className={classes.likDlkCounter}>
+                                            <Typography color={'primary'}
+                                                        variant={'body2'}>{(post?.dislikes.length < 1000) ? post?.dislikes.length : '1k+'}</Typography>
+                                        </Grid>
+                                        <Grid>
+                                            <IconButton style={{padding: '6px'}} onClick={postDislikeHandler}>
+                                                <ThumbDown fontSize={'small'} color={'primary'}/>
+                                            </IconButton>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item>
-                            <Grid container alignItems={'center'}>
-                                <Grid item className={classes.likDlkCounter}>
-                                    <Typography color={'primary'}
-                                                variant={'body2'}>{(post?.dislikes.length < 1000) ? post?.dislikes.length : '1k+'}</Typography>
-                                </Grid>
-                                <Grid>
-                                    <IconButton style={{padding: '6px'}} onClick={postDislikeHandler}>
-                                        <ThumbDown fontSize={'small'} color={'primary'}/>
-                                    </IconButton>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid className={classes.mainContentContainer} item>
-                    <Typography gutterBottom variant={'body2'} color={'primary'}>
-                        {post?.displayName}
-                    </Typography>
-                    <Typography gutterBottom variant={'body2'}>
-                        {post?.text}
-                    </Typography>
-                    <Typography style={{marginTop: '1.5rem'}} color={'primary'} variant={'body2'}>
+                        <Grid className={classes.mainContentContainer} item>
+                            <Typography gutterBottom variant={'body2'} color={'primary'}>
+                                {post?.displayName}
+                            </Typography>
+                            <Typography gutterBottom variant={'body2'}>
+                                {post?.text}
+                            </Typography>
+                            <Typography style={{marginTop: '1.5rem'}} color={'primary'} variant={'body2'}>
                             <span onClick={commentsHandler} className={classes.commentBtn}>
                                 comments
                             </span>
-                    </Typography>
-                </Grid>
-            </Grid>
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                ) : (
+                    <Grid direction={'row'} item container className={`${classes.messageContainer} ${classes.post}`}>
+                        <Grid align={'center'} item className={classes.avatarAndBtnsCont}>
+                            <Grid justify={'center'} alignItems={'center'} container direction={'column'}>
+                                <Grid item>
+                                    <Skeleton variant={'circle'}>
+                                        <Avatar className={classes.avatar}/>
+                                    </Skeleton>
+
+                                </Grid>
+                                <Grid style={{margin: '1.5rem 1rem .5rem',}} item>
+                                    <Grid container alignItems={'center'}>
+                                        <Grid item className={classes.likDlkCounter}>
+                                            <Skeleton variant={'text'}>
+                                                <Typography color={'primary'}
+                                                            variant={'body2'}>100</Typography>
+                                            </Skeleton>
+                                        </Grid>
+                                        <Grid>
+                                            <IconButton style={{padding: '6px'}}>
+                                                <ThumbUp fontSize={'small'} color={'primary'}/>
+                                            </IconButton>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item>
+                                    <Grid container alignItems={'center'}>
+                                        <Grid item className={classes.likDlkCounter}>
+                                            <Skeleton variant={'text'}>
+                                                <Typography color={'primary'}
+                                                            variant={'body2'}>100</Typography>
+                                            </Skeleton>
+                                        </Grid>
+                                        <Grid>
+                                            <IconButton style={{padding: '6px'}}>
+                                                <ThumbDown fontSize={'small'} color={'primary'}/>
+                                            </IconButton>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid className={classes.mainContentContainer} item>
+                            <Skeleton>
+                                <Typography gutterBottom variant={'body2'} color={'primary'}>
+                                    name
+                                </Typography>
+                            </Skeleton>
+                            <Skeleton variant={'text'}/>
+                            <Skeleton variant={'text'}/>
+                            <Skeleton variant={'text'}/>
+
+
+
+                            <Typography style={{marginTop: '1.5rem'}} color={'primary'} variant={'body2'}>
+                                    <span className={classes.commentBtn}>
+                                         comments
+                                    </span>
+                            </Typography>
+
+
+                        </Grid>
+                    </Grid>
+                )
+            }
+
 
             {/*message reply*/}
 
@@ -254,7 +324,7 @@ const ForumMessage = ({post}) => {
                                                                 variant={'body2'}>{(comment.likes.length < 1000) ? comment.likes.length : '1k+'}</Typography>
                                                 </Grid>
                                                 <Grid>
-                                                    <IconButton onClick={commentLikeHandler.bind(this,comment.id)}
+                                                    <IconButton onClick={commentLikeHandler.bind(this, comment.id)}
                                                                 style={{padding: '6px'}}>
                                                         <ThumbUp fontSize={'small'} color={'primary'}/>
                                                     </IconButton>
@@ -268,7 +338,7 @@ const ForumMessage = ({post}) => {
                                                                 variant={'body2'}>{(comment.dislikes.length < 1000) ? comment.dislikes.length : '1k+'}</Typography>
                                                 </Grid>
                                                 <Grid>
-                                                    <IconButton onClick={commentDislikeHandler.bind(this,comment.id)}
+                                                    <IconButton onClick={commentDislikeHandler.bind(this, comment.id)}
                                                                 style={{padding: '6px'}}>
                                                         <ThumbDown fontSize={'small'} color={'primary'}/>
                                                     </IconButton>
@@ -295,7 +365,7 @@ const ForumMessage = ({post}) => {
             }
 
             {
-                postData.isCommentsShown ? (
+                postData?.isCommentsShown ? (
                     <ForumReply post={post}/>
                 ) : (
                     ''
