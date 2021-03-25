@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Avatar, Grid, IconButton, makeStyles, TextField, Typography} from "@material-ui/core";
+import {Avatar, Grid, IconButton, makeStyles, Typography} from "@material-ui/core";
 import {ThumbDown, ThumbUp} from "@material-ui/icons";
 import ForumReply from "./ForumReply";
 import {firestore} from "../../src/utils/firebaseUtils";
@@ -8,6 +8,7 @@ import {selectCurrentUserId} from "../../src/store/user/user.selectors";
 import {cloneDeep} from 'lodash';
 import {Skeleton} from "@material-ui/lab";
 import {useSnackbar} from "notistack";
+import {motion} from "framer-motion";
 
 const useStyles = makeStyles(theme => ({
     headingContainer: {
@@ -68,11 +69,24 @@ const useStyles = makeStyles(theme => ({
     },
     commentBtn: {
         position: 'absolute',
+        background: 'transparent',
+        border: 'none',
         bottom: 0,
         left: 17,
         '&:hover': {
             cursor: 'pointer',
+        },
+        '&:focus': {
+            outline: 'none',
+        },
+        [theme.breakpoints.down('xs')]: {
+            left: 0,
         }
+    },
+    btnGreen: {
+        ...theme.btnGreen,
+        background: 'transparent',
+        color: theme.palette.primary.main,
     },
     likDlkCounter: {
         width: '2.2rem',
@@ -110,7 +124,7 @@ const ForumMessage = ({post, loading}) => {
 
     const postLikeHandler = async () => {
 
-        if (!userId){
+        if (!userId) {
             handleCommentVariant('error')();
             return;
         }
@@ -136,7 +150,7 @@ const ForumMessage = ({post, loading}) => {
 
     const postDislikeHandler = async () => {
 
-        if (!userId){
+        if (!userId) {
             handleCommentVariant('error')();
             return;
         }
@@ -162,7 +176,7 @@ const ForumMessage = ({post, loading}) => {
 
     const commentLikeHandler = async (cmntId) => {
 
-        if (!userId){
+        if (!userId) {
             handleCommentVariant('error')();
             return;
         }
@@ -190,7 +204,7 @@ const ForumMessage = ({post, loading}) => {
 
     const commentDislikeHandler = async (cmntId) => {
 
-        if (!userId){
+        if (!userId) {
             handleCommentVariant('error')();
             return;
         }
@@ -220,7 +234,8 @@ const ForumMessage = ({post, loading}) => {
 
             {
                 !loading ? (
-                    <Grid direction={'row'} item container className={`${classes.messageContainer} ${classes.post}`}>
+                    <Grid component={motion.div} layout direction={'row'} item container
+                          className={`${classes.messageContainer} ${classes.post}`}>
                         <Grid align={'center'} item className={classes.avatarAndBtnsCont}>
                             <Grid justify={'center'} alignItems={'center'} container direction={'column'}>
                                 <Grid item>
@@ -264,9 +279,10 @@ const ForumMessage = ({post, loading}) => {
                                 {post?.text}
                             </Typography>
                             <Typography style={{marginTop: '1.5rem'}} color={'primary'} variant={'body2'}>
-                            <span onClick={commentsHandler} className={classes.commentBtn}>
-                                comments
-                            </span>
+                                <button onClick={commentsHandler}
+                                        className={`${classes.commentBtn} ${classes.btnGreen}`}>
+                                    comments
+                                </button>
                             </Typography>
                         </Grid>
                     </Grid>
@@ -323,7 +339,6 @@ const ForumMessage = ({post, loading}) => {
                             <Skeleton variant={'text'}/>
 
 
-
                             <Typography style={{marginTop: '1.5rem'}} color={'primary'} variant={'body2'}>
                                     <span className={classes.commentBtn}>
                                          comments
@@ -343,7 +358,7 @@ const ForumMessage = ({post, loading}) => {
                 postData?.isCommentsShown ? (
                     post.comments.map((comment, index) => {
                         return (
-                            <Grid key={index} direction={'row'} item container
+                            <Grid component={motion.div} layout key={index} direction={'row'} item container
                                   className={`${classes.messageContainer} ${classes.reply}`}>
                                 <Grid align={'center'} item className={classes.avatarAndBtnsCont}>
                                     <Grid justify={'center'} alignItems={'center'} container direction={'column'}>

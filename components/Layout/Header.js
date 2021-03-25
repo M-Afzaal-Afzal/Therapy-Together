@@ -23,7 +23,6 @@ import {useRouter} from "next/router";
 import Drawer from "../Drawer/SideDrawer";
 import Image from "next/image";
 
-import {Link as smoothScrollLink} from 'react-scroll'
 
 function ElevationScroll(props) {
     const {children, window} = props;
@@ -154,18 +153,12 @@ const Header = () => {
                                     className={classes.navbarBtn} color={'primary'}>Blog</Button>
                             <Button component={Link} style={{textDecoration: 'none'}} href={'/about'}
                                     className={classes.navbarBtn} color={'primary'}>About us</Button>
-                            {
-                                router.pathname === '/' ? (
-                                    <Button component={smoothScrollLink} to={'contactus'}
-                                            style={{textDecoration: 'none'}}
-                                            smooth className={classes.navbarBtn} color={'primary'}>
-                                        Contact us
-                                    </Button>
-                                ) : (
-                                    ''
-                                )
 
-                            }
+                            <Button component={Link} href={'/team'}
+                                    style={{textDecoration: 'none'}}
+                                    className={classes.navbarBtn} color={'primary'}>
+                                Our Team
+                            </Button>
 
                             <Button component={Link} style={{textDecoration: 'none'}} href={'/forum'}
                                     className={classes.navbarBtn} color={'primary'}>Forum</Button>

@@ -15,6 +15,7 @@ import {selectDisplayName, selectImageUrl} from "../src/store/user/user.selector
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {useSnackbar} from "notistack";
 import ForumMessage from "../components/Forum/ForumMessage";
+import {AnimateSharedLayout, motion} from "framer-motion";
 
 const useStyles = makeStyles(theme => ({
     forumContainer: {
@@ -82,6 +83,8 @@ const Forum = () => {
             enqueueSnackbar('Your question is posted Successfully', {variant});
         else if (variant === 'error')
             enqueueSnackbar('Failed to post a question. Try again!!!');
+        else if (variant === 'errorLogin')
+            enqueueSnackbar('You must have to login to post a question!!!');
     };
 
     // handling the forum posting
@@ -104,7 +107,9 @@ const Forum = () => {
     }
 
 
-    const {register, handleSubmit, errors, control, reset} = useForm();
+    const {register, handleSubmit, errors, control, reset} = useForm({
+        message: ""
+    });
 
 
     const messageReg = register({
@@ -115,7 +120,13 @@ const Forum = () => {
         }
     })
 
-    const onSubmit = handleSubmit(async data => {
+    const onSubmit = handleSubmit(async (data,e) => {
+
+        if (!displayName) {
+            handlePostVariant('errorLogin')();
+            return;
+        }
+
         console.log(data)
         const {message} = data;
         const forumRef = firestore.collection('forum');
@@ -130,12 +141,12 @@ const Forum = () => {
             comments: [],
         }
 
-        forumRef.add(messageData)
+       await forumRef.add(messageData)
             .then(() => {
                 console.log('message sent successfully');
                 handlePostVariant('success')();
                 reset({
-                    message: '',
+                   message: ''
                 })
             })
             .catch((err) => {
@@ -150,53 +161,60 @@ const Forum = () => {
 
     return (
         <Container className={classes.forumContainer} maxWidth={'lg'}>
-            <Grid container justify={'center'} direction={'column'}>
-                <Grid item container justify={'center'}>
-                    <Box>
-                        <Typography color={'primary'} variant={'h1'}>
-                            Forum
-                        </Typography>
-                        <Divider className={classes.hDividerForum}/>
-                    </Box>
-                </Grid>
-                {
-                    !loading && posts ? (
-                        posts.map(post => {
-                            return (
-                                <ForumMessage loading={loading} post={post} key={post.id}/>
-                            )
-                        })
+            <AnimateSharedLayout type={'crossfade'}>
 
-                    ) : (
-                        ['', '', ''].map(_ => (
-                            <ForumMessage loading={loading}/>
-                        ))
-                    )
-                }
-            </Grid>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container style={{padding: "2rem"}}>
-                    <TextField
-                        color={'secondary'}
-                        fullWidth
-                        variant={'outlined'}
-                        placeholder={'Ask Anything'}
-                        multiline rows={6} rowsMax={6}
-                        inputRef={messageReg}
-                        aria-controls={control}
-                        name={'message'}
-                        error={Boolean(errors.message)}
-                        helperText={errors.message ? errors.message.message : ''}
-                        // style={{background: theme.palette.secondary.main}}
-                    />
-                    <Grid item container className={classes.btnContainer}>
-                        <Button type={'submit'} className={classes.btnGreen} size={'medium'} color={'primary'}
-                                variant={'contained'}>
-                            SEND
-                        </Button>
+                <Grid container justify={'center'} direction={'column'}>
+                    <Grid item container justify={'center'}>
+                        <Box>
+                            <Typography color={'primary'} variant={'h1'}>
+                                Forum
+                            </Typography>
+                            <Divider className={classes.hDividerForum}/>
+                        </Box>
                     </Grid>
+
+                    {
+                        !loading && posts ? (
+                            posts.map(post => {
+                                return (
+                                    <ForumMessage loading={loading} post={post} key={post.id}/>
+                                )
+                            })
+
+                        ) : (
+                            ['', '', ''].map((_,i) => (
+                                <ForumMessage key={i} loading={loading}/>
+                            ))
+                        )
+                    }
+
                 </Grid>
-            </form>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Grid component={motion.div} layout container style={{padding: "2rem"}}>
+                        <TextField
+                            color={'secondary'}
+                            fullWidth
+                            variant={'outlined'}
+                            placeholder={'Ask Anything'}
+                            multiline rows={6} rowsMax={6}
+                            inputRef={messageReg}
+                            aria-controls={control}
+                            name={'message'}
+                            error={Boolean(errors.message)}
+                            helperText={errors.message ? errors.message.message : ''}
+                            // style={{background: theme.palette.secondary.main}}
+                        />
+
+                        <Grid item container className={classes.btnContainer}>
+                            <Button type={'submit'} className={classes.btnGreen} size={'medium'} color={'primary'}
+                                    variant={'contained'}>
+                                SEND
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </AnimateSharedLayout>
+
         </Container>
     );
 };

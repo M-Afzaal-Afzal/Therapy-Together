@@ -12,6 +12,7 @@ import {PersistGate} from 'redux-persist/integration/react'
 import {SnackbarProvider} from "notistack";
 import {addCollectionAndDocuments} from "../src/utils/firebaseUtils";
 import blogsData from "../src/utils/blogs.data";
+import {AnimatePresence} from "framer-motion";
 
 
 export default function MyApp(props) {
@@ -44,7 +45,9 @@ export default function MyApp(props) {
                     <PersistGate loading={null} persistor={persistor}>
                         <Layout>
                             <SnackbarProvider>
-                                <Component {...pageProps} />
+                                <AnimatePresence exitBeforeEnter>
+                                    <Component {...pageProps} />
+                                </AnimatePresence>
                             </SnackbarProvider>
                         </Layout>
                     </PersistGate>

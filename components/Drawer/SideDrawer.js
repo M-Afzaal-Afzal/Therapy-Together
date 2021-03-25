@@ -53,7 +53,7 @@ const SideDrawer = (props) => {
                             {/*<ListItemText primary={*/}
                             {/*    <Typography className={classes.listItemText} variant={'body2'}>Home</Typography>*/}
                             {/*}/>*/}
-                            <Image width={70} height={70} src={'/logo.png'} />
+                            <Image priority width={70} height={70} src={'/logo.png'}/>
                         </ListItem>
                         <Divider className={classes.divider}/>
                     </div>
@@ -81,22 +81,18 @@ const SideDrawer = (props) => {
                         </ListItem>
                         <Divider className={classes.divider}/>
                     </div>
-                    {
-                        router.pathname === '/' ? (
-                                <div onClick={props.drawerCloseHandler}>
-                                    <ListItem component={Link} href={'/contact'} button className={classes.listItem}>
-                                        <ListItemText primary={
-                                            <Typography className={classes.listItemText} variant={'body2'}>Contact
-                                                us</Typography>
-                                        }/>
-                                    </ListItem>
-                                    <Divider className={classes.divider}/>
-                                </div>
-                            )
-                            : (
-                                ''
-                            )
-                    }
+
+                    <div onClick={props.drawerCloseHandler}>
+                        <ListItem component={Link} href={'/team'} button className={classes.listItem}>
+                            <ListItemText primary={
+                                <Typography className={classes.listItemText} variant={'body2'}>
+                                    Our Team
+                                </Typography>
+                            }/>
+                        </ListItem>
+                        <Divider className={classes.divider}/>
+                    </div>
+
 
                     <div onClick={props.drawerCloseHandler}>
                         <ListItem component={Link} href={'/forum'} button className={classes.listItem}>

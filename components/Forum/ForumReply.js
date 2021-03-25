@@ -1,11 +1,12 @@
 import React from 'react';
-import {Button, Grid, makeStyles, TextField} from "@material-ui/core";
+import {Box, Button, Grid, makeStyles, TextField} from "@material-ui/core";
 import {useSnackbar} from "notistack";
 import {useForm} from "react-hook-form";
 import {firestore} from "../../src/utils/firebaseUtils";
 import {useSelector} from "react-redux";
-import {selectDisplayName, selectImageUrl} from "../../src/store/user/user.selectors";
+import {selectCurrentUserId, selectDisplayName, selectImageUrl} from "../../src/store/user/user.selectors";
 import {nanoid} from 'nanoid'
+import {motion} from "framer-motion";
 
 
 const useStyles = makeStyles(theme => ({
@@ -44,6 +45,8 @@ const ForumReply = ({post}) => {
             enqueueSnackbar('Your comment is posted successfully', {variant});
         else if (variant === 'error')
             enqueueSnackbar('Fail to comment. Try again!!!');
+        else if (variant === 'errorLogin')
+            enqueueSnackbar('You must have to login to comment!!!');
     };
 
     const {
@@ -66,8 +69,14 @@ const ForumReply = ({post}) => {
         required: false,
     })
 
+    const userId = useSelector(selectCurrentUserId);
+
     const onSubmitReply = replyHandleSubmit(async data => {
         console.log(data);
+        if (!userId) {
+            handleCommentVariant('errorLogin')();
+            return;
+        }
         const {comment, id} = data;
         const docRef = firestore.doc(`/forum/${id}`);
 
@@ -108,31 +117,34 @@ const ForumReply = ({post}) => {
     })
 
     return (
-        <form onSubmit={replyHandleSubmit(onSubmitReply)}>
-            <Grid item style={{width: '90%', marginLeft: 'auto'}} container>
-                <TextField
-                    color={'secondary'}
-                    fullWidth
-                    variant={'outlined'}
-                    placeholder={`Reply to ${post.displayName}`}
-                    multiline rows={3} rowsMax={3}
-                    inputRef={commentReg}
-                    aria-controls={replyControl}
-                    name={'comment'}
-                    error={Boolean(replyErrors.comment)}
-                    helperText={replyErrors.comment ? replyErrors.comment.message : ''}
-                    // style={{background: theme.palette.secondary.main}}
-                />
-                <input hidden readOnly defaultValue={post.id} aria-controls={replyControl} name={'id'}
-                       ref={idReg}/>
-            </Grid>
-            <Grid item container className={classes.replyBtnContainer}>
-                <Button type={'submit'} className={classes.btnGreen} size={'medium'} color={'primary'}
-                        variant={'contained'}>
-                    Reply
-                </Button>
-            </Grid>
-        </form>
+        <Box component={motion.div} layout>
+            <form onSubmit={replyHandleSubmit(onSubmitReply)}>
+                <Grid  item style={{width: '90%', marginLeft: 'auto'}} container>
+                    <TextField
+                        color={'secondary'}
+                        fullWidth
+                        variant={'outlined'}
+                        placeholder={`Reply to ${post.displayName}`}
+                        multiline rows={3} rowsMax={3}
+                        inputRef={commentReg}
+                        aria-controls={replyControl}
+                        name={'comment'}
+                        error={Boolean(replyErrors.comment)}
+                        helperText={replyErrors.comment ? replyErrors.comment.message : ''}
+                        // style={{background: theme.palette.secondary.main}}
+                    />
+                    <input hidden readOnly defaultValue={post.id} aria-controls={replyControl} name={'id'}
+                           ref={idReg}/>
+                </Grid>
+                <Grid item container className={classes.replyBtnContainer}>
+                    <Button type={'submit'} className={classes.btnGreen} size={'medium'} color={'primary'}
+                            variant={'contained'}>
+                        Reply
+                    </Button>
+                </Grid>
+            </form>
+        </Box>
+
     );
 };
 
