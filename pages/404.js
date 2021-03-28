@@ -39,7 +39,7 @@ const Error = () => {
                     <Divider className={classes.divider}/>
                 </Grid>
                 <Grid item>
-                    <Image src={'/error.svg'} width={matchesMd ? 848.91 : 1048.91} height={matchesMd ? 595 : 795}/>
+                    <Image src={'/error.svg'} alt={'404 image'} width={matchesMd ? 848.91 : 1048.91} height={matchesMd ? 595 : 795}/>
                 </Grid>
 
             </Grid>

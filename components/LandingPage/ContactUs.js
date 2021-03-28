@@ -161,7 +161,7 @@ const ContactUs = () => {
                     <Hidden xsDown>
                         <Grid item md={8} className={classes.imageContainer}>
                             <div>
-                                <Image src={'/contact-us-icon.svg'} width={863} height={479.18}/>
+                                <Image src={'/contact-us-icon.svg'} alt={'Contact Us image'} width={863} height={479.18}/>
                             </div>
                         </Grid>
                     </Hidden>

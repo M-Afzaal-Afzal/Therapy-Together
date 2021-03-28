@@ -42,7 +42,7 @@ const About = () => {
         >
             <Grid item className={classes.cardContainer}>
                 <div className={classes.cardIconContainer}>
-                    <Image src={'/forum-about.svg'} width={80} height={'80'}/>
+                    <Image src={'/forum-about.svg'} alt={'About Forum Image'} width={80} height={'80'}/>
                 </div>
                 <div className={classes.cardTextContainer}>
                     <Typography variant={"body2"} align={'justify'}>

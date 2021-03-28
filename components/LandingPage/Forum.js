@@ -56,7 +56,7 @@ const Forum = () => {
             <Hidden smDown>
                 <Grid item md={4} style={{position: 'relative'}}>
                     <div className={classes.forumImageContainer}>
-                        <Image src={'/forum-icon.svg'} width={350} height={500}/>
+                        <Image src={'/forum-icon.svg'} alt={'Forum Image'} width={350} height={500}/>
                     </div>
                 </Grid>
             </Hidden>

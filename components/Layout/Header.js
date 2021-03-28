@@ -142,7 +142,7 @@ const Header = () => {
                     <Toolbar>
                         <IconButton style={{padding: 0}} component={Link} href={'/'} color={'primary'}
                                     className={matchesMdUp ? classes.logo : ''}>
-                            <Image priority style={{padding: 0}} src={'/logo.png'} width={50} height={50}/>
+                            <Image priority style={{padding: 0}} src={'/logo.png'} alt={'Logo'} width={50} height={50}/>
                         </IconButton>
                         <div className={classes.space}/>
                         <Hidden smDown>

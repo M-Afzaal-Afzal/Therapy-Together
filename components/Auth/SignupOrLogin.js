@@ -425,6 +425,7 @@ const SignupOrLogin = (props) => {
                     <Hidden mdDown>
                         <Grid item md={6} className={classes.imageContainer}>
                             <Image priority src={'/auth-icon.svg'}
+                                   alt={props.login ? 'Login Icon' : 'Sign up Icon'}
                                    width={theme.breakpoints.down('lg') ? 662.67 : 882.67}
                                    height={theme.breakpoints.down('lg') ? 532 : 732}/>
                         </Grid>

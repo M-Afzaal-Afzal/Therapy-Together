@@ -39,7 +39,7 @@ const Footer = () => {
               className={classes.footerContainer}>
             <Grid item>
                 <IconButton component={Link} href={'/'} color={'primary'}>
-                    <Image src={'/logo.png'} width={80} height={80} priority/>
+                    <Image src={'/logo.png'} alt={"Logo"} width={80} height={80} priority/>
                 </IconButton>
             </Grid>
             <Grid item container justify={"center"}>

@@ -72,7 +72,7 @@ const Blog = (props) => {
                         )
                         : (
                             <div style={{width: '100%', height: 224, position: 'relative'}}>
-                                <Image src={props.imageSrc} objectFit={'cover'} layout={'fill'}/>
+                                <Image src={props.imageSrc} alt={props.id} objectFit={'cover'} layout={'fill'}/>
 
                             </div>
                         )

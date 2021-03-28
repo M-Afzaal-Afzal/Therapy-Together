@@ -126,6 +126,7 @@ const About = () => {
                     </Grid>
                     <Grid item lg={6} align={'center'} className={classes.imageContainer}>
                         <Image src={'/about.svg'}
+                               alt={'About Icon'}
                             width={theme.breakpoints.down('lg') ? 662.67 : 882.67}
                             height={theme.breakpoints.down('lg') ? 532 : 732}
                         />

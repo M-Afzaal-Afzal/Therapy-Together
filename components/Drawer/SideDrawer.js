@@ -53,7 +53,7 @@ const SideDrawer = (props) => {
                             {/*<ListItemText primary={*/}
                             {/*    <Typography className={classes.listItemText} variant={'body2'}>Home</Typography>*/}
                             {/*}/>*/}
-                            <Image priority width={70} height={70} src={'/logo.png'}/>
+                            <Image priority alt={'Logo'} width={70} height={70} src={'/logo.png'}/>
                         </ListItem>
                         <Divider className={classes.divider}/>
                     </div>

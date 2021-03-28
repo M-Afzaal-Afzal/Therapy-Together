@@ -239,7 +239,7 @@ const ForumMessage = ({post, loading}) => {
                         <Grid align={'center'} item className={classes.avatarAndBtnsCont}>
                             <Grid justify={'center'} alignItems={'center'} container direction={'column'}>
                                 <Grid item>
-                                    <Avatar className={classes.avatar} src={post?.photoURL}>
+                                    <Avatar aria-label={post?.displayName} className={classes.avatar} src={post?.photoURL}>
                                         {post?.displayName[0]}
                                     </Avatar>
                                 </Grid>
@@ -363,7 +363,7 @@ const ForumMessage = ({post, loading}) => {
                                 <Grid align={'center'} item className={classes.avatarAndBtnsCont}>
                                     <Grid justify={'center'} alignItems={'center'} container direction={'column'}>
                                         <Grid item>
-                                            <Avatar className={classes.avatar} src={comment.photoURL}>
+                                            <Avatar aria-label={comment.displayName} className={classes.avatar} src={comment.photoURL}>
                                                 {comment?.displayName[0]}
                                             </Avatar>
                                         </Grid>

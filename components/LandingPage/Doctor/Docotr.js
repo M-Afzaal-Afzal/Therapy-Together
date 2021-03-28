@@ -221,7 +221,7 @@ const Doctor = () => {
                     {/*{*/}
                     {/*    matchesMd ?*/}
                     <div className={classes.avatarContainer}>
-                        <Avatar className={classes.avatar} src={doctors[selectedDoctor].photoURL}/>
+                        <Avatar aria-label={doctors[selectedDoctor].name} className={classes.avatar} name={doctors[selectedDoctor].name} src={doctors[selectedDoctor].photoURL}/>
                     </div>
                     {/*//         :*/}
                     {/*//         null*/}
@@ -264,7 +264,7 @@ const Doctor = () => {
                 <Grid item md={6} className={classes.doctorImageContainer}>
                     <Box className={classes.greenCircle}>
                         <Box className={classes.doctorImage}>
-                            <Image priority src={'/doctor.png'} width={520} height={648}/> </Box>
+                            <Image priority src={'/doctor.png'} alt={'Doctor Image'} width={520} height={648}/> </Box>
                     </Box>
                 </Grid>
             </Hidden>

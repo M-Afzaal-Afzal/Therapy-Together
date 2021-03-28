@@ -44,7 +44,7 @@ const Layout = (props) => {
 
             <Box className={classes.messageIcon}>
                 <IconButton color={'primary'} onClick={toggleIsChatOpened}>
-                    <Image priority style={{zIndex: 50}} src={'/chatbubbles-icon.svg'} width={30} height={30}/>
+                    <Image priority alt={'Chat Icon'} style={{zIndex: 50}} src={'/chatbubbles-icon.svg'} width={30} height={30}/>
                 </IconButton>
             </Box>
 
