@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Container from "@material-ui/core/Container";
 import {
     AppBar,
@@ -106,23 +106,23 @@ const Header = () => {
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-    const drawerCloseHandler = () => {
+    const drawerCloseHandler = useCallback(() => {
         setIsDrawerOpen(false);
-    }
+    }, [])
 
-    const drawerOpenHandler = () => {
+    const drawerOpenHandler = useCallback(() => {
         setIsDrawerOpen(true);
-    }
+    }, [])
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handleClick = (event) => {
+    const handleClick = useCallback((event) => {
         setAnchorEl(event.currentTarget);
-    };
+    }, []);
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setAnchorEl(null);
-    };
+    }, []);
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
@@ -130,10 +130,10 @@ const Header = () => {
     const classes = useStyles();
     const matchesMdUp = useMediaQuery(theme.breakpoints.up('md'));
 
-    const signOutHandler = async () => {
+    const signOutHandler = useCallback(async () => {
         await dispatch(signOutStart());
         await router.push('/');
-    }
+    }, []);
 
     return (
         <ElevationScroll>

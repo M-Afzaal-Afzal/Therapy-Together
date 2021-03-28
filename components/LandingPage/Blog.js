@@ -71,8 +71,8 @@ const Blog = (props) => {
                             <Skeleton variant={'rect'} width={412} height={224}/>
                         )
                         : (
-                            <div style={{width: '100%',height: 224,position: 'relative'}}>
-                            <Image src={props.imageSrc} objectFit={'cover'} layout={'fill'}/>
+                            <div style={{width: '100%', height: 224, position: 'relative'}}>
+                                <Image src={props.imageSrc} objectFit={'cover'} layout={'fill'}/>
 
                             </div>
                         )
@@ -80,7 +80,7 @@ const Blog = (props) => {
                 </Box>
                 {
                     !props.isLoading ? (
-                        <Box style={{height:"18rem",overflow: 'auto'}} className={classes.cardText}>
+                        <Box style={{height: "18rem", overflow: 'auto'}} className={classes.cardText}>
                             <Typography gutterBottom className={classes.cardHeading} variant={'h3'} color={'primary'}>
                                 {props.disease}
                             </Typography>
@@ -120,7 +120,7 @@ const Blog = (props) => {
                         </div>
                     ) : (
                         <div className={classes.floatingActionButton}>
-                            <Fab color={'primary'} >
+                            <Fab color={'primary'}>
                                 <ArrowForwardIosOutlinedIcon fontSize={'large'}/>
                             </Fab>
                         </div>
@@ -128,10 +128,9 @@ const Blog = (props) => {
                 }
 
 
-
             </Grid>
         </>
     );
 };
 
-export default Blog;
+export default React.memo(Blog);

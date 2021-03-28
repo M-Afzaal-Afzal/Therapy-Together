@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Box, Divider, List, ListItem, ListItemText, makeStyles, SwipeableDrawer, Typography} from "@material-ui/core";
 import Link from '../../src/utils/Link';
 import {useDispatch, useSelector} from "react-redux";
@@ -33,11 +33,11 @@ const SideDrawer = (props) => {
 
     const dispatch = useDispatch();
 
-    const logoutHandler = () => {
+    const logoutHandler = useCallback(() => {
         dispatch(signOutStart());
         props.drawerCloseHandler();
         router.push('/');
-    }
+    }, [])
 
     return (
         <SwipeableDrawer
@@ -131,4 +131,4 @@ const SideDrawer = (props) => {
     );
 };
 
-export default SideDrawer;
+export default React.memo(SideDrawer);

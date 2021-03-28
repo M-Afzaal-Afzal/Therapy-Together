@@ -71,19 +71,19 @@ const Blogs = () => {
                         blogs ? (
                             blogs?.map(blog => {
                                 return (
-                                        <Blog imageSrc={blog.photoURL}
-                                              disease={blog.mainHeading}
-                                              description={blog.description}
-                                              createdAt={blog.createdAt}
-                                              key={blog.id}
-                                              id={blog.id}
-                                        />
+                                    <Blog imageSrc={blog.photoURL}
+                                          disease={blog.mainHeading}
+                                          description={blog.description}
+                                          createdAt={blog.createdAt}
+                                          key={blog.id}
+                                          id={blog.id}
+                                    />
                                 )
                             })
                         ) : (
-                            ['', '', '', '', '', ''].map((_,i) => {
+                            ['', '', '', '', '', ''].map((_, i) => {
                                 return (
-                                    <Blog key={i}  isLoading/>
+                                    <Blog key={i} isLoading/>
                                 )
                             })
                         )
@@ -100,4 +100,4 @@ const Blogs = () => {
     );
 };
 
-export default Blogs;
+export default React.memo(Blogs);

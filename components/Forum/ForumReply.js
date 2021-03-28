@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Box, Button, Grid, makeStyles, TextField} from "@material-ui/core";
 import {useSnackbar} from "notistack";
 import {useForm} from "react-hook-form";
@@ -39,7 +39,7 @@ const ForumReply = ({post}) => {
 
     const classes = useStyles();
 
-    const handleCommentVariant = (variant) => () => {
+    const handleCommentVariant = useCallback((variant) => () => {
         // variant could be success, error, warning, info, or default
         if (variant === 'success')
             enqueueSnackbar('Your comment is posted successfully', {variant});
@@ -47,7 +47,7 @@ const ForumReply = ({post}) => {
             enqueueSnackbar('Fail to comment. Try again!!!');
         else if (variant === 'errorLogin')
             enqueueSnackbar('You must have to login to comment!!!');
-    };
+    }, []);
 
     const {
         errors: replyErrors,
@@ -71,7 +71,7 @@ const ForumReply = ({post}) => {
 
     const userId = useSelector(selectCurrentUserId);
 
-    const onSubmitReply = replyHandleSubmit(async data => {
+    const onSubmitReply = useCallback(replyHandleSubmit(async data => {
         console.log(data);
         if (!userId) {
             handleCommentVariant('errorLogin')();
@@ -114,12 +114,12 @@ const ForumReply = ({post}) => {
                 console.log(err.message)
                 handleCommentVariant('error')();
             })
-    })
+    }), [])
 
     return (
         <Box component={motion.div} layout>
             <form onSubmit={replyHandleSubmit(onSubmitReply)}>
-                <Grid  item style={{width: '90%', marginLeft: 'auto'}} container>
+                <Grid item style={{width: '90%', marginLeft: 'auto'}} container>
                     <TextField
                         color={'secondary'}
                         fullWidth
@@ -148,4 +148,4 @@ const ForumReply = ({post}) => {
     );
 };
 
-export default ForumReply;
+export default React.memo(ForumReply);

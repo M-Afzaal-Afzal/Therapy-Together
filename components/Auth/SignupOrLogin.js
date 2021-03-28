@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {
     Box,
     Button, CircularProgress,
@@ -154,12 +154,12 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        textAlign:'center',
+        textAlign: 'center',
         maxWidth: '40rem',
         margin: ' auto',
         boxShadow: theme.shadows[5],
         '@media only screen and (max-width: 670px)': {
-            margin:'auto 1rem',
+            margin: 'auto 1rem',
         },
     },
 
@@ -202,7 +202,7 @@ const SignupOrLogin = (props) => {
             value === password || "The passwords do not match"
     })
 
-    const onSubmit = handleSubmit(async data => {
+    const onSubmit = useCallback( handleSubmit(async data => {
         console.log(data)
         if (props.login) {
             const {email, password} = data;
@@ -213,12 +213,12 @@ const SignupOrLogin = (props) => {
             dispatch(signUpStart(name, email, password));
             // console.log(name,email,password,confirmPassword);
         }
-    })
+    }),[])
 
-    const googleSignInHandler = async () => {
+    const googleSignInHandler = useCallback( async () => {
         await dispatch(googleSignInStart());
         // await router.push('/');
-    }
+    },[]);
 
     const facebookSignInHandler = async () => {
         await dispatch(facebookSignInStart());
@@ -226,9 +226,9 @@ const SignupOrLogin = (props) => {
     }
 
 
-    const handleClose = () => {
+    const handleClose = useCallback (() => {
         dispatch(clearError());
-    };
+    },[]);
 
     const router = useRouter();
 
@@ -435,4 +435,4 @@ const SignupOrLogin = (props) => {
     );
 };
 
-export default SignupOrLogin;
+export default React.memo(SignupOrLogin);

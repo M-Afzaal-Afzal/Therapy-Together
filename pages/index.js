@@ -5,7 +5,7 @@ import {
 import About from "../components/LandingPage/About";
 import TextWithImage from '../components/LandingPage/TextWithImage'
 import Forum from "../components/LandingPage/Forum";
-import Doctor from "../components/LandingPage/Docotr";
+import Doctor from "../components/LandingPage/Doctor/Docotr";
 import Blogs from "../components/LandingPage/Blogs";
 import BlogSubcribe from "../components/LandingPage/BlogSubscribe";
 import ContactUs from "../components/LandingPage/ContactUs";

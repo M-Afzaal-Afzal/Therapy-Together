@@ -190,7 +190,9 @@ const Forum = () => {
 
                 </Grid>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Grid component={motion.div} layout container style={{padding: "2rem"}}>
+                    <Grid component={motion.div} layout
+                          transition={{type: "linear", stiffness: 200}}
+                          container style={{padding: "2rem"}}>
                         <TextField
                             color={'secondary'}
                             fullWidth

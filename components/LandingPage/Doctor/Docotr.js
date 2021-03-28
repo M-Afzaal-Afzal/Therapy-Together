@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {
     Avatar,
     Box,
@@ -15,6 +15,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Image from "next/image";
 import Container from "@material-ui/core/Container";
+import doctorsData from './doctor.data'
 
 const useStyles = makeStyles(theme => ({
     sectionContainer: {
@@ -63,10 +64,11 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'start',
     },
     doctorMainText: {
-        marginTop: '1rem',
+        marginTop: '2rem',
         width: '70%',
         textAlign: "justify",
-        marginBottom: '2rem',
+        marginBottom: '3rem',
+        height: '150px',
         [theme.breakpoints.down('md')]: {
             width: '80%',
         },
@@ -100,10 +102,10 @@ const useStyles = makeStyles(theme => ({
         }
     },
     headingWithAvatar: {
-        [theme.breakpoints.down('md')]: {
-            display: 'flex',
-            alignItems: 'center',
-        },
+
+        display: 'flex',
+        alignItems: 'center',
+
         [theme.breakpoints.down('xs')]: {
             flexDirection: 'column',
         }
@@ -111,6 +113,10 @@ const useStyles = makeStyles(theme => ({
     doctorHeadingWithSubtitle: {
         [theme.breakpoints.down('xs')]: {
             textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
         }
     },
     avatarContainer: {
@@ -147,6 +153,14 @@ const useStyles = makeStyles(theme => ({
             display: 'flex',
             justifyContent: 'center',
         }
+    },
+    doctorDesignation: {
+        background: theme.palette.primary.main,
+        fontSize: '.8rem',
+        padding: '.1rem .4rem',
+        borderRadius: '18px',
+        color: 'white',
+        display: 'inline-block',
     }
 }))
 
@@ -154,6 +168,32 @@ const Doctor = () => {
 
     const classes = useStyles();
     const theme = useTheme();
+
+    // handling the selected doctor
+
+    const doctors = doctorsData;
+
+    const [selectedDoctor, setSelectedDoctor] = useState(0);
+
+    const checkNumber = useCallback((index) => {
+        if (index === doctors.length) {
+            return 0;
+        }
+
+        if (index === -1) {
+            return doctors.length - 1;
+        }
+
+        return index;
+    }, [])
+
+    const nextDoctorHandler = useCallback((index) => {
+        setSelectedDoctor(checkNumber(index + 1));
+    }, [])
+
+    const prevDoctorHandler = useCallback((index) => {
+        setSelectedDoctor(checkNumber(index - 1));
+    }, [])
 
     const matchesMd = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -177,31 +217,28 @@ const Doctor = () => {
                     </div>
                 </div>
                 <div className={classes.headingWithAvatar}>
-                    {
-                        matchesMd ?
-                            <div className={classes.avatarContainer}>
-                                <Avatar className={classes.avatar} src={'doctor.png'}/>
-                            </div>
-                            :
-                            null
-                    }
+                    {/*{*/}
+                    {/*    matchesMd ?*/}
+                    <div className={classes.avatarContainer}>
+                        <Avatar className={classes.avatar} src={doctors[selectedDoctor].photoURL}/>
+                    </div>
+                    {/*//         :*/}
+                    {/*//         null*/}
+                    {/*// }*/}
 
 
                     <div className={classes.doctorHeadingWithSubtitle}>
                         <Typography color={'primary'} variant={"h3"} className={classes.doctorName}>
-                            Dr. M Afzaal Afzal
+                            {doctors[selectedDoctor].name}
                         </Typography>
-                        <Typography variant={'body2'}>
-                            MBBS
+                        <Typography variant={'body2'} className={classes.doctorDesignation}>
+                            {doctors[selectedDoctor].designation}
                         </Typography>
                     </div>
                 </div>
 
                 <Typography gutterBottom variant={'body2'} className={classes.doctorMainText}>
-                    It is always a good decision to trust a doctor with your mental health history to help with your
-                    comfort level. Online Routine consultancy with our trusted, approachable and compassionate
-                    doctors
-                    is a very good step towards finding your inner peace back.
+                    {doctors[selectedDoctor].message}
                 </Typography>
                 <div className={classes.btnContainer}>
                     <Button className={classes.btnGreen} color={'primary'}
@@ -210,10 +247,10 @@ const Doctor = () => {
                     </Button>
                     <div className={classes.arrowContainer}>
                         <div>
-                            <IconButton>
+                            <IconButton onClick={prevDoctorHandler.bind(this, selectedDoctor)}>
                                 <ArrowBackIcon color={'primary'}/>
                             </IconButton>
-                            <IconButton>
+                            <IconButton onClick={nextDoctorHandler.bind(this, selectedDoctor)}>
                                 <ArrowForwardIcon color={'primary'}/>
                             </IconButton>
 
@@ -234,4 +271,4 @@ const Doctor = () => {
     );
 };
 
-export default Doctor;
+export default React.memo(Doctor);

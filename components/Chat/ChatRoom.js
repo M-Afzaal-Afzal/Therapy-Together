@@ -141,9 +141,41 @@ const ChatRoom = ({isChatOpened, toggleIsChatOpened}) => {
 
     // output variables that will render on dom
 
+    const doctorsMessages = [
+        {
+            id: 1,
+            displayName: 'Dr. Saima Shabir',
+            text: 'What I aim is to help you create a healthy alliance between your mind and body through which will empower you to start setting your goals and practising new behaviour which will enable you to grow beyond your limitations to discover your best self. Do not hesistate to come and share your thoughts with me',
+            photoURL: "doctors/SaimaShabir.jpeg",
+            uid: null,
+        }, {
+            id: 2,
+            displayName: 'Dr. Nukhba Younas',
+            text: 'Communication is the solution to most of our problems hence do not hesistate to share yours with me. Have the audacity to hit me up anytime you feel like you need somebody to talk to. Do consult with me as it is appreciable to release that toxic energy inside you by speaking to somebody',
+            photoURL: "/doctors/nukhbaYounas.jpg",
+            uid: 'ttt',
+        }, {
+            id: 3,
+            displayName: 'Dr. Adeel',
+            text: 'Feel easy to trust me with your mental or medical history. It is essential to trust me and open up about everything as a doctor can predict your condition right onoy if you be honest with the doctor in telling your problem',
+            photoURL: "doctors/adeelKhalid.jpeg",
+            uid: 'ttt',
+        },
+
+    ]
+
     const chatMsgPopUp = (
         <>
             <Grid item container direction={'column'} className={classes.messagesContainer}>
+                {
+                    doctorsMessages?.map(message => {
+                        return (
+                            <Message key={message.id} sender={message.uid === userId}
+                                     photoURL={message.photoURL}
+                                     displayName={displayName}
+                                     text={message.text}/>)
+                    })
+                }
 
                 {
                     messages?.map(message => {

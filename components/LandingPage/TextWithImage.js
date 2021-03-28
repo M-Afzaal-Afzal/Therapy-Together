@@ -118,7 +118,8 @@ const TextWithImage = (props) => {
                             >
                                 Explore
                             </Button>
-                            <Button component={smoothScrollLink} to={'doctors'} smooth className={classes.btnWhite} variant={'outlined'}>Consult</Button>
+                            <Button component={smoothScrollLink} to={'doctors'} smooth className={classes.btnWhite}
+                                    variant={'outlined'}>Consult</Button>
                         </div>
 
                         <Hidden mdDown>
@@ -147,4 +148,4 @@ const TextWithImage = (props) => {
     );
 };
 
-export default TextWithImage;
+export default React.memo(TextWithImage);

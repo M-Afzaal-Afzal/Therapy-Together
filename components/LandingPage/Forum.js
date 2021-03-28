@@ -60,10 +60,10 @@ const Forum = () => {
                     </div>
                 </Grid>
             </Hidden>
-            <Grid item  md={matches ? 12 : 8} style={{display: 'flex', alignItems: 'center'}}>
-                <Grid container   alignItems={'center'}>
+            <Grid item md={matches ? 12 : 8} style={{display: 'flex', alignItems: 'center'}}>
+                <Grid container alignItems={'center'}>
                     <Grid item className={classes.formTextContainer}>
-                        <Container maxWidth={'sm'} >
+                        <Container maxWidth={'sm'}>
                             <div>
                                 <Typography color={'primary'} variant={'h1'}>
                                     Forum
@@ -80,7 +80,8 @@ const Forum = () => {
                                 your private space is being invaded. You might like to explore more about us through our
                                 forum
                             </Typography>
-                            <Button style={{textDecoration: 'none'}} component={Link} href={'/forum'} variant={'contained'} color={'primary'}
+                            <Button style={{textDecoration: 'none'}} component={Link} href={'/forum'}
+                                    variant={'contained'} color={'primary'}
                                     className={classes.btnGreen}>Explore</Button>
                         </Container>
                     </Grid>
@@ -90,4 +91,4 @@ const Forum = () => {
     );
 };
 
-export default Forum;
+export default React.memo(Forum);

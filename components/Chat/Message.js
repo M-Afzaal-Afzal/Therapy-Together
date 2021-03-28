@@ -62,4 +62,4 @@ const Message = ({sender, text, photoURL, displayName}) => {
     );
 };
 
-export default Message;
+export default React.memo(Message);

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Avatar, Grid, IconButton, makeStyles, Typography} from "@material-ui/core";
 import {ThumbDown, ThumbUp} from "@material-ui/icons";
 import ForumReply from "./ForumReply";
@@ -99,30 +99,30 @@ const ForumMessage = ({post, loading}) => {
 
     const [postData, setPost] = useState(post);
 
-    const commentsHandler = () => {
+    const commentsHandler = useCallback(() => {
         setPost({
             ...postData,
             isCommentsShown: !postData?.isCommentsShown,
         })
-    }
+    }, [])
 
     // handling output / variants
 
     const {enqueueSnackbar} = useSnackbar();
 
-    const handleCommentVariant = (variant) => () => {
+    const handleCommentVariant = useCallback((variant) => () => {
         // variant could be success, error, warning, info, or default
         if (variant === 'success')
             enqueueSnackbar('', {variant});
         else if (variant === 'error')
             enqueueSnackbar('Login to like or dislike');
-    };
+    }, []);
 
     // handling post likes
 
     const postRef = firestore.doc(`/forum/${post?.id}`);
 
-    const postLikeHandler = async () => {
+    const postLikeHandler = useCallback(async () => {
 
         if (!userId) {
             handleCommentVariant('error')();
@@ -144,11 +144,11 @@ const ForumMessage = ({post, loading}) => {
                 likes: post.likes.filter(uid => uid !== userId),
             })
         }
-    }
+    }, [])
 
     // handling post dislikes
 
-    const postDislikeHandler = async () => {
+    const postDislikeHandler = useCallback(async () => {
 
         if (!userId) {
             handleCommentVariant('error')();
@@ -170,11 +170,11 @@ const ForumMessage = ({post, loading}) => {
                 dislikes: post.dislikes.filter(uid => uid !== userId),
             })
         }
-    }
+    }, [])
 
     // handling comment likes
 
-    const commentLikeHandler = async (cmntId) => {
+    const commentLikeHandler = useCallback(async (cmntId) => {
 
         if (!userId) {
             handleCommentVariant('error')();
@@ -198,11 +198,11 @@ const ForumMessage = ({post, loading}) => {
             comments: newPost.comments,
         })
 
-    }
+    }, [])
 
     // handling comment dislikes
 
-    const commentDislikeHandler = async (cmntId) => {
+    const commentDislikeHandler = useCallback(async (cmntId) => {
 
         if (!userId) {
             handleCommentVariant('error')();
@@ -225,7 +225,7 @@ const ForumMessage = ({post, loading}) => {
         await postRef.update({
             comments: newPost.comments,
         })
-    }
+    }, [])
 
     const classes = useStyles();
 
@@ -429,4 +429,4 @@ const ForumMessage = ({post, loading}) => {
     );
 };
 
-export default ForumMessage;
+export default React.memo(ForumMessage);
