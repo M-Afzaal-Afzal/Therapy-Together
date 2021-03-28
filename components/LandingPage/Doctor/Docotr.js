@@ -71,6 +71,7 @@ const useStyles = makeStyles(theme => ({
         height: '150px',
         [theme.breakpoints.down('md')]: {
             width: '80%',
+            height: "auto",
         },
         [theme.breakpoints.down('sm')]: {
             width: '100%',
