@@ -107,9 +107,9 @@ const Team = () => {
         {
             id: 2,
             name: 'Samia Afzal',
-            role: 'Creative Manager',
+            role: 'creative manager and Web-Content writer',
             photoURL: '/author/samia.jpeg',
-            desc: 'Our creative manager who maintains the cohesive look and feel of the project by establishing timelines and excellently leads the production of layout design and maintains the requirements and features.',
+            desc: 'She specializes in providing relevant content for websites to keep the visitors engaged. She has great abilities to write to deadlines and possesses excellent writing skills. She keeps the team organized and manages day-to-day activities in a creative manner.',
             facebookProfile: 'https://www.facebook.com/profile.php?id=100010602847775',
             instagramProfile: 'https://www.instagram.com/samiyaafzal_/',
             twitterProfile: 'https://twitter.com/iamsamiya2',
