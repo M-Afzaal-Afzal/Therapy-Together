@@ -1,4 +1,4 @@
-import React, from 'react';
+import React from 'react';
 import {Box, Divider, List, ListItem, ListItemText, makeStyles, SwipeableDrawer, Typography} from "@material-ui/core";
 import Link from '../../src/utils/Link';
 import {useDispatch, useSelector} from "react-redux";
