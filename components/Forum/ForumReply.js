@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Box, Button, Grid, makeStyles, TextField} from "@material-ui/core";
 import {useSnackbar} from "notistack";
 import {useForm} from "react-hook-form";
@@ -39,7 +39,7 @@ const ForumReply = ({post}) => {
 
     const classes = useStyles();
 
-    const handleCommentVariant = useCallback((variant) => () => {
+    const handleCommentVariant = (variant) => () => {
         // variant could be success, error, warning, info, or default
         if (variant === 'success')
             enqueueSnackbar('Your comment is posted successfully', {variant});
@@ -47,7 +47,7 @@ const ForumReply = ({post}) => {
             enqueueSnackbar('Fail to comment. Try again!!!');
         else if (variant === 'errorLogin')
             enqueueSnackbar('You must have to login to comment!!!');
-    }, []);
+    }
 
     const {
         errors: replyErrors,
@@ -71,8 +71,8 @@ const ForumReply = ({post}) => {
 
     const userId = useSelector(selectCurrentUserId);
 
-    const onSubmitReply = useCallback(replyHandleSubmit(async data => {
-        console.log(data);
+    const onSubmitReply = replyHandleSubmit(async data => {
+
         if (!userId) {
             handleCommentVariant('errorLogin')();
             return;
@@ -81,8 +81,6 @@ const ForumReply = ({post}) => {
         const docRef = firestore.doc(`/forum/${id}`);
 
         const docSnapshot = await docRef.get();
-
-        console.log(docSnapshot)
 
         const prevPost = await docSnapshot.data();
 
@@ -95,9 +93,6 @@ const ForumReply = ({post}) => {
             text: comment,
             createdAt: new Date(),
         }
-
-
-        console.log(prevPost)
 
 
         docRef.update({
@@ -114,7 +109,7 @@ const ForumReply = ({post}) => {
                 console.log(err.message)
                 handleCommentVariant('error')();
             })
-    }), [])
+    })
 
     return (
         <Box component={motion.div} layout>
@@ -148,4 +143,4 @@ const ForumReply = ({post}) => {
     );
 };
 
-export default React.memo(ForumReply);
+export default ForumReply;

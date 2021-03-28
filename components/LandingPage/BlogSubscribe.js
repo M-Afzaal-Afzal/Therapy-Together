@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Button, Grid, makeStyles, TextField, Typography} from "@material-ui/core";
 import {useForm} from "react-hook-form";
 import {firestore} from '../../src/utils/firebaseUtils';
@@ -78,7 +78,7 @@ const BlogSubscribe = () => {
 
         // handling the form submission
 
-        const onSubmit = useCallback(handleSubmit(async data => {
+        const onSubmit = handleSubmit(async data => {
             const {email} = data;
             console.log(email);
             const docRef = firestore.collection('blogSubscribers').where('email', '==', email);
@@ -123,7 +123,7 @@ const BlogSubscribe = () => {
                     // firebase does not give us error. it keeps on retrying
                     console.log(err.message);
                 })
-        }), [])
+        });
 
         return (
             <Grid container justify={'center'} direction={'column'} className={classes.blogSubscribeContainer}>

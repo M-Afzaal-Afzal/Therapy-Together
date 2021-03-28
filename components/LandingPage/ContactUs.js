@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Button, Container, Grid, Hidden, makeStyles, TextField, Typography} from "@material-ui/core";
 import Image from 'next/image';
 import {useForm} from "react-hook-form";
@@ -69,25 +69,25 @@ const ContactUs = () => {
     // Handling snack bar
 
     const {enqueueSnackbar} = useSnackbar();
-    const handleClickVariant = useCallback ((variant) => () => {
+    const handleClickVariant =  (variant) => () => {
         // variant could be success, error, warning, info, or default
         if (variant === 'success')
             enqueueSnackbar('Message sent successfully', {variant});
         else if (variant === 'error')
             enqueueSnackbar('Sending message failed. Try again!!!');
-    },[]);
+    };
 
     // handling the form submission
 
-    const onSubmit = useCallback( handleSubmit(async data => {
+    const onSubmit =  handleSubmit(async data => {
         const {email, message, name} = data;
         console.log(email, message, name);
         // await emailjs.sendForm('service_uezcow5', 'template_l3asham', data, 'user_RU2Nl69CAf72KvoMNEEU7');
 
         sendFeedback('template_l3asham', {name, email, message});
-    }),[])
+    });
 
-    const sendFeedback = useCallback ((templateId, variables) => {
+    const sendFeedback = (templateId, variables) => {
         emailjs
             .send("service_uezcow5", templateId, variables, 'user_RU2Nl69CAf72KvoMNEEU7')
             .then(() => {
@@ -100,7 +100,7 @@ const ContactUs = () => {
                     handleClickVariant('error')();
                 }
             );
-    },[]);
+    }
 
 
     return (

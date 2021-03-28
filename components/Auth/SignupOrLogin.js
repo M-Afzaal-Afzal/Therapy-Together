@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
     Box,
     Button, CircularProgress,
@@ -202,7 +202,7 @@ const SignupOrLogin = (props) => {
             value === password || "The passwords do not match"
     })
 
-    const onSubmit = useCallback( handleSubmit(async data => {
+    const onSubmit = handleSubmit(async data => {
         console.log(data)
         if (props.login) {
             const {email, password} = data;
@@ -213,12 +213,12 @@ const SignupOrLogin = (props) => {
             dispatch(signUpStart(name, email, password));
             // console.log(name,email,password,confirmPassword);
         }
-    }),[])
+    });
 
-    const googleSignInHandler = useCallback( async () => {
+    const googleSignInHandler = async () => {
         await dispatch(googleSignInStart());
         // await router.push('/');
-    },[]);
+    };
 
     const facebookSignInHandler = async () => {
         await dispatch(facebookSignInStart());
@@ -226,9 +226,9 @@ const SignupOrLogin = (props) => {
     }
 
 
-    const handleClose = useCallback (() => {
+    const handleClose = () => {
         dispatch(clearError());
-    },[]);
+    };
 
     const router = useRouter();
 
