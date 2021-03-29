@@ -88,7 +88,7 @@ const About = () => {
                             </Grid>
                             <Grid item className={classes.bottomParagraph}>
                                 <Typography variant={'body2'}>
-                                    living with anxiety, turning up, and doing stuff with anxiety takes a strength that
+                                    Living with anxiety, turning up, and doing stuff with anxiety takes a strength that
                                     most people will never know. Mental health is an important topic, and should be
                                     discussed more frequently. We want to make you understand that It’s not “attention
                                     seeking.” It is mainly because We believe before medicine, you need a good
