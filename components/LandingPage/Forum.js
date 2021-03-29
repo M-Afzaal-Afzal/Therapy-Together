@@ -52,16 +52,14 @@ const Forum = () => {
     const classes = useStyles();
 
     return (
-        <Grid container justify={'center'}>
+        <Grid container justify={'center'} style={{position: 'relative'}}>
             <Hidden smDown>
-                <Grid item md={4} style={{position: 'relative'}}>
                     <div className={classes.forumImageContainer}>
                         <Image src={'/forum-icon.svg'} alt={'Forum Image'} width={350} height={500}/>
                     </div>
-                </Grid>
             </Hidden>
-            <Grid item md={matches ? 12 : 8} style={{display: 'flex', alignItems: 'center'}}>
-                <Grid container alignItems={'center'}>
+            <Grid item component={Container} maxWidth={'xl'} container style={{display: 'flex', alignItems: 'center',justifyContent:'flex-end'}}>
+                <Grid container alignItems={'center'} justify={'flex-end'}>
                     <Grid item className={classes.formTextContainer}>
                         <Container maxWidth={'sm'}>
                             <div>

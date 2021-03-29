@@ -243,7 +243,7 @@ const Doctor = () => {
                     {doctors[selectedDoctor].message}
                 </Typography>
                 <div className={classes.btnContainer}>
-                    <a style={{textDecoration: 'none'}} href={`mailto:${doctors[selectedDoctor].email}`}>
+                    <a style={{textDecoration: 'none',width: '100%'}} href={`mailto:${doctors[selectedDoctor].email}`}>
                         <Button className={classes.btnGreen} color={'primary'}
                                 variant={'contained'}>
                             Contact
