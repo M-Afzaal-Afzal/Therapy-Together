@@ -221,7 +221,8 @@ const Doctor = () => {
                     {/*{*/}
                     {/*    matchesMd ?*/}
                     <div className={classes.avatarContainer}>
-                        <Avatar aria-label={doctors[selectedDoctor].name} className={classes.avatar} name={doctors[selectedDoctor].name} src={doctors[selectedDoctor].photoURL}/>
+                        <Avatar aria-label={doctors[selectedDoctor].name} className={classes.avatar}
+                                name={doctors[selectedDoctor].name} src={doctors[selectedDoctor].photoURL}/>
                     </div>
                     {/*//         :*/}
                     {/*//         null*/}
@@ -242,10 +243,12 @@ const Doctor = () => {
                     {doctors[selectedDoctor].message}
                 </Typography>
                 <div className={classes.btnContainer}>
-                    <Button className={classes.btnGreen} color={'primary'}
-                            variant={'contained'}>
-                        Contact
-                    </Button>
+                    <a style={{textDecoration: 'none'}} href={`mailto:${doctors[selectedDoctor].email}`}>
+                        <Button className={classes.btnGreen} color={'primary'}
+                                variant={'contained'}>
+                            Contact
+                        </Button>
+                    </a>
                     <div className={classes.arrowContainer}>
                         <div>
                             <IconButton onClick={prevDoctorHandler.bind(this, selectedDoctor)}>
