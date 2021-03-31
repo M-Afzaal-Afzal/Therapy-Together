@@ -6,3 +6,6 @@
 # in the terminal run the following commands
 * npm install
 * npm run dev
+# Here you can see the live version of the project
+
+[1]: http://therapy-together-m-afzaal-afzal.vercel.app/
