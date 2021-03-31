@@ -8,4 +8,4 @@
 * npm run dev
 # Here you can see the live version of the project
 
-[1]: http://therapy-together-m-afzaal-afzal.vercel.app/
+http://therapy-together-m-afzaal-afzal.vercel.app/
