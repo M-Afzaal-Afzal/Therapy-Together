@@ -78,7 +78,7 @@ export default function Index() {
         <Grid container direction={'column'}>
             <TextWithImage
                 mainHeading={'Therapy Together'}
-                bodyTextOne={'It is not the the bruises on the body that hurt. It is the wounds of the heart and the scars on\n' +
+                bodyTextOne={'It is not the bruises on the body that hurt. It is the wounds of the heart and the scars on\n' +
                 'the mind.'}
                 hasButtons={true}
                 imageSrc={'/hero-icon.svg'}
