@@ -85,8 +85,7 @@ const Team = () => {
         {
             id: 0,
             name: 'M Afzaal Afzal',
-            photoUrl: '',
-            role: 'Full Stack Developer & Team Lead',
+            role: 'Full Stack Developer & Development Lead',
             desc: 'Highly effective developer committed to learning, developing skills in advance technology. Our team lead, innovative optimized solution seeker and full-stack developer who professionally developed the project grasping full-flagged functionalities. ',
             photoURL: '/author/afzaal.jpg',
             facebookProfile: 'https://www.facebook.com/profile.php?id=100012205356385',
@@ -102,12 +101,11 @@ const Team = () => {
             facebookProfile: null,
             instagramProfile: null,
             twitterProfile: null,
-
         },
         {
             id: 2,
             name: 'Samia Afzal',
-            role: 'Creative manager and Web-Content writer',
+            role: 'Team Lead and Web-Content Writer',
             photoURL: '/author/samia.jpeg',
             desc: 'She specializes in providing relevant content for websites to keep the visitors engaged. She has great abilities to write to deadlines and possesses excellent writing skills. She keeps the team organized and manages day-to-day activities in a creative manner.',
             facebookProfile: 'https://www.facebook.com/profile.php?id=100010602847775',
